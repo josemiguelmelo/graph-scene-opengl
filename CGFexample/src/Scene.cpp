@@ -16,10 +16,19 @@ void Scene::initGlobals(){
     glClearColor(globals->getBackground(0), globals->getBackground(1), globals->getBackground(2),globals->getBackground(3));
     glEnable(globals->getShading());
     
-    GL_FRONT;
     
     // culling
-    glCullFace(globals->getCulling());
+    if(globals->getCulling()!=-1){
+        glEnable(GL_CULL_FACE);
+        glCullFace(globals->getCulling());
+        glFrontFace(globals->getOrder());
+    }
+    if(globals->isLightEnabled()==GL_TRUE){
+        glEnable(GL_LIGHTING);
+        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, globals->isDoubleSided());
+        glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, globals->isLocalLight());
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globals->getLightAmbient());  // Define ambient light
+    }
     
 }
 
@@ -33,11 +42,11 @@ void Scene::init()
     initGlobals();
     
 	// Enables lighting computations
-	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
 
 	// Sets up some lighting parameters
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
+	//glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
 	float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};

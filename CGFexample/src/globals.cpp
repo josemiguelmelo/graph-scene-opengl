@@ -20,7 +20,7 @@ GLenum Globals::getShading(){
     }else if(this->mode == "gourard"){
         return GL_SMOOTH;
     }
-    throw "Not valid globals mode";
+    throw "Not valid globals shading";
 }
 
 float Globals::getBackground(int position){
@@ -31,7 +31,7 @@ float Globals::getBackground(int position){
 
 GLenum Globals::getCulling(){
     if(this->face=="none"){
-        return GL_FRONT;
+        return -1;
     }
     else if(this->face == "back"){
         return GL_BACK;
@@ -40,5 +40,41 @@ GLenum Globals::getCulling(){
     }else if(this->face == "both"){
         return GL_FRONT_AND_BACK;
     }
-    
+    throw "Not valid globals culling";
 }
+
+
+GLenum Globals::getOrder(){
+    if(this->order == "ccw"){
+        return GL_CCW;
+    }else if(this->order == "cw"){
+        return GL_CW;
+    }
+    throw "Not valid globals order";
+}
+
+
+
+
+float * Globals::getLightAmbient(){
+    return ambient;
+}
+
+GLenum Globals::isDoubleSided(){
+    if(doublesided=="true")
+        return GL_TRUE;
+    return GL_FALSE;
+}
+
+GLenum Globals::isLocalLight(){
+    if(local=="true")
+        return GL_TRUE;
+    return GL_FALSE;
+}
+
+GLenum Globals::isLightEnabled(){
+    if(enabled=="true")
+        return GL_TRUE;
+    return GL_FALSE;
+}
+

@@ -28,8 +28,15 @@ public:
     GLenum getMode();
     GLenum getShading();
     GLenum getCulling();
+    GLenum getOrder();
+    float * getLightAmbient();
+    GLenum isDoubleSided();
+    GLenum isLocalLight();
+    GLenum isLightEnabled();
     
     float getBackground(int position);
+    
+    
     
     
 };
