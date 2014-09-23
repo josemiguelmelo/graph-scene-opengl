@@ -1,0 +1,12 @@
+<anf>
+    <globals>
+        <drawing mode="fill" shading="flat" background="1 1 1 1" />
+        <culling face="back" order="cw" />
+        <lighting doublesided="true" local="true" enabled="true" ambient="1 1 1 1" />
+    </globals>
+    
+    
+
+</anf>
+
+
