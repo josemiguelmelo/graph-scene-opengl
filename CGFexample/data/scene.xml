@@ -5,7 +5,14 @@
         <lighting doublesided="true" local="true" enabled="true" ambient="1 1 1 1" />
     </globals>
     
-    
+    <cameras initial="camera" >
+        <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
+        
+        <perspective id="persp" near="1" far="1" angle="70" pos="2 2 2" target="0 0 0" />
+        <ortho id="ortho" near="1" far="1" left="3" right="2" top="3" bottom="2" />
+        <ortho id="ortho1" near="1" far="1" left="3" right="2" top="3" bottom="2" />
+        
+    </cameras>
 
 </anf>
 

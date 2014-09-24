@@ -27,7 +27,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     camerasElement = anfScene->FirstChildElement("cameras");
     
     Globals * globals = scene->getGlobals();
-    
+    std::vector<Camera *> cameras = scene->getCameras();
     
     // Init
     // An example of well-known, required nodes
@@ -108,6 +108,51 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     if(camerasElement==NULL){
         printf("Cameras block not found!\n");
     }else{
+        TiXmlElement * orthoElements = camerasElement->FirstChildElement("ortho");
+        TiXmlElement * perspectiveElements = camerasElement->FirstChildElement("perspective");
+        while(orthoElements){
+            Ortho * ortho = new Ortho();
+            ortho->right =(float)atof(orthoElements->Attribute("right"));
+            ortho->left = (float)atof(orthoElements->Attribute("left"));
+            ortho->top = (float)atof(orthoElements->Attribute("top"));
+            ortho->bottom = (float)atof(orthoElements->Attribute("bottom"));
+            ortho->setFar((float)atof(orthoElements->Attribute("far")));
+            ortho->setNear((float)atof(orthoElements->Attribute("near")));
+            ortho->setID(orthoElements->Attribute("id"));
+            
+            
+            // armazenar nalguma estrutura de dados
+            
+            orthoElements = orthoElements->NextSiblingElement("ortho");
+        }
+        
+        while(perspectiveElements){
+            Perspective * persp = new Perspective();
+            persp->angle =(float)atof(orthoElements->Attribute("angle"));
+            
+            char *posString = NULL;
+            char *targetString = NULL;
+            posString = (char *) perspectiveElements->Attribute("pos");
+            targetString = (char *) perspectiveElements->Attribute("target");
+            
+            float pos[3];
+            float target[3];
+            sscanf(posString, "%f %f %f", &pos[0], &pos[1], &pos[2]);
+            sscanf(targetString, "%f %f %f", &target[0], &target[1], &target[2]);
+            
+            persp->pos[0] = pos[0];
+            persp->pos[1] = pos[1];
+            persp->pos[2] = pos[2];
+            persp->target[0] = target[0];
+            persp->target[1] = target[1];
+            persp->target[2] = target[2];
+            
+            persp->setFar((float)atof(orthoElements->Attribute("far")));
+            persp->setNear((float)atof(orthoElements->Attribute("near")));
+            persp->setID(perspectiveElements->Attribute("id"));
+            
+            perspectiveElements = perspectiveElements->NextSiblingElement("perspective");
+        }
         
     }
     

@@ -41,6 +41,7 @@ void Scene::init()
     
     initGlobals();
     
+    
 	// Enables lighting computations
 	//glEnable(GL_LIGHTING);
 

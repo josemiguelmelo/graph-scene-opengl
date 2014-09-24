@@ -41,6 +41,10 @@ public:
     float getTop() {return top;}
     float getBottom() {return bottom;}
     
+    void setFar(float far) {this->far = far; }
+    void setNear(float near) {this->near = near; }
+    void setID(std::string id){this->id = id;}
+    
     
 };
 
@@ -53,6 +57,11 @@ public:
     float getPos(int position) {return pos[position];}
     float getTarget(int position) {return target[position];}
     
+    
+    
+    void setFar(float far) {this->far = far; }
+    void setNear(float near) {this->near = near; }
+    void setID(std::string id){this->id = id;}
 };
 
 

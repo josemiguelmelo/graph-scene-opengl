@@ -4,7 +4,7 @@
 #include "CGFscene.h"
 #include "CGFshader.h"
 #include "Globals.h"
-#include "Cameras.h"
+#include "Camera.h"
 
 #include <vector>
 
@@ -18,6 +18,7 @@ public:
 	~Scene();
     
     Globals * getGlobals() {return globals;}
+    std::vector<Camera *> getCameras() {return cameras;}
     
     
     
@@ -30,7 +31,7 @@ private:
     
     
     Globals * globals;
-    vector<Cameras *> cameras;
+    vector<Camera *> cameras;
 
 };
 
