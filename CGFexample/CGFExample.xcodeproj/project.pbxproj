@@ -16,7 +16,7 @@
 		88D587CA19D1D1560010B547 /* libGLEW.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D587C819D1D1560010B547 /* libGLEW.1.10.0.dylib */; };
 		88D587CB19D1D1560010B547 /* libGLEWmx.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D587C919D1D1560010B547 /* libGLEWmx.1.10.0.dylib */; };
 		88D587D119D1DCAB0010B547 /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587CF19D1DCAB0010B547 /* Globals.cpp */; };
-		88D587D419D1E8500010B547 /* Cameras.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587D219D1E8500010B547 /* Cameras.cpp */; };
+		88D587D419D1E8500010B547 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587D219D1E8500010B547 /* Camera.cpp */; };
 		AA63E1BC16D41568003287C6 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA63E1B716D41568003287C6 /* Scene.cpp */; };
 		AA63E1BD16D41568003287C6 /* ExampleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA63E1B916D41568003287C6 /* ExampleObject.cpp */; };
 		AA63E1BE16D41568003287C6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA63E1BB16D41568003287C6 /* main.cpp */; };
@@ -59,8 +59,8 @@
 		88D587CE19D1DBDB0010B547 /* scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.xml; sourceTree = "<group>"; };
 		88D587CF19D1DCAB0010B547 /* Globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Globals.cpp; path = src/Globals.cpp; sourceTree = SOURCE_ROOT; };
 		88D587D019D1DCAB0010B547 /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globals.h; path = src/Globals.h; sourceTree = SOURCE_ROOT; };
-		88D587D219D1E8500010B547 /* Cameras.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cameras.cpp; path = src/Cameras.cpp; sourceTree = SOURCE_ROOT; };
-		88D587D319D1E8500010B547 /* Cameras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cameras.h; path = src/Cameras.h; sourceTree = SOURCE_ROOT; };
+		88D587D219D1E8500010B547 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = src/Camera.cpp; sourceTree = SOURCE_ROOT; };
+		88D587D319D1E8500010B547 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = src/Camera.h; sourceTree = SOURCE_ROOT; };
 		AA63E1AB16D41531003287C6 /* CGFExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CGFExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA63E1B716D41568003287C6 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = src/Scene.cpp; sourceTree = SOURCE_ROOT; };
 		AA63E1B816D41568003287C6 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene.h; path = src/Scene.h; sourceTree = SOURCE_ROOT; };
@@ -146,8 +146,8 @@
 				AA63E1BB16D41568003287C6 /* main.cpp */,
 				88D587CF19D1DCAB0010B547 /* Globals.cpp */,
 				88D587D019D1DCAB0010B547 /* Globals.h */,
-				88D587D219D1E8500010B547 /* Cameras.cpp */,
-				88D587D319D1E8500010B547 /* Cameras.h */,
+				88D587D219D1E8500010B547 /* Camera.cpp */,
+				88D587D319D1E8500010B547 /* Camera.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -254,7 +254,7 @@
 			files = (
 				88D587BB19D1CDED0010B547 /* ANFInterpreter.cpp in Sources */,
 				88D587C319D1CE2F0010B547 /* tinyxml.cpp in Sources */,
-				88D587D419D1E8500010B547 /* Cameras.cpp in Sources */,
+				88D587D419D1E8500010B547 /* Camera.cpp in Sources */,
 				88D587C219D1CE2F0010B547 /* tinystr.cpp in Sources */,
 				AA63E1BC16D41568003287C6 /* Scene.cpp in Sources */,
 				88D587C519D1CE2F0010B547 /* tinyxmlparser.cpp in Sources */,

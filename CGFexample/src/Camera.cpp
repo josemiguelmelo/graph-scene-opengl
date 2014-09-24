@@ -6,4 +6,4 @@
 //  Copyright (c) 2014 me. All rights reserved.
 //
 
-#include "Cameras.h"
+#include "Camera.h"

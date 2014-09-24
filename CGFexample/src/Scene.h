@@ -4,6 +4,9 @@
 #include "CGFscene.h"
 #include "CGFshader.h"
 #include "Globals.h"
+#include "Cameras.h"
+
+#include <vector>
 
 class Scene : public CGFscene
 {
@@ -16,6 +19,8 @@ public:
     
     Globals * getGlobals() {return globals;}
     
+    
+    
 private:
 	CGFlight* light0;
 	CGFobject* obj;
@@ -25,6 +30,7 @@ private:
     
     
     Globals * globals;
+    vector<Cameras *> cameras;
 
 };
 

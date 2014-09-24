@@ -20,8 +20,9 @@ public:
 protected:
     Scene * scene;
 	TiXmlDocument* doc;
-
-	TiXmlElement* globalsElement;
+    
+    TiXmlElement* globalsElement;
+    TiXmlElement* camerasElement;
     
 };
 

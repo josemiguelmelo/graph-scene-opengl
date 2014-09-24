@@ -2,7 +2,7 @@
     <globals>
         <drawing mode="fill" shading="flat" background="0 0 0 1" />
         <culling face="front" order="cw" />
-        <lighting doublesided="true" local="false" enabled="true" ambient="1 1 1 1" />
+        <lighting doublesided="true" local="true" enabled="true" ambient="1 1 1 1" />
     </globals>
     
     

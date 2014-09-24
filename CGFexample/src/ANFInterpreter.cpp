@@ -24,8 +24,10 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     }
     
     globalsElement = anfScene->FirstChildElement( "globals" );
+    camerasElement = anfScene->FirstChildElement("cameras");
     
     Globals * globals = scene->getGlobals();
+    
     
     // Init
     // An example of well-known, required nodes
@@ -99,9 +101,13 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
             
             
         }
-        
-        
-        
+    }
+    
+    /** GET CAMERAS **/
+    
+    if(camerasElement==NULL){
+        printf("Cameras block not found!\n");
+    }else{
         
     }
     
