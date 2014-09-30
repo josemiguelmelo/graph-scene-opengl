@@ -2,7 +2,6 @@
 
 ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
 {
-    
     // Read XML from file
     this->scene = scene;
     
@@ -27,7 +26,9 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     camerasElement = anfScene->FirstChildElement("cameras");
     
     Globals * globals = scene->getGlobals();
-    std::vector<Camera *> cameras = scene->getCameras();
+    std::vector<Camera *> * cameras = scene->getCameras();
+    
+    cameras->size();
     
     // Init
     // An example of well-known, required nodes
@@ -82,7 +83,6 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         if(lightingElement){
             std::string doublesided, local, enabled;
             char *ambientString = NULL;
-            float r, g, b, alpha;
             float ambient[4];
             doublesided = lightingElement->Attribute("doublesided");
             local = lightingElement->Attribute("local");
@@ -104,31 +104,34 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     }
     
     /** GET CAMERAS **/
-    
+    std::string initialCameraId = camerasElement->Attribute("initial");
     if(camerasElement==NULL){
         printf("Cameras block not found!\n");
     }else{
         TiXmlElement * orthoElements = camerasElement->FirstChildElement("ortho");
         TiXmlElement * perspectiveElements = camerasElement->FirstChildElement("perspective");
         while(orthoElements){
-            Ortho * ortho = new Ortho();
-            ortho->right =(float)atof(orthoElements->Attribute("right"));
-            ortho->left = (float)atof(orthoElements->Attribute("left"));
-            ortho->top = (float)atof(orthoElements->Attribute("top"));
-            ortho->bottom = (float)atof(orthoElements->Attribute("bottom"));
-            ortho->setFar((float)atof(orthoElements->Attribute("far")));
-            ortho->setNear((float)atof(orthoElements->Attribute("near")));
-            ortho->setID(orthoElements->Attribute("id"));
+            Ortho * orthogonalCamera = new Ortho();
+            orthogonalCamera->right =(float)atof(orthoElements->Attribute("right"));
+            orthogonalCamera->left = (float)atof(orthoElements->Attribute("left"));
+            orthogonalCamera->top = (float)atof(orthoElements->Attribute("top"));
+            orthogonalCamera->bottom = (float)atof(orthoElements->Attribute("bottom"));
+            orthogonalCamera->setFar((float)atof(orthoElements->Attribute("far")));
+            orthogonalCamera->setNear((float)atof(orthoElements->Attribute("near")));
+            orthogonalCamera->setID(orthoElements->Attribute("id"));
             
+            if(initialCameraId == orthogonalCamera->getID()) {
+                scene->setActiveCamera(orthogonalCamera);
+            }
             
-            // armazenar nalguma estrutura de dados
+            cameras->push_back(orthogonalCamera);
             
             orthoElements = orthoElements->NextSiblingElement("ortho");
         }
         
         while(perspectiveElements){
-            Perspective * persp = new Perspective();
-            persp->angle =(float)atof(orthoElements->Attribute("angle"));
+            Perspective * perspectiveCamera = new Perspective();
+            perspectiveCamera->angle =(float)atof(perspectiveElements->Attribute("angle"));
             
             char *posString = NULL;
             char *targetString = NULL;
@@ -140,18 +143,27 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
             sscanf(posString, "%f %f %f", &pos[0], &pos[1], &pos[2]);
             sscanf(targetString, "%f %f %f", &target[0], &target[1], &target[2]);
             
-            persp->pos[0] = pos[0];
-            persp->pos[1] = pos[1];
-            persp->pos[2] = pos[2];
-            persp->target[0] = target[0];
-            persp->target[1] = target[1];
-            persp->target[2] = target[2];
+            perspectiveCamera->pos[0] = pos[0];
+            perspectiveCamera->pos[1] = pos[1];
+            perspectiveCamera->pos[2] = pos[2];
+            perspectiveCamera->target[0] = target[0];
+            perspectiveCamera->target[1] = target[1];
+            perspectiveCamera->target[2] = target[2];
             
-            persp->setFar((float)atof(orthoElements->Attribute("far")));
-            persp->setNear((float)atof(orthoElements->Attribute("near")));
-            persp->setID(perspectiveElements->Attribute("id"));
+            perspectiveCamera->setFar((float)atof(perspectiveElements->Attribute("far")));
+            perspectiveCamera->setNear((float)atof(perspectiveElements->Attribute("near")));
+            perspectiveCamera->setID(perspectiveElements->Attribute("id"));
             
             perspectiveElements = perspectiveElements->NextSiblingElement("perspective");
+
+            if(initialCameraId == perspectiveCamera->getID()) {
+                scene->setActiveCamera(perspectiveCamera);
+            }
+            
+            if(cameras==NULL)
+                cout << "null cameras";
+
+            cameras->push_back(perspectiveCamera);
         }
         
     }

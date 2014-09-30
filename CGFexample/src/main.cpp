@@ -8,6 +8,7 @@
 
 #include "CGFapplication.h"
 #include "Scene.h"
+#include "TPInterface.h"
 
 using std::cout;
 using std::exception;
@@ -19,9 +20,10 @@ int main(int argc, char* argv[]) {
 
 	try {
 		app.init(&argc, argv);
-
-		app.setScene(new Scene());
+        Scene * scene = new Scene();
+		app.setScene(scene);
 		app.setInterface(new CGFinterface());
+        app.setInterface(new TPInterface(scene));
 		
 		app.run();
 	}

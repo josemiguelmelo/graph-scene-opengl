@@ -28,7 +28,9 @@ public:
     std::string getID() {return id;}
     float getNear() {return near;}
     float getFar() {return far;}
+    virtual std::string getType() = 0;
     
+    ~Camera();
     
 };
 
@@ -41,10 +43,13 @@ public:
     float getTop() {return top;}
     float getBottom() {return bottom;}
     
+    std::string getType() { return "ortho"; }
+    
     void setFar(float far) {this->far = far; }
     void setNear(float near) {this->near = near; }
     void setID(std::string id){this->id = id;}
     
+    ~Ortho();
     
 };
 
@@ -57,11 +62,13 @@ public:
     float getPos(int position) {return pos[position];}
     float getTarget(int position) {return target[position];}
     
-    
+    std::string getType() { return "persp"; }
     
     void setFar(float far) {this->far = far; }
     void setNear(float near) {this->near = near; }
     void setID(std::string id){this->id = id;}
+    
+    ~Perspective();
 };
 
 

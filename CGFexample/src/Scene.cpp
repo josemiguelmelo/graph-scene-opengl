@@ -10,7 +10,7 @@
 #include "ANFInterpreter.h"
 
 
-void Scene::initGlobals(){
+void Scene::setGlobals(){
     // drawing
     glPolygonMode(GL_FRONT_AND_BACK, globals->getMode());
     glClearColor(globals->getBackground(0), globals->getBackground(1), globals->getBackground(2),globals->getBackground(3));
@@ -29,17 +29,31 @@ void Scene::initGlobals(){
         glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, globals->isLocalLight());
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globals->getLightAmbient());  // Define ambient light
     }
+}
+
+void Scene::setCameras() {
+    for(int i = 0; i < cameras->size(); i++) {
+        cout << "mr camera: " << cameras->at(i)->getID() << typeid(cameras->at(i)).name() << std::endl;
+        
+        
+        
+    }
+    
     
 }
 
+
 void Scene::init()
 {
+    cameras = new std::vector<Camera *>();
+    
     globals = new Globals();
     char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFexample/data/scene.xml";
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
-    initGlobals();
+    setGlobals();
+    setCameras();
     
     
 	// Enables lighting computations
@@ -65,6 +79,32 @@ void Scene::init()
 	setUpdatePeriod(30);
 }
 
+
+void Scene::setActiveCamera(Camera * camera) {
+    activeCamera = camera;
+    
+}
+
+void Scene::showCamera()
+{
+    if(activeCamera->getType() == "persp") {
+        Perspective * perspCamera = (Perspective *) activeCamera;
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        //gluPerspective(perspCamera->getAngle(), 1, perspCamera->getNear(), perspCamera->getFar());
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        gluLookAt(perspCamera->getPos(0), perspCamera->getPos(1), perspCamera->getPos(2), perspCamera->getTarget(0), perspCamera->getTarget(1), perspCamera->getTarget(2), 0.0f, 1.0f, 0.0f);
+    }
+    if(activeCamera->getType() == "ortho") {
+        Ortho * orthoCamera = (Ortho *) activeCamera;
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(orthoCamera->getLeft(), orthoCamera->getRight(), orthoCamera->getBottom(), orthoCamera->getTop(), orthoCamera->getNear(), orthoCamera->getFar());
+        glMatrixMode(GL_MODELVIEW);
+    }
+}
+
 void Scene::update(unsigned long t)
 {
 	shader->bind();
@@ -86,8 +126,9 @@ void Scene::display()
 	glLoadIdentity();
 
 	// Apply transformations corresponding to the camera position relative to the origin
-	CGFscene::activeCamera->applyView();
-
+	//CGFscene::activeCamera->applyView();
+    showCamera();
+    
 	// Draw (and update) light
 	light0->draw();
 
@@ -116,7 +157,6 @@ void Scene::display()
 	shader->bind();
 	obj->draw();
 	shader->unbind();
-
 
 	// ---- END feature demos
 

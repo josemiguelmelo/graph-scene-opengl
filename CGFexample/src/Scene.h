@@ -8,19 +8,26 @@
 
 #include <vector>
 
+
+#include "CGFinterface.h"
+
 class Scene : public CGFscene
 {
 public:
 	void init();
-    void initGlobals();
+    void setGlobals();
+    void setCameras();
 	void display();
 	void update(unsigned long t);
+    void controlPanel();
 	~Scene();
     
     Globals * getGlobals() {return globals;}
-    std::vector<Camera *> getCameras() {return cameras;}
+    std::vector<Camera *> * getCameras() { return cameras;}
     
     
+    void setActiveCamera(Camera * camera);
+    void showCamera();
     
 private:
 	CGFlight* light0;
@@ -29,9 +36,10 @@ private:
 	CGFappearance* textureAppearance;
 	CGFshader* shader;
     
+    Camera * activeCamera;
     
     Globals * globals;
-    vector<Camera *> cameras;
+    std::vector<Camera *> * cameras;
 
 };
 
