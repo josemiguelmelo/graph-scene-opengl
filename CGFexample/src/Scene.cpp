@@ -102,6 +102,17 @@ void Scene::showCamera()
         glLoadIdentity();
         glOrtho(orthoCamera->getLeft(), orthoCamera->getRight(), orthoCamera->getBottom(), orthoCamera->getTop(), orthoCamera->getNear(), orthoCamera->getFar());
         glMatrixMode(GL_MODELVIEW);
+        switch (orthoCamera->getDirection()) {
+            case 'x':
+                break;
+            case 'y':
+                glRotated(90,0,0,1);
+                break;
+            case 'z':
+                glRotated(90,0,1,0);
+            default:
+                break;
+        }
     }
 }
 

@@ -9,8 +9,8 @@
         <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
         
         <perspective id="persp" near="-1" far="10" angle="70" pos="2 2 2" target="0 0 0" />
-        <ortho id="ortho" near="1" far="1" left="3" right="2" top="3" bottom="2" />
-        <ortho id="ortho1" near="1" far="1" left="3" right="2" top="3" bottom="2" />
+        <ortho id="ortho" direction="x" near="-10" far="10" left="-2" right="20" top="20" bottom="-2" />
+        <ortho id="ortho1" direction="y" near="1" far="1" left="3" right="2" top="3" bottom="2" />
         
     </cameras>
 

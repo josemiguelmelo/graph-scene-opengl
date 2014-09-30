@@ -37,7 +37,9 @@ public:
 class Ortho : public Camera{
 public:
     float left, right, top, bottom;
+    char direction;
     
+    char getDirection() {return direction;}
     float getLeft() {return left;}
     float getRight() {return right;}
     float getTop() {return top;}
@@ -48,6 +50,7 @@ public:
     void setFar(float far) {this->far = far; }
     void setNear(float near) {this->near = near; }
     void setID(std::string id){this->id = id;}
+    void setDirection(char direction){ this->direction = direction;}
     
     ~Ortho();
     

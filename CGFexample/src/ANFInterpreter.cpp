@@ -112,6 +112,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         TiXmlElement * perspectiveElements = camerasElement->FirstChildElement("perspective");
         while(orthoElements){
             Ortho * orthogonalCamera = new Ortho();
+            
             orthogonalCamera->right =(float)atof(orthoElements->Attribute("right"));
             orthogonalCamera->left = (float)atof(orthoElements->Attribute("left"));
             orthogonalCamera->top = (float)atof(orthoElements->Attribute("top"));
@@ -119,6 +120,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
             orthogonalCamera->setFar((float)atof(orthoElements->Attribute("far")));
             orthogonalCamera->setNear((float)atof(orthoElements->Attribute("near")));
             orthogonalCamera->setID(orthoElements->Attribute("id"));
+            orthogonalCamera->setDirection(orthoElements->Attribute("direction")[0]);
             
             if(initialCameraId == orthogonalCamera->getID()) {
                 scene->setActiveCamera(orthogonalCamera);
