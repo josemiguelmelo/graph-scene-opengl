@@ -109,7 +109,7 @@ void Scene::showCamera()
                 glRotated(90,0,0,1);
                 break;
             case 'z':
-                glRotated(90,0,1,0);
+                glRotated(-90,0,1,0);
             default:
                 break;
         }
