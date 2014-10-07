@@ -10,6 +10,9 @@
 #include <iostream>
 #include <vector>
 
+#include "Transforms.h"
+#include "Primitives.h"
+
 class ANFInterpreter
 {
 public:
@@ -17,13 +20,18 @@ public:
 	~ANFInterpreter();
 
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
-	
+    
+    void loadGraph();
+    std::vector<Transforms *> * loadTransforms(TiXmlElement * transformsElements);
+    std::vector<Primitives *> * loadPrimitives(TiXmlElement * primitivesElement);
+    
 protected:
     Scene * scene;
 	TiXmlDocument* doc;
     
     TiXmlElement* globalsElement;
     TiXmlElement* camerasElement;
+    TiXmlElement* graphElement;
     
 };
 

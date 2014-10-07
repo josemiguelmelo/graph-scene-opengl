@@ -31,38 +31,21 @@ void Scene::setGlobals(){
     }
 }
 
-void Scene::setCameras() {
-    for(int i = 0; i < cameras->size(); i++) {
-        cout << "mr camera: " << cameras->at(i)->getID() << typeid(cameras->at(i)).name() << std::endl;
-        
-        
-        
-    }
-    
-    
-}
-
-
 void Scene::init()
 {
     cameras = new std::vector<Camera *>();
     
     globals = new Globals();
+    graph = new Graph();
     char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFexample/data/scene.xml";
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
     setGlobals();
-    setCameras();
+    
+    cout << "nodes: " << graph->getNodes().size() << endl;
     
     
-	// Enables lighting computations
-	//glEnable(GL_LIGHTING);
-
-	// Sets up some lighting parameters
-	//glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
-	
 	// Declares and enables a light
 	float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
@@ -119,6 +102,10 @@ void Scene::showCamera()
     }
 }
 
+void Scene::drawGraph() {
+
+}
+
 void Scene::update(unsigned long t)
 {
 	shader->bind();
@@ -148,31 +135,11 @@ void Scene::display()
 
 	// Draw axis
 	axis.draw();
-
-
 	// ---- END Background, camera and axis setup
+    
+    drawGraph();
 
 
-	// ---- BEGIN feature demos
-
-	// Simple object
-	materialAppearance->apply();
-	obj->draw();
-
-	// textured object
-
-	glTranslatef(0,4,0);
-	textureAppearance->apply();
-	obj->draw();
-
-	// shader object
-
-	glTranslatef(0,4,0);
-	shader->bind();
-	obj->draw();
-	shader->unbind();
-
-	// ---- END feature demos
 
 	// We have been drawing in a memory area that is not visible - the back buffer, 
 	// while the graphics card is showing the contents of another buffer - the front buffer

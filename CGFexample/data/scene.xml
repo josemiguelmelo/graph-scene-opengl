@@ -13,6 +13,32 @@
         <ortho id="ortho1" direction="y" near="1" far="1" left="3" right="2" top="3" bottom="2" />
         
     </cameras>
+    
+    <!-- bloco do grafo; "rootid" identifica o no de raiz -->
+    <graph rootid="initialNode">
+        
+        <!-- tem de existir, pelo menos, um bloco "node" -->
+        <node id="initialNode">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <transform type="translate" to="2 2 3" />
+                <transform type="rotate" axis="x" angle="45" />
+            </transforms>
+            
+            <appearanceref id="inherit" />
+            
+            <!-- bloco "primitives" -->
+            <primitives>
+                <rectangle xy1="-1 -1" xy2="1 1" />
+            </primitives>
+            
+            <!-- bloco "descendants" -->
+            <descendants>
+                <noderef id="mrDescendente" />
+                
+            </descendants>
+        </node>
+    </graph>
 
 </anf>
 

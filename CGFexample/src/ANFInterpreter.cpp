@@ -1,5 +1,143 @@
 #include "ANFInterpreter.h"
 
+void ANFInterpreter::loadGraph(){
+    std::string rootid = graphElement->Attribute("rootid");
+    
+    TiXmlElement * nodeElements = graphElement->FirstChildElement("node");
+    while(nodeElements){
+        Node * node = new Node(true);
+        std::string nodeID = nodeElements->Attribute("id");
+        
+        TiXmlElement * transformsElements = nodeElements->FirstChildElement("transforms");
+        
+        TiXmlElement * primitivesElements = nodeElements->FirstChildElement("primitives");
+        
+        
+        std::vector<Transforms *> * transforms = loadTransforms(transformsElements);
+        
+        cout << "penetrou";
+        std::vector<Primitives *> * primitives = loadPrimitives(primitivesElements);
+        
+        node->setPrimitives(primitives);
+        node->setTransforms(transforms);
+        
+        cout << node->getID();
+        
+        this->scene->getGraph()->addNode(node);
+        
+        nodeElements = nodeElements->NextSiblingElement();
+    }
+
+}
+
+std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transformsElements) {
+    std::vector<Transforms *> * transforms = new std::vector<Transforms*>();
+    
+    
+    TiXmlElement * transformElement = transformsElements->FirstChildElement("transform");
+    
+    while(transformElement) {
+        if(transformElement->Attribute("type") == "translate"){
+            Translation * translation = new Translation();
+            char* to = (char *)transformElement->Attribute("to");
+            float x, y, z;
+            sscanf(to, "%f %f %f", &x, &y, &z);
+            
+            translation->setX(x);
+            translation->setY(y);
+            translation->setZ(z);
+            transforms->push_back(translation);
+        }
+        
+        if(transformElement->Attribute("type") == "rotate"){
+            Rotation * rotation = new Rotation();
+            std::string axis = transformElement->Attribute("axis");
+            
+            char* angle_string = (char *)transformElement->Attribute("angle");
+            float angle;
+            sscanf(angle_string, "%f", &angle);
+            
+            rotation->setAngle(angle);
+            rotation->setAxis(axis[0]);
+            transforms->push_back(rotation);
+        }
+        
+        if(transformElement->Attribute("type") == "scale"){
+            Scale * scale = new Scale();
+            
+            char* factor = (char *)transformElement->Attribute("factor");
+            float x, y, z;
+            sscanf(factor, "%f %f %f", &x, &y, &z);
+            
+            scale->setXFactor(x);
+            scale->setYFactor(y);
+            scale->setZFactor(z);
+            transforms->push_back(scale);
+        }
+        
+        
+        transformElement = transformElement->NextSiblingElement();
+    }
+    
+    return transforms;
+
+}
+
+std::vector<Primitives *> * ANFInterpreter::loadPrimitives(TiXmlElement * primitivesElement) {
+    std::vector<Primitives *> * primitives = new std::vector<Primitives *>();
+    
+    TiXmlElement * rectangleElement = primitivesElement->FirstChildElement("rectangle");
+    
+    while(rectangleElement) {
+        Rectangle * rectangle = new Rectangle();
+        char* xy1 = (char *)rectangleElement->Attribute("xy1");
+        char* xy2 = (char *)rectangleElement->Attribute("xy2");
+        
+        float x1, y1, x2, y2;
+        sscanf(xy1, "%f %f", &x1, &y1);
+        sscanf(xy2, "%f %f", &x2, &y2);
+        
+        rectangle->setX1(x1);
+        rectangle->setX2(x2);
+        rectangle->setY1(y1);
+        rectangle->setY2(y2);
+        
+        primitives->push_back(rectangle);
+        rectangleElement = rectangleElement->NextSiblingElement();
+    }
+    
+    TiXmlElement * triangleElement = primitivesElement->FirstChildElement("triangle");
+    
+    while(rectangleElement) {
+        Triangle * triangle = new Triangle();
+        char* xyz1 = (char *)triangleElement->Attribute("xyz1");
+        char* xyz2 = (char *)triangleElement->Attribute("xyz2");
+        char* xyz3 = (char *)triangleElement->Attribute("xyz3");
+        
+        float x1, y1, z1, x2, y2, z2, x3, y3, z3;
+        sscanf(xyz1, "%f %f %f", &x1, &y1, &z1);
+        sscanf(xyz2, "%f %f %f", &x2, &y2, &z2);
+        sscanf(xyz3, "%f %f %f", &x3, &y3, &z3);
+        
+        triangle->setX1(x1);
+        triangle->setX2(x2);
+        triangle->setX3(x3);
+        triangle->setY1(y1);
+        triangle->setY2(y2);
+        triangle->setY3(y3);
+        triangle->setZ1(z1);
+        triangle->setZ2(z2);
+        triangle->setZ3(z3);
+        
+        primitives->push_back(triangle);
+        triangleElement = triangleElement->NextSiblingElement();
+    }
+    
+    return primitives;
+    
+}
+
+
 ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
 {
     // Read XML from file
@@ -24,6 +162,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     
     globalsElement = anfScene->FirstChildElement( "globals" );
     camerasElement = anfScene->FirstChildElement("cameras");
+    graphElement = anfScene->FirstChildElement("graph");
     
     Globals * globals = scene->getGlobals();
     std::vector<Camera *> * cameras = scene->getCameras();
@@ -170,6 +309,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         
     }
     
+    loadGraph();
     
 }
 

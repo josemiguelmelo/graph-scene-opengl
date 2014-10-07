@@ -10,24 +10,28 @@
 #include <vector>
 #include "Node.h"
 #include <string>
+#include <map>
 
 
 
 class Graph{
 private:
-    std::vector<Node *> * nodes;
+    std::map<std::string, Node *> nodes;
     std::string rootid;
     
 public:
-    Graph(std::string rootid){
-        this->rootid = rootid;
-        this->nodes = new std::vector<Node *>();
+    Graph(){
     }
     
-    std::vector<Node *> * getNodes(){ return this->nodes; }
+    std::map<std::string, Node *>  getNodes(){ return this->nodes; }
     
     void addNode(Node * node){
-        nodes->push_back(node);
+        this->nodes[node->getID()] = node;
+    }
+    
+    void setRootId(std::string rootid)
+    {
+        this->rootid = rootid;
     }
     
 };

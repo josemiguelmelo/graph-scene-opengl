@@ -10,10 +10,14 @@
 #define __CGFExample__Primitives__
 
 #include <stdio.h>
+#include <string>
 
 
 
 class Primitives{
+public:
+    
+    virtual std::string getType() = 0;
     
 };
 
@@ -34,6 +38,8 @@ public:
     void setX2(float x2){ this->x2 = x2; }
     void setY1(float y1){ this->y1 = y1; }
     void setY2(float y2){ this->y2 = y2; }
+    
+    std::string getType() { return "rectangle"; }
     
     
 };
@@ -66,7 +72,7 @@ public:
     void setZ2(float z2){ this->z2 = z2; }
     void setZ3(float z3){ this->z3 = z3; }
 
-    
+    std::string getType() { return "triangle"; }
     
 };
 
@@ -86,6 +92,7 @@ public:
     void setHeight(float height){ this->height = height; }
     void setSlices(int slices){ this->slices = slices; }
     void setStacks(int stacks){ this->stacks = stacks; }
+    std::string getType() { return "cylinder"; }
     
 };
 
@@ -101,6 +108,8 @@ public:
     void setRadius(float radius){ this->radius = radius; }
     void setSlices(int slices){ this->slices = slices; }
     void setStacks(int stacks){ this->stacks = stacks; }
+    std::string getType() { return "sphere"; }
+    
 };
 
 class Torus : public Primitives{
@@ -118,7 +127,7 @@ public:
     void setOuter(float outer){ this->outer = outer; }
     void setSlices(int slices){ this->slices = slices; }
     void setStacks(int stacks){ this->stacks = stacks; }
-    
+    std::string getType() { return "torus"; }
 };
 
 

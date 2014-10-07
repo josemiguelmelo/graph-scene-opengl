@@ -5,6 +5,7 @@
 #include "CGFshader.h"
 #include "Globals.h"
 #include "Camera.h"
+#include "Graph.h"
 
 #include <vector>
 
@@ -23,11 +24,12 @@ public:
 	~Scene();
     
     Globals * getGlobals() {return globals;}
-    std::vector<Camera *> * getCameras() { return cameras;}
-    
+    Graph * getGraph() { return graph; }
+    std::vector<Camera *> * getCameras() { return cameras; }
     
     void setActiveCamera(Camera * camera);
     void showCamera();
+    void drawGraph();
     
 private:
 	CGFlight* light0;
@@ -39,6 +41,7 @@ private:
     Camera * activeCamera;
     
     Globals * globals;
+    Graph * graph;
     std::vector<Camera *> * cameras;
 
 };

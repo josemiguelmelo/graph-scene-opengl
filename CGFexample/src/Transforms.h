@@ -7,9 +7,12 @@
 #define __CGFExample__Transforms__
 
 #include <stdio.h>
+#include <string>
 
 class Transforms{
+public:
     
+    virtual std::string getType() = 0;
     
 };
 
@@ -27,6 +30,7 @@ public:
     void setX(float x){ this->x = x; }
     void setY(float y){ this->y = y; }
     void setZ(float z){ this->z = z; }
+    std::string getType() { return "translation"; }
 };
 
 
@@ -41,6 +45,7 @@ public:
     
     void setAxis(char axis) { this->axis = axis; }
     void setAngle(float angle) { this->angle = angle; }
+    std::string getType() { return "rotation"; }
 };
 
 
@@ -56,6 +61,7 @@ public:
     void setXFactor(float xFactor){ this->xFactor = xFactor; }
     void setYFactor(float yFactor){ this->yFactor = yFactor; }
     void setZFactor(float zFactor){ this->zFactor = zFactor; }
+    std::string getType() { return "scale"; }
 
 };
 

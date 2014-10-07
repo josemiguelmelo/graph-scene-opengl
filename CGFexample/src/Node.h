@@ -14,35 +14,39 @@
 #include <string>
 #include "Transforms.h"
 #include "Primitives.h"
+#include <map>
 
 
 class Node{
 private:
     std::string id;
     std::string apperanceref;
+    bool initialized;
     std::vector<Transforms *> * transforms;
     std::vector<Primitives *> * primitives;
-    std::vector<Node> * descendants;
+    std::map<std::string, Node *> descendants;
     
 public:
     
-    Node(){
+    Node(bool initialized){
         transforms=new std::vector<Transforms *>();
         primitives=new std::vector<Primitives *>();
-        descendants=new std::vector<Node>();
+        this->initialized=initialized;
     }
     
     std::string getID(){ return this->id; }
     std::string getAppearanceRef() { return this->apperanceref; }
     std::vector<Transforms *> * getTransforms(){ return this->transforms; }
     std::vector<Primitives *> * getPrimitives(){ return this->primitives; }
-    std::vector<Node> * getDescendants(){ return this->descendants; }
+    std::map<std::string, Node*> getDescendants(){ return this->descendants; }
     
     void setID(std::string id){ this->id = id; }
     void setAppearanceRef(std::string appearanceref){ this->apperanceref = apperanceref; }
+    void setTransforms(std::vector<Transforms *> * transforms){ this->transforms=transforms; }
+    void setPrimitives(std::vector<Primitives *> * primitives) { this->primitives=primitives;}
     void addTransforms(Transforms * transform){ transforms->push_back(transform);}
     void addPrimitives(Primitives * primitive){ primitives->push_back(primitive);}
-    void addDescendant(Node node){ descendants->push_back(node); }
+    void addDescendant(Node * node){ descendants[node->getID()]=node; }
     
     
 };
