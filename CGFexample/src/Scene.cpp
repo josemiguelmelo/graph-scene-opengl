@@ -89,12 +89,12 @@ void Scene::showCamera()
 {
     if(activeCamera->getType() == "persp") {
         Perspective * perspCamera = (Perspective *) activeCamera;
-        glMatrixMode(GL_PROJECTION);
+       glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        //gluPerspective(perspCamera->getAngle(), 1, perspCamera->getNear(), perspCamera->getFar());
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        gluPerspective(perspCamera->getAngle(), 1, perspCamera->getNear(), perspCamera->getFar());
+     
         gluLookAt(perspCamera->getPos(0), perspCamera->getPos(1), perspCamera->getPos(2), perspCamera->getTarget(0), perspCamera->getTarget(1), perspCamera->getTarget(2), 0.0f, 1.0f, 0.0f);
+      
     }
     if(activeCamera->getType() == "ortho") {
         Ortho * orthoCamera = (Ortho *) activeCamera;
@@ -104,12 +104,15 @@ void Scene::showCamera()
         glMatrixMode(GL_MODELVIEW);
         switch (orthoCamera->getDirection()) {
             case 'x':
+                glRotated(90,0,1,0);
+                glScaled(1,1,-1);
                 break;
             case 'y':
-                glRotated(90,0,0,1);
+                glRotated(90,1,0,0);
+                glScaled(1,-1,1);
                 break;
             case 'z':
-                glRotated(-90,0,1,0);
+                break;
             default:
                 break;
         }

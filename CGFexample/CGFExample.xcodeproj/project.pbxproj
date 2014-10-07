@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		885659E519E415DE002328BF /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E319E415DE002328BF /* Graph.cpp */; };
+		885659EB19E41744002328BF /* Transforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E919E41744002328BF /* Transforms.cpp */; };
+		885659EE19E41919002328BF /* Primitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659EC19E41919002328BF /* Primitives.cpp */; };
+		885659F119E42294002328BF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659EF19E42294002328BF /* Node.cpp */; };
 		88D587BB19D1CDED0010B547 /* ANFInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587BA19D1CDED0010B547 /* ANFInterpreter.cpp */; };
 		88D587C219D1CE2F0010B547 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587BC19D1CE2E0010B547 /* tinystr.cpp */; };
 		88D587C319D1CE2F0010B547 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587BE19D1CE2F0010B547 /* tinyxml.cpp */; };
@@ -45,6 +49,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		885659E319E415DE002328BF /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Graph.cpp; path = src/Graph.cpp; sourceTree = SOURCE_ROOT; };
+		885659E419E415DE002328BF /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Graph.h; path = src/Graph.h; sourceTree = SOURCE_ROOT; };
+		885659E919E41744002328BF /* Transforms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transforms.cpp; path = src/Transforms.cpp; sourceTree = SOURCE_ROOT; };
+		885659EA19E41744002328BF /* Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transforms.h; path = src/Transforms.h; sourceTree = SOURCE_ROOT; };
+		885659EC19E41919002328BF /* Primitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Primitives.cpp; path = src/Primitives.cpp; sourceTree = SOURCE_ROOT; };
+		885659ED19E41919002328BF /* Primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Primitives.h; path = src/Primitives.h; sourceTree = SOURCE_ROOT; };
+		885659EF19E42294002328BF /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = src/Node.cpp; sourceTree = SOURCE_ROOT; };
+		885659F019E42294002328BF /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = src/Node.h; sourceTree = SOURCE_ROOT; };
 		88D587BA19D1CDED0010B547 /* ANFInterpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ANFInterpreter.cpp; path = src/ANFInterpreter.cpp; sourceTree = SOURCE_ROOT; };
 		88D587BC19D1CE2E0010B547 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; };
 		88D587BD19D1CE2F0010B547 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; };
@@ -153,6 +165,14 @@
 				88D587D319D1E8500010B547 /* Camera.h */,
 				88E71C6519DB0C180026EF9D /* TPInterface.cpp */,
 				88E71C6619DB0C180026EF9D /* TPInterface.h */,
+				885659E319E415DE002328BF /* Graph.cpp */,
+				885659E419E415DE002328BF /* Graph.h */,
+				885659E919E41744002328BF /* Transforms.cpp */,
+				885659EA19E41744002328BF /* Transforms.h */,
+				885659EC19E41919002328BF /* Primitives.cpp */,
+				885659ED19E41919002328BF /* Primitives.h */,
+				885659EF19E42294002328BF /* Node.cpp */,
+				885659F019E42294002328BF /* Node.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -261,12 +281,16 @@
 				88D587C319D1CE2F0010B547 /* tinyxml.cpp in Sources */,
 				88D587D419D1E8500010B547 /* Camera.cpp in Sources */,
 				88D587C219D1CE2F0010B547 /* tinystr.cpp in Sources */,
+				885659E519E415DE002328BF /* Graph.cpp in Sources */,
 				AA63E1BC16D41568003287C6 /* Scene.cpp in Sources */,
 				88D587C519D1CE2F0010B547 /* tinyxmlparser.cpp in Sources */,
 				AA63E1BD16D41568003287C6 /* ExampleObject.cpp in Sources */,
 				88D587D119D1DCAB0010B547 /* Globals.cpp in Sources */,
+				885659F119E42294002328BF /* Node.cpp in Sources */,
 				88D587C419D1CE2F0010B547 /* tinyxmlerror.cpp in Sources */,
 				AA63E1BE16D41568003287C6 /* main.cpp in Sources */,
+				885659EE19E41919002328BF /* Primitives.cpp in Sources */,
+				885659EB19E41744002328BF /* Transforms.cpp in Sources */,
 				88E71C6719DB0C180026EF9D /* TPInterface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
