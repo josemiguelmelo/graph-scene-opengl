@@ -11,6 +11,7 @@
 #include <iostream>
 
 
+
 TPInterface::TPInterface(Scene * scene){
     this->scene = scene;
 }
@@ -26,9 +27,11 @@ void TPInterface::initGUI(){
     
     camerasVector = scene->getCameras();
     
-    for (int i = 0; i< camerasVector->size(); i++){
-        std::cout <<camerasVector->at(i)->getID().c_str()<<std::endl;
+    for ( int i = 0; i< camerasVector->size(); i++){
         list->add_item(i, camerasVector->at(i)->getID().c_str());
+        if(strcmp(camerasVector->at(i)->getID().c_str(), scene->getActiveCamera()->getID().c_str()) == 0){
+            list->set_int_val(i);
+        }
     }
     
 }

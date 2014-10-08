@@ -12,16 +12,10 @@ void ANFInterpreter::loadGraph(){
         
         TiXmlElement * primitivesElements = nodeElements->FirstChildElement("primitives");
         
+        node->setPrimitives(loadPrimitives(primitivesElements));
+        node->setTransforms(loadTransforms(transformsElements));
+        node->setID(nodeID);
         
-        std::vector<Transforms *> * transforms = loadTransforms(transformsElements);
-        
-        cout << "penetrou";
-        std::vector<Primitives *> * primitives = loadPrimitives(primitivesElements);
-        
-        node->setPrimitives(primitives);
-        node->setTransforms(transforms);
-        
-        cout << node->getID();
         
         this->scene->getGraph()->addNode(node);
         
@@ -37,7 +31,7 @@ std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transf
     TiXmlElement * transformElement = transformsElements->FirstChildElement("transform");
     
     while(transformElement) {
-        if(transformElement->Attribute("type") == "translate"){
+        if(strcmp(transformElement->Attribute("type"), "translate") == 0){
             Translation * translation = new Translation();
             char* to = (char *)transformElement->Attribute("to");
             float x, y, z;
@@ -47,9 +41,10 @@ std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transf
             translation->setY(y);
             translation->setZ(z);
             transforms->push_back(translation);
+            cout << "here";
         }
         
-        if(transformElement->Attribute("type") == "rotate"){
+        if(strcmp(transformElement->Attribute("type"),"rotate") == 0){
             Rotation * rotation = new Rotation();
             std::string axis = transformElement->Attribute("axis");
             
@@ -60,9 +55,10 @@ std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transf
             rotation->setAngle(angle);
             rotation->setAxis(axis[0]);
             transforms->push_back(rotation);
+            cout << "here1";
         }
         
-        if(transformElement->Attribute("type") == "scale"){
+        if(strcmp(transformElement->Attribute("type"),"scale") == 0){
             Scale * scale = new Scale();
             
             char* factor = (char *)transformElement->Attribute("factor");
@@ -76,7 +72,7 @@ std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transf
         }
         
         
-        transformElement = transformElement->NextSiblingElement();
+        transformElement = transformElement->NextSiblingElement("transform");
     }
     
     return transforms;
@@ -103,12 +99,12 @@ std::vector<Primitives *> * ANFInterpreter::loadPrimitives(TiXmlElement * primit
         rectangle->setY2(y2);
         
         primitives->push_back(rectangle);
-        rectangleElement = rectangleElement->NextSiblingElement();
+        rectangleElement = rectangleElement->NextSiblingElement("rectangle");
     }
     
     TiXmlElement * triangleElement = primitivesElement->FirstChildElement("triangle");
     
-    while(rectangleElement) {
+    while(triangleElement) {
         Triangle * triangle = new Triangle();
         char* xyz1 = (char *)triangleElement->Attribute("xyz1");
         char* xyz2 = (char *)triangleElement->Attribute("xyz2");
@@ -130,7 +126,93 @@ std::vector<Primitives *> * ANFInterpreter::loadPrimitives(TiXmlElement * primit
         triangle->setZ3(z3);
         
         primitives->push_back(triangle);
-        triangleElement = triangleElement->NextSiblingElement();
+        triangleElement = triangleElement->NextSiblingElement("triangle");
+    }
+    
+    
+    
+    TiXmlElement * cylinderElement = primitivesElement->FirstChildElement("cylinder");
+    
+    while(cylinderElement) {
+        Cylinder * cylinder = new Cylinder();
+        /** get cylinder parameters from ANF **/
+        char* base_char = (char *)cylinderElement->Attribute("base");
+        char* top_char = (char *)cylinderElement->Attribute("top");
+        char* height_char = (char *)cylinderElement->Attribute("height");
+        char* slices_char = (char *)cylinderElement->Attribute("slices");
+        char* stacks_char = (char *)cylinderElement->Attribute("stacks");
+        
+        /** convert char parameters to correct types **/
+        float base, top, height;
+        int slices, stacks;
+        sscanf(base_char, "%f", &base);
+        sscanf(top_char, "%f", &top);
+        sscanf(height_char, "%f", &height);
+        slices = atoi(slices_char);
+        stacks = atoi(stacks_char);
+        /** set cylinder parameters **/
+        cylinder->setBase(base);
+        cylinder->setTop(top);
+        cylinder->setHeight(height);
+        cylinder->setSlices(slices);
+        cylinder->setStacks(stacks);
+        
+        primitives->push_back(cylinder);
+        cylinderElement = cylinderElement->NextSiblingElement("cylinder");
+    }
+    
+    
+    TiXmlElement * sphereElement = primitivesElement->FirstChildElement("sphere");
+    
+    while(sphereElement) {
+        Sphere * sphere = new Sphere();
+        /** get sphere parameters from ANF **/
+        char* radius_char = (char *)sphereElement->Attribute("radius");
+        char* slices_char = (char *)sphereElement->Attribute("slices");
+        char* stacks_char = (char *)sphereElement->Attribute("stacks");
+        
+        /** convert char parameters to correct types **/
+        float radius;
+        int slices, stacks;
+        sscanf(radius_char, "%f", &radius);
+        slices = atoi(slices_char);
+        stacks = atoi(stacks_char);
+        
+        /** set sphere parameters **/
+        sphere->setRadius(radius);
+        sphere->setSlices(slices);
+        sphere->setStacks(stacks);
+        
+        primitives->push_back(sphere);
+        sphereElement = sphereElement->NextSiblingElement("sphere");
+    }
+    
+    TiXmlElement * torusElement = primitivesElement->FirstChildElement("torus");
+    
+    while(torusElement) {
+        Torus * torus = new Torus();
+        /** get sphere parameters from ANF **/
+        char* inner_char = (char *)torusElement->Attribute("inner");
+        char* outer_char = (char *)torusElement->Attribute("outer");
+        char* slices_char = (char *)torusElement->Attribute("slices");
+        char* loops_char = (char *)torusElement->Attribute("loops");
+        
+        /** convert char parameters to correct types **/
+        float inner, outer;
+        int slices, loops;
+        sscanf(inner_char, "%f", &inner);
+        sscanf(outer_char, "%f", &outer);
+        slices = atoi(slices_char);
+        loops = atoi(loops_char);
+        
+        /** set sphere parameters **/
+        torus->setInner(inner);
+        torus->setOuter(outer);
+        torus->setSlices(slices);
+        torus->setLoops(loops);
+        
+        primitives->push_back(torus);
+        torusElement = torusElement->NextSiblingElement("torus");
     }
     
     return primitives;

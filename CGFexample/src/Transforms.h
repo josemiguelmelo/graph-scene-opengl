@@ -6,13 +6,16 @@
 #ifndef __CGFExample__Transforms__
 #define __CGFExample__Transforms__
 
-#include <stdio.h>
+#include <iostream>
 #include <string>
+#include "CGFappearance.h"
+#include "CGFapplication.h"
 
 class Transforms{
 public:
     
     virtual std::string getType() = 0;
+    virtual void apply() = 0;
     
 };
 
@@ -31,6 +34,8 @@ public:
     void setY(float y){ this->y = y; }
     void setZ(float z){ this->z = z; }
     std::string getType() { return "translation"; }
+    
+    void apply();
 };
 
 
@@ -46,6 +51,8 @@ public:
     void setAxis(char axis) { this->axis = axis; }
     void setAngle(float angle) { this->angle = angle; }
     std::string getType() { return "rotation"; }
+    
+    void apply();
 };
 
 
@@ -62,6 +69,8 @@ public:
     void setYFactor(float yFactor){ this->yFactor = yFactor; }
     void setZFactor(float zFactor){ this->zFactor = zFactor; }
     std::string getType() { return "scale"; }
+    
+    void apply();
 
 };
 

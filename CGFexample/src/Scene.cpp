@@ -43,8 +43,13 @@ void Scene::init()
     
     setGlobals();
     
-    cout << "nodes: " << graph->getNodes().size() << endl;
+    cout << "primitive type = " << graph->getNodes()["initialNode"]->getPrimitives()->at(0)->getType()<<endl;
     
+    
+    
+    
+    
+    //std::cout << "X1 = " << rect->getX1()<<std::endl;
     
 	// Declares and enables a light
 	float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
@@ -138,9 +143,11 @@ void Scene::display()
 	// ---- END Background, camera and axis setup
     
     drawGraph();
-
-
-
+    
+    //graph->getNodes()["initialNode"]->getPrimitives()->at(0)->draw();
+    
+    graph->getNodes()["initialNode"]->draw();
+    
 	// We have been drawing in a memory area that is not visible - the back buffer, 
 	// while the graphics card is showing the contents of another buffer - the front buffer
 	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa

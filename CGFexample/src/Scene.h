@@ -25,6 +25,7 @@ public:
     
     Globals * getGlobals() {return globals;}
     Graph * getGraph() { return graph; }
+    Camera * getActiveCamera(){ return this->activeCamera; }
     std::vector<Camera *> * getCameras() { return cameras; }
     
     void setActiveCamera(Camera * camera);

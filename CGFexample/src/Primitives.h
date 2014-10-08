@@ -11,14 +11,18 @@
 
 #include <stdio.h>
 #include <string>
-
-
+#include "CGFscene.h"
+#include "CGFshader.h"
+#include "CGFaxis.h"
+#include "CGFapplication.h"
+#include "CGFappearance.h"
+#include <iostream>
 
 class Primitives{
 public:
     
     virtual std::string getType() = 0;
-    
+    virtual void draw() = 0;
 };
 
 
@@ -41,7 +45,7 @@ public:
     
     std::string getType() { return "rectangle"; }
     
-    
+    void draw();
 };
 
 class Triangle : public Primitives{
@@ -74,6 +78,8 @@ public:
 
     std::string getType() { return "triangle"; }
     
+    
+    void draw();
 };
 
 class Cylinder : public Primitives{
@@ -94,6 +100,9 @@ public:
     void setStacks(int stacks){ this->stacks = stacks; }
     std::string getType() { return "cylinder"; }
     
+    
+    void draw();
+
 };
 
 class Sphere : public Primitives{
@@ -110,24 +119,32 @@ public:
     void setStacks(int stacks){ this->stacks = stacks; }
     std::string getType() { return "sphere"; }
     
+    
+    
+    void draw();
 };
 
 class Torus : public Primitives{
 private:
     float inner, outer;
-    int slices, stacks;
+    int slices, loops;
     
 public:
     float getInner(){ return this->inner; }
     float getOuter(){ return this->outer; }
     int getSlices(){ return this->slices; }
-    int getStacks(){ return this->stacks; }
+    int getLoops(){ return this->loops; }
     
     void setInner(float inner){ this->inner = inner; }
     void setOuter(float outer){ this->outer = outer; }
     void setSlices(int slices){ this->slices = slices; }
-    void setStacks(int stacks){ this->stacks = stacks; }
+    void setLoops(int loops){ this->loops = loops; }
     std::string getType() { return "torus"; }
+    
+    
+    
+    
+    void draw();
 };
 
 

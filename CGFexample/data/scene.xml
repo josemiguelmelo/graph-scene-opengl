@@ -21,8 +21,8 @@
         <node id="initialNode">
             <!-- bloco "transforms" obrigatorio -->
             <transforms>
-                <transform type="translate" to="2 2 3" />
-                <transform type="rotate" axis="x" angle="45" />
+                <transform type="translate" to="5 5 3" />
+                
             </transforms>
             
             <appearanceref id="inherit" />
@@ -30,6 +30,10 @@
             <!-- bloco "primitives" -->
             <primitives>
                 <rectangle xy1="-1 -1" xy2="1 1" />
+                <triangle xyz1="0 0 0" xyz2="0 1 0" xyz3="0 0 2"/>
+                <cylinder base="2" top="2" height="3" slices="25" stacks="25" />
+                <sphere radius="4" slices="30" stacks="30" />
+                <torus inner="1" outer="3" slices="32" loops="32" />
             </primitives>
             
             <!-- bloco "descendants" -->

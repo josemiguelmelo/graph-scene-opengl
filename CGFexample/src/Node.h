@@ -48,6 +48,12 @@ public:
     void addPrimitives(Primitives * primitive){ primitives->push_back(primitive);}
     void addDescendant(Node * node){ descendants[node->getID()]=node; }
     
+    bool getInitialized() {
+        return this->initialized;
+    }
+    
+    void draw();
+    
     
 };
 
