@@ -1,12 +1,5 @@
-//
-//  Primitives.cpp
-//  CGFExample
-//
-//  Created by José Melo on 07/10/14.
-//  Copyright (c) 2014 me. All rights reserved.
-//
-
 #include "Primitives.h"
+#include <cmath>
 
 
 void Rectangle::draw(){
@@ -41,12 +34,15 @@ void Triangle::draw(){
 void Cylinder::draw(){
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
+    gluQuadricOrientation(quadratic, GLU_EXTERIOR);
     gluCylinder(quadratic,
                 this->base,
                 this->top,
                 this->height,
                 this->slices,
                 this->stacks);
+     
+    
 }
 
 

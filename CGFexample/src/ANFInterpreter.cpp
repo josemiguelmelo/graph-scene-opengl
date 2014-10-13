@@ -2,26 +2,82 @@
 
 void ANFInterpreter::loadGraph(){
     std::string rootid = graphElement->Attribute("rootid");
+    this->scene->getGraph()->setRootId(rootid);
     
     TiXmlElement * nodeElements = graphElement->FirstChildElement("node");
     while(nodeElements){
         Node * node = new Node(true);
         std::string nodeID = nodeElements->Attribute("id");
+        cout << "Processing " << nodeID << endl;
         
         TiXmlElement * transformsElements = nodeElements->FirstChildElement("transforms");
         
         TiXmlElement * primitivesElements = nodeElements->FirstChildElement("primitives");
         
-        node->setPrimitives(loadPrimitives(primitivesElements));
-        node->setTransforms(loadTransforms(transformsElements));
+        TiXmlElement * descendantsElement = nodeElements->FirstChildElement("descendants");
+        
+        if(primitivesElements)
+        {
+            node->setPrimitives(loadPrimitives(primitivesElements));
+        }
+        if(transformsElements)
+        {
+            node->setTransforms(loadTransforms(transformsElements));
+        }
+        if(descendantsElement)
+        {
+            node->setDescendants(loadDescendants(descendantsElement));
+        }
+        
         node->setID(nodeID);
         
+        node->calculateMatrix();
         
         this->scene->getGraph()->addNode(node);
         
         nodeElements = nodeElements->NextSiblingElement();
     }
+}
 
+void ANFInterpreter::replaceEmptyNodes() {
+    map<std::string,Node*>::iterator node=this->scene->getGraph()->getNodes()->begin();
+    
+    for(int i = 0;i < this->scene->getGraph()->getNodes()->size();i++,node++) {
+        if(node->second->getDescendants())
+        {
+            cout << node->second->getID();
+            map<std::string,Node*>::iterator descendant=node->second->getDescendants()->begin();
+            
+            for(int j= 0; j < node->second->getDescendants()->size(); j++,descendant++){
+                if( ! descendant->second->isInitialized()) {
+                    if(this->scene->getGraph()->getNodes()->at(descendant->first)) {
+                        descendant->second = this->scene->getGraph()->getNodes()->at(descendant->first);
+                    } else {
+                        cout << "WARNING: THERE'S NO VALID NODE FOR THE ID: " << descendant->first << endl;
+                    }
+                }
+            }
+        }
+    }
+}
+
+std::map<std::string, Node*> * ANFInterpreter::loadDescendants(TiXmlElement * descendantsElements) {
+    std::map<std::string, Node*> * descendants = new std::map<std::string, Node*>();
+    
+    TiXmlElement * nodeRefElement = descendantsElements->FirstChildElement("noderef");
+    
+    while(nodeRefElement) {
+        std::string id = nodeRefElement->Attribute("id");
+        Node * node = new Node(false);
+        node->setID(id);
+        
+        descendants->insert(std::pair<std::string,Node *>(node->getID(), node));
+        
+        nodeRefElement = nodeRefElement->NextSiblingElement("noderef");
+    }
+    
+    return descendants;
+    
 }
 
 std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transformsElements) {
@@ -41,7 +97,6 @@ std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transf
             translation->setY(y);
             translation->setZ(z);
             transforms->push_back(translation);
-            cout << "here";
         }
         
         if(strcmp(transformElement->Attribute("type"),"rotate") == 0){
@@ -55,7 +110,6 @@ std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transf
             rotation->setAngle(angle);
             rotation->setAxis(axis[0]);
             transforms->push_back(rotation);
-            cout << "here1";
         }
         
         if(strcmp(transformElement->Attribute("type"),"scale") == 0){
@@ -260,7 +314,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     }
     else
     {
-        printf("Processing globals:\n");
+        printf("Processing globals\n");
         // frustum: example of a node with individual attributes
         TiXmlElement* drawingElement=globalsElement->FirstChildElement("drawing");
         if (drawingElement)
@@ -299,7 +353,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         }else{
             printf("culling not found");
         }
-        
+        printf("Processing lighting\n");
         TiXmlElement* lightingElement=globalsElement->FirstChildElement("lighting");
         if(lightingElement){
             std::string doublesided, local, enabled;
@@ -324,6 +378,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         }
     }
     
+    printf("Processing cameras\n");
     /** GET CAMERAS **/
     std::string initialCameraId = camerasElement->Attribute("initial");
     if(camerasElement==NULL){
@@ -390,8 +445,11 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         }
         
     }
-    
+    printf("Processing graph\n");
     loadGraph();
+    cout << "Replacing empty nodes" << endl;
+    replaceEmptyNodes();
+    cout << endl << "Finished XML Parsing" << endl << endl;
     
 }
 

@@ -1,11 +1,3 @@
-//
-//  TPInterface.h
-//  CGFExample
-//
-//  Created by José Melo on 30/09/14.
-//  Copyright (c) 2014 me. All rights reserved.
-//
-
 #ifndef __CGFExample__TPInterface__
 #define __CGFExample__TPInterface__
 

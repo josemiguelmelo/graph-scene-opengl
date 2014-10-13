@@ -1,11 +1,3 @@
-//
-//  Primitives.h
-//  CGFExample
-//
-//  Created by José Melo on 07/10/14.
-//  Copyright (c) 2014 me. All rights reserved.
-//
-
 #ifndef __CGFExample__Primitives__
 #define __CGFExample__Primitives__
 

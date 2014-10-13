@@ -1,11 +1,3 @@
-//
-//  Transforms.cpp
-//  CGFExample
-//
-//  Created by José Melo on 07/10/14.
-//  Copyright (c) 2014 me. All rights reserved.
-//
-
 #include "Transforms.h"
 
 
@@ -14,6 +6,7 @@ void Translation::apply(){
 }
 
 void Rotation::apply(){
+    
     double x=0, y=0, z=0;
     if(axis == 'x'){
         x=1;

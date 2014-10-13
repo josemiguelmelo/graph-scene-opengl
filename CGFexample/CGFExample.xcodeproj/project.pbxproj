@@ -11,14 +11,14 @@
 		885659EB19E41744002328BF /* Transforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E919E41744002328BF /* Transforms.cpp */; };
 		885659EE19E41919002328BF /* Primitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659EC19E41919002328BF /* Primitives.cpp */; };
 		885659F119E42294002328BF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659EF19E42294002328BF /* Node.cpp */; };
+		88586FAB19EC5D1B00D2AB72 /* libglui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23116D4221C003287C6 /* libglui.a */; };
+		88586FAE19EC5D3300D2AB72 /* libGLEW.1.11.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88586FAC19EC5D3300D2AB72 /* libGLEW.1.11.0.dylib */; };
+		88586FAF19EC5D3300D2AB72 /* libGLEWmx.1.11.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88586FAD19EC5D3300D2AB72 /* libGLEWmx.1.11.0.dylib */; };
 		88D587BB19D1CDED0010B547 /* ANFInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587BA19D1CDED0010B547 /* ANFInterpreter.cpp */; };
 		88D587C219D1CE2F0010B547 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587BC19D1CE2E0010B547 /* tinystr.cpp */; };
 		88D587C319D1CE2F0010B547 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587BE19D1CE2F0010B547 /* tinyxml.cpp */; };
 		88D587C419D1CE2F0010B547 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587C019D1CE2F0010B547 /* tinyxmlerror.cpp */; };
 		88D587C519D1CE2F0010B547 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587C119D1CE2F0010B547 /* tinyxmlparser.cpp */; };
-		88D587C719D1D1140010B547 /* GLUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D587C619D1D1140010B547 /* GLUI.framework */; };
-		88D587CA19D1D1560010B547 /* libGLEW.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D587C819D1D1560010B547 /* libGLEW.1.10.0.dylib */; };
-		88D587CB19D1D1560010B547 /* libGLEWmx.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D587C919D1D1560010B547 /* libGLEWmx.1.10.0.dylib */; };
 		88D587D119D1DCAB0010B547 /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587CF19D1DCAB0010B547 /* Globals.cpp */; };
 		88D587D419D1E8500010B547 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D587D219D1E8500010B547 /* Camera.cpp */; };
 		88E71C6719DB0C180026EF9D /* TPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88E71C6519DB0C180026EF9D /* TPInterface.cpp */; };
@@ -57,6 +57,8 @@
 		885659ED19E41919002328BF /* Primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Primitives.h; path = src/Primitives.h; sourceTree = SOURCE_ROOT; };
 		885659EF19E42294002328BF /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = src/Node.cpp; sourceTree = SOURCE_ROOT; };
 		885659F019E42294002328BF /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = src/Node.h; sourceTree = SOURCE_ROOT; };
+		88586FAC19EC5D3300D2AB72 /* libGLEW.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.11.0.dylib; path = ../../../../../../../usr/local/Cellar/glew/1.11.0/lib/libGLEW.1.11.0.dylib; sourceTree = "<group>"; };
+		88586FAD19EC5D3300D2AB72 /* libGLEWmx.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEWmx.1.11.0.dylib; path = ../../../../../../../usr/local/Cellar/glew/1.11.0/lib/libGLEWmx.1.11.0.dylib; sourceTree = "<group>"; };
 		88D587BA19D1CDED0010B547 /* ANFInterpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ANFInterpreter.cpp; path = src/ANFInterpreter.cpp; sourceTree = SOURCE_ROOT; };
 		88D587BC19D1CE2E0010B547 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; };
 		88D587BD19D1CE2F0010B547 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 		88D587D319D1E8500010B547 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = src/Camera.h; sourceTree = SOURCE_ROOT; };
 		88E71C6519DB0C180026EF9D /* TPInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TPInterface.cpp; path = src/TPInterface.cpp; sourceTree = SOURCE_ROOT; };
 		88E71C6619DB0C180026EF9D /* TPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPInterface.h; path = src/TPInterface.h; sourceTree = SOURCE_ROOT; };
+		88ECAB4219EAFED1001EF82B /* cena.anf */ = {isa = PBXFileReference; lastKnownFileType = text; path = cena.anf; sourceTree = "<group>"; };
 		AA63E1AB16D41531003287C6 /* CGFExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CGFExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA63E1B716D41568003287C6 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = src/Scene.cpp; sourceTree = SOURCE_ROOT; };
 		AA63E1B816D41568003287C6 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene.h; path = src/Scene.h; sourceTree = SOURCE_ROOT; };
@@ -112,10 +115,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88586FAE19EC5D3300D2AB72 /* libGLEW.1.11.0.dylib in Frameworks */,
+				88586FAF19EC5D3300D2AB72 /* libGLEWmx.1.11.0.dylib in Frameworks */,
+				88586FAB19EC5D1B00D2AB72 /* libglui.a in Frameworks */,
 				AA63E22E16D421B5003287C6 /* libCGF.a in Frameworks */,
-				88D587CA19D1D1560010B547 /* libGLEW.1.10.0.dylib in Frameworks */,
-				88D587CB19D1D1560010B547 /* libGLEWmx.1.10.0.dylib in Frameworks */,
-				88D587C719D1D1140010B547 /* GLUI.framework in Frameworks */,
 				AA63E1D316D415CB003287C6 /* GLUT.framework in Frameworks */,
 				AA63E1CF16D415BF003287C6 /* OpenGL.framework in Frameworks */,
 			);
@@ -163,11 +166,11 @@
 				88D587D019D1DCAB0010B547 /* Globals.h */,
 				88D587D219D1E8500010B547 /* Camera.cpp */,
 				88D587D319D1E8500010B547 /* Camera.h */,
+				885659E919E41744002328BF /* Transforms.cpp */,
 				88E71C6519DB0C180026EF9D /* TPInterface.cpp */,
 				88E71C6619DB0C180026EF9D /* TPInterface.h */,
 				885659E319E415DE002328BF /* Graph.cpp */,
 				885659E419E415DE002328BF /* Graph.h */,
-				885659E919E41744002328BF /* Transforms.cpp */,
 				885659EA19E41744002328BF /* Transforms.h */,
 				885659EC19E41919002328BF /* Primitives.cpp */,
 				885659ED19E41919002328BF /* Primitives.h */,
@@ -180,6 +183,8 @@
 		AA63E1BF16D4156E003287C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				88586FAC19EC5D3300D2AB72 /* libGLEW.1.11.0.dylib */,
+				88586FAD19EC5D3300D2AB72 /* libGLEWmx.1.11.0.dylib */,
 				88D587C819D1D1560010B547 /* libGLEW.1.10.0.dylib */,
 				88D587C919D1D1560010B547 /* libGLEWmx.1.10.0.dylib */,
 				88D587C619D1D1140010B547 /* GLUI.framework */,
@@ -217,6 +222,7 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				88ECAB4219EAFED1001EF82B /* cena.anf */,
 				88D587CD19D1D2550010B547 /* demograph.xml */,
 				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,
@@ -371,6 +377,7 @@
 					/usr/local/Cellar/glui/2.36/lib,
 					/opt/local/lib,
 					"/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFlib/lib",
+					/usr/local/Cellar/glew/1.11.0/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -392,6 +399,7 @@
 					/usr/local/Cellar/glui/2.36/lib,
 					/opt/local/lib,
 					"/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFlib/lib",
+					/usr/local/Cellar/glew/1.11.0/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

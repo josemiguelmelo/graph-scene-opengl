@@ -1,11 +1,3 @@
-//
-//  TPInterface.cpp
-//  CGFExample
-//
-//  Created by José Melo on 30/09/14.
-//  Copyright (c) 2014 me. All rights reserved.
-//
-
 #include "TPInterface.h"
 #include "Camera.h"
 #include <iostream>

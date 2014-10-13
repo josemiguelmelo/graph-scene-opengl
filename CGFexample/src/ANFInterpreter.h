@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include "Transforms.h"
 #include "Primitives.h"
@@ -22,6 +23,8 @@ public:
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
     
     void loadGraph();
+    void replaceEmptyNodes();
+    std::map<std::string, Node*> * loadDescendants(TiXmlElement * descendantsElements);
     std::vector<Transforms *> * loadTransforms(TiXmlElement * transformsElements);
     std::vector<Primitives *> * loadPrimitives(TiXmlElement * primitivesElement);
     

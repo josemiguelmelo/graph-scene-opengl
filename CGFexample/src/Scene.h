@@ -32,6 +32,7 @@ public:
     void showCamera();
     void drawGraph();
     
+    
 private:
 	CGFlight* light0;
 	CGFobject* obj;
@@ -44,6 +45,8 @@ private:
     Globals * globals;
     Graph * graph;
     std::vector<Camera *> * cameras;
+    
+    long frameCount;
 
 };
 

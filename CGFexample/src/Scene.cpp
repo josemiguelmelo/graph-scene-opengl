@@ -33,24 +33,19 @@ void Scene::setGlobals(){
 
 void Scene::init()
 {
+    frameCount = 0;
     cameras = new std::vector<Camera *>();
     
     globals = new Globals();
     graph = new Graph();
-    char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFexample/data/scene.xml";
+    char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFexample/data/cena.anf";
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
     setGlobals();
     
-    cout << "primitive type = " << graph->getNodes()["initialNode"]->getPrimitives()->at(0)->getType()<<endl;
     
-    
-    
-    
-    
-    //std::cout << "X1 = " << rect->getX1()<<std::endl;
-    
+
 	// Declares and enables a light
 	float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
@@ -107,9 +102,6 @@ void Scene::showCamera()
     }
 }
 
-void Scene::drawGraph() {
-
-}
 
 void Scene::update(unsigned long t)
 {
@@ -121,7 +113,6 @@ void Scene::update(unsigned long t)
 	
 void Scene::display() 
 {
-
 	// ---- BEGIN Background, camera and axis setup
 	
 	// Clear image and depth buffer everytime we update the scene
@@ -132,8 +123,8 @@ void Scene::display()
 	glLoadIdentity();
 
 	// Apply transformations corresponding to the camera position relative to the origin
-	//CGFscene::activeCamera->applyView();
-    showCamera();
+	CGFscene::activeCamera->applyView();
+    //showCamera();
     
 	// Draw (and update) light
 	light0->draw();
@@ -142,16 +133,18 @@ void Scene::display()
 	axis.draw();
 	// ---- END Background, camera and axis setup
     
-    drawGraph();
+    GLfloat identityMatrix[4][4];
+    glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);
     
-    //graph->getNodes()["initialNode"]->getPrimitives()->at(0)->draw();
-    
-    graph->getNodes()["initialNode"]->draw();
+    graph->getNodes()->at(graph->getRootId())->draw(identityMatrix);
     
 	// We have been drawing in a memory area that is not visible - the back buffer, 
 	// while the graphics card is showing the contents of another buffer - the front buffer
 	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
 	glutSwapBuffers();
+    
+    cout << frameCount << endl;
+    frameCount++;
 }
 
 Scene::~Scene()

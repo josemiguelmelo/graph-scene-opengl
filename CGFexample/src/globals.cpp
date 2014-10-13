@@ -1,6 +1,5 @@
-
-
 #include "Globals.h"
+#include <iostream>
 
 
 GLenum Globals::getMode(){
@@ -17,10 +16,12 @@ GLenum Globals::getMode(){
 GLenum Globals::getShading(){
     if(this->shading == "flat"){
         return GL_FLAT;
-    }else if(this->mode == "gourard"){
+    }else if(this->mode == "gouraud"){
         return GL_SMOOTH;
     }
-    throw "Not valid globals shading";
+    //if no shading defined, assume flat shading, but warn in the console
+    std::cout << "WARNING: NO SHADING DEFINED - DEFAULTING TO GL_FLAT" << std::endl;
+    return GL_FLAT;
 }
 
 float Globals::getBackground(int position){

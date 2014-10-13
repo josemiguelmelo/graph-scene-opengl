@@ -7,7 +7,7 @@
  * 
  */
 
-#include <GLUI/glui.h>
+#include <GL/glui.h>
 
 // forward declaration of scene
 class CGFscene;
