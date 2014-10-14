@@ -144,8 +144,8 @@ void Scene::display()
     GLfloat identityMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);
     
-    cout << textures->at(appearances->begin()->second->getTextureRef())->getFile();
-    appearances->begin()->second->apply();
+    Appearance * appearance = new Appearance();
+    appearance->setShininess(1);
     graph->getNodes()->at(graph->getRootId())->draw(identityMatrix);
     
 	// We have been drawing in a memory area that is not visible - the back buffer, 

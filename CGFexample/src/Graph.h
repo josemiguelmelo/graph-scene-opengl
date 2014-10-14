@@ -13,7 +13,6 @@ class Graph{
 private:
     std::map<std::string, Node *> * nodes;
     std::string rootid;
-    
 public:
     Graph(){
         nodes = new std::map<std::string, Node *>;

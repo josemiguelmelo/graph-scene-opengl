@@ -65,6 +65,12 @@
 		885659F019E42294002328BF /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = src/Node.h; sourceTree = SOURCE_ROOT; };
 		88586FAC19EC5D3300D2AB72 /* libGLEW.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.11.0.dylib; path = ../../../../../../../usr/local/Cellar/glew/1.11.0/lib/libGLEW.1.11.0.dylib; sourceTree = "<group>"; };
 		88586FAD19EC5D3300D2AB72 /* libGLEWmx.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEWmx.1.11.0.dylib; path = ../../../../../../../usr/local/Cellar/glew/1.11.0/lib/libGLEWmx.1.11.0.dylib; sourceTree = "<group>"; };
+		889F3C7419ED852D009A4D74 /* floor.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = floor.jpg; sourceTree = "<group>"; };
+		889F3C7519ED882A009A4D74 /* trunk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = trunk.jpg; sourceTree = "<group>"; };
+		889F3C7619ED896C009A4D74 /* leaves.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leaves.jpg; sourceTree = "<group>"; };
+		889F3C7719ED89E1009A4D74 /* wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall.jpg; sourceTree = "<group>"; };
+		889F3C7819ED8A81009A4D74 /* door.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = door.jpg; sourceTree = "<group>"; };
+		889F3C7919ED8AE7009A4D74 /* roof.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = roof.jpg; sourceTree = "<group>"; };
 		88D587BA19D1CDED0010B547 /* ANFInterpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ANFInterpreter.cpp; path = src/ANFInterpreter.cpp; sourceTree = SOURCE_ROOT; };
 		88D587BC19D1CE2E0010B547 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; };
 		88D587BD19D1CE2F0010B547 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; };
@@ -232,8 +238,14 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				889F3C7419ED852D009A4D74 /* floor.jpg */,
+				889F3C7619ED896C009A4D74 /* leaves.jpg */,
+				889F3C7719ED89E1009A4D74 /* wall.jpg */,
+				889F3C7919ED8AE7009A4D74 /* roof.jpg */,
 				88ECAB4219EAFED1001EF82B /* cena.anf */,
+				889F3C7519ED882A009A4D74 /* trunk.jpg */,
 				88D587CD19D1D2550010B547 /* demograph.xml */,
+				889F3C7819ED8A81009A4D74 /* door.jpg */,
 				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,
 				AA63E23C16D422CA003287C6 /* texshader.vert */,

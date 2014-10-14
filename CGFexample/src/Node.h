@@ -9,7 +9,7 @@
 #include <map>
 #include "CGFappearance.h"
 #include "CGFapplication.h"
-
+#include "Appearance.h"
 
 class Node{
 private:
@@ -20,6 +20,7 @@ private:
     std::vector<Primitives *> * primitives;
     std::map<std::string, Node *> * descendants;
     GLfloat matrix[4][4];
+    Appearance * appearance;
     
 public:
     
@@ -34,20 +35,24 @@ public:
     std::vector<Transforms *> * getTransforms(){ return this->transforms; }
     std::vector<Primitives *> * getPrimitives(){ return this->primitives; }
     std::map<std::string, Node*> * getDescendants(){ return this->descendants; }
+    Appearance * getAppearance(){ return this->appearance; }
     
     void setID(std::string id){ this->id = id; }
-    void setAppearanceRef(std::string appearanceref){ this->apperanceref = apperanceref; }
+    void setAppearanceRef(std::string appearanceref){ this->apperanceref = appearanceref; }
     void setTransforms(std::vector<Transforms *> * transforms){ this->transforms=transforms; }
     void setPrimitives(std::vector<Primitives *> * primitives) { this->primitives=primitives;}
     void setDescendants(std::map<std::string, Node*> * descendants) { this->descendants=descendants; }
+    
     void addTransforms(Transforms * transform){ transforms->push_back(transform);}
     void addPrimitives(Primitives * primitive){ primitives->push_back(primitive);}
     void addDescendant(Node * node){ descendants->insert(std::pair<std::string,Node *>(node->getID(), node)); }
+    void addAppearance(Appearance * appearance){ this->appearance = appearance;}
     
     bool isInitialized() {
         return this->initialized;
     }
     
+    void draw(GLfloat previousMatrix[4][4], Appearance * previousAppearance);
     void draw(GLfloat previousMatrix[4][4]);
     
     void calculateMatrix();

@@ -31,9 +31,6 @@ public:
     float getTexLengthS(){ return this->texlength_s; }
     float getTexLengthT(){ return this->texlength_t; }
     
-    void load();
-    void apply();
-    
 };
 
 #endif /* defined(__CGFExample__Texture__) */

@@ -16,9 +16,10 @@ GLenum Globals::getMode(){
 GLenum Globals::getShading(){
     if(this->shading == "flat"){
         return GL_FLAT;
-    }else if(this->mode == "gouraud"){
+    }else if(this->shading == "gouraud"){
         return GL_SMOOTH;
     }
+    
     //if no shading defined, assume flat shading, but warn in the console
     std::cout << "WARNING: NO SHADING DEFINED - DEFAULTING TO GL_FLAT" << std::endl;
     return GL_FLAT;

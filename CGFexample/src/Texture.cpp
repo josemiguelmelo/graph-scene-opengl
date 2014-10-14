@@ -5,7 +5,3 @@
 
 #include "Texture.h"
 
-
-void Texture::load(){
-    this->loadTexture(this->file);
-}

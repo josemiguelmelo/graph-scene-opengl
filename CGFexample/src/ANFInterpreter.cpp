@@ -16,6 +16,8 @@ void ANFInterpreter::loadGraph(){
         
         TiXmlElement * descendantsElement = nodeElements->FirstChildElement("descendants");
         
+        TiXmlElement * appearanceElement = nodeElements->FirstChildElement("appearanceref");
+        
         
         
         if(primitivesElements)
@@ -30,7 +32,14 @@ void ANFInterpreter::loadGraph(){
         {
             node->setDescendants(loadDescendants(descendantsElement));
         }
+        
         node->setID(nodeID);
+        node->setAppearanceRef(appearanceElement->Attribute("id"));
+        cout << "appearance ref = " << appearanceElement->Attribute("id");
+        if(strcmp(appearanceElement->Attribute("id"), "inherit")!=0){
+            cout << "add appearance " << appearanceElement->Attribute("id") <<endl;
+            node->addAppearance(scene->getAppearances()->at(appearanceElement->Attribute("id")));
+        }
         
         node->calculateMatrix();
         
@@ -96,6 +105,7 @@ std::map<std::string, Appearance*> * ANFInterpreter::loadAppearances(){
             appearance->setShininess(shininess);
             appearance->setId(id);
             appearance->setTextureRef(textureref);
+            cout << "Texture file= " << scene->getTextures()->at(textureref)->getFile()<<endl;
             appearance->setTexture(scene->getTextures()->at(textureref)->getFile());
             
             
@@ -543,10 +553,15 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
         }
         
     }
+    
+    printf("Processing textures\n");
+    scene->setTextures(loadTextures());
+    
+    printf("Processing appearances\n");
+    scene->setAppearances(loadAppearances());
+    
     printf("Processing graph\n");
     loadGraph();
-    scene->setTextures(loadTextures());
-    scene->setAppearances(loadAppearances());
     
     cout << "Replacing empty nodes" << endl;
     replaceEmptyNodes();
