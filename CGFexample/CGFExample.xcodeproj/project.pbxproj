@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8841390B19ED51A100D550E0 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8841390919ED51A100D550E0 /* Texture.cpp */; };
+		8841390E19ED5AC600D550E0 /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8841390C19ED5AC600D550E0 /* Appearance.cpp */; };
 		885659E519E415DE002328BF /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E319E415DE002328BF /* Graph.cpp */; };
 		885659EB19E41744002328BF /* Transforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E919E41744002328BF /* Transforms.cpp */; };
 		885659EE19E41919002328BF /* Primitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659EC19E41919002328BF /* Primitives.cpp */; };
@@ -49,6 +51,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8841390919ED51A100D550E0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = src/Texture.cpp; sourceTree = SOURCE_ROOT; };
+		8841390A19ED51A100D550E0 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = src/Texture.h; sourceTree = SOURCE_ROOT; };
+		8841390C19ED5AC600D550E0 /* Appearance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Appearance.cpp; path = src/Appearance.cpp; sourceTree = SOURCE_ROOT; };
+		8841390D19ED5AC600D550E0 /* Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Appearance.h; path = src/Appearance.h; sourceTree = SOURCE_ROOT; };
 		885659E319E415DE002328BF /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Graph.cpp; path = src/Graph.cpp; sourceTree = SOURCE_ROOT; };
 		885659E419E415DE002328BF /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Graph.h; path = src/Graph.h; sourceTree = SOURCE_ROOT; };
 		885659E919E41744002328BF /* Transforms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transforms.cpp; path = src/Transforms.cpp; sourceTree = SOURCE_ROOT; };
@@ -176,6 +182,10 @@
 				885659ED19E41919002328BF /* Primitives.h */,
 				885659EF19E42294002328BF /* Node.cpp */,
 				885659F019E42294002328BF /* Node.h */,
+				8841390919ED51A100D550E0 /* Texture.cpp */,
+				8841390A19ED51A100D550E0 /* Texture.h */,
+				8841390C19ED5AC600D550E0 /* Appearance.cpp */,
+				8841390D19ED5AC600D550E0 /* Appearance.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -296,8 +306,10 @@
 				88D587C419D1CE2F0010B547 /* tinyxmlerror.cpp in Sources */,
 				AA63E1BE16D41568003287C6 /* main.cpp in Sources */,
 				885659EE19E41919002328BF /* Primitives.cpp in Sources */,
+				8841390B19ED51A100D550E0 /* Texture.cpp in Sources */,
 				885659EB19E41744002328BF /* Transforms.cpp in Sources */,
 				88E71C6719DB0C180026EF9D /* TPInterface.cpp in Sources */,
+				8841390E19ED5AC600D550E0 /* Appearance.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

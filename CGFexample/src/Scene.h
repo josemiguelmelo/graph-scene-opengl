@@ -6,9 +6,10 @@
 #include "Globals.h"
 #include "Camera.h"
 #include "Graph.h"
+#include "Texture.h"
 
 #include <vector>
-
+#include "Appearance.h"
 
 #include "CGFinterface.h"
 
@@ -32,6 +33,11 @@ public:
     void showCamera();
     void drawGraph();
     
+    void setTextures(std::map<std::string, Texture*> * textures){ this->textures = textures; }
+    std::map<std::string, Texture *> * getTextures() {return this->textures;}
+    
+    void setAppearances(std::map<std::string, Appearance* >* appearances){ this->appearances = appearances;}
+    std::map<std::string, Appearance *> * getAppearances(){ return this->appearances; }
     
 private:
 	CGFlight* light0;
@@ -39,6 +45,10 @@ private:
 	CGFappearance* materialAppearance;
 	CGFappearance* textureAppearance;
 	CGFshader* shader;
+    
+    
+    std::map<std::string, Texture *> * textures;
+    std::map<std::string, Appearance *> * appearances;
     
     Camera * activeCamera;
     

@@ -16,6 +16,8 @@ void ANFInterpreter::loadGraph(){
         
         TiXmlElement * descendantsElement = nodeElements->FirstChildElement("descendants");
         
+        
+        
         if(primitivesElements)
         {
             node->setPrimitives(loadPrimitives(primitivesElements));
@@ -28,7 +30,6 @@ void ANFInterpreter::loadGraph(){
         {
             node->setDescendants(loadDescendants(descendantsElement));
         }
-        
         node->setID(nodeID);
         
         node->calculateMatrix();
@@ -38,6 +39,99 @@ void ANFInterpreter::loadGraph(){
         nodeElements = nodeElements->NextSiblingElement();
     }
 }
+
+std::map<std::string, Texture*> * ANFInterpreter::loadTextures(){
+    
+    std::map<std::string, Texture*> * textures = new std::map<std::string, Texture*>();
+    
+    if(texturesElement){
+        TiXmlElement * textureElement = texturesElement->FirstChildElement("texture");
+        
+        while(textureElement) {
+            std::string id = textureElement->Attribute("id");
+            std::string file = textureElement->Attribute("file");
+            std::string texlength_s_string = textureElement->Attribute("texlength_s");
+            std::string texlength_t_string = textureElement->Attribute("texlength_t");
+            float texlength_s, texlength_t;
+
+            sscanf(texlength_s_string.c_str(), "%f", &texlength_s);
+            sscanf(texlength_t_string.c_str(), "%f", &texlength_t);
+            
+            
+            
+            Texture * texture = new Texture();
+            texture->setId(id);
+            texture->setFile(file);
+            texture->setTexLengthS(texlength_s);
+            texture->setTexLengthT(texlength_t);
+            
+            
+            textures->insert(std::pair<std::string,Texture *>(texture->getId(), texture));
+            
+            textureElement = textureElement->NextSiblingElement("texture");
+        }
+        
+    }
+    
+    return textures;
+}
+
+std::map<std::string, Appearance*> * ANFInterpreter::loadAppearances(){
+    std::map<std::string, Appearance*> * appearances = new std::map<std::string, Appearance*>();
+    
+    if(appearancesElement){
+        
+        TiXmlElement * appearanceElement = appearancesElement->FirstChildElement("appearance");
+        
+        while (appearanceElement) {
+            std::string id = appearanceElement->Attribute("id");
+            std::string shininess_string = appearanceElement->Attribute("shininess");
+            std::string textureref = appearanceElement->Attribute("textureref");
+            float shininess;
+            
+            sscanf(shininess_string.c_str(), "%f", &shininess);
+            
+            Appearance * appearance = new Appearance();
+            
+            appearance->setShininess(shininess);
+            appearance->setId(id);
+            appearance->setTextureRef(textureref);
+            appearance->setTexture(scene->getTextures()->at(textureref)->getFile());
+            
+            
+            
+            TiXmlElement * appearanceComponent = appearanceElement->FirstChildElement("component");
+            while(appearanceComponent){
+                std::string type = appearanceComponent->Attribute("type");
+                std::string value_string = appearanceComponent->Attribute("value");
+                float value[4];
+                
+                sscanf(value_string.c_str(), "%f %f %f %f", &value[0], &value[1], &value[2], &value[3]);
+                
+                
+                
+                if(strcmp(type.c_str(), "ambient")){
+                    appearance->setAmbient(value);
+                }if(strcmp(type.c_str(), "diffuse")){
+                    appearance->setDiffuse(value);
+                }if(strcmp(type.c_str(), "specular")){
+                    appearance->setSpecular(value);
+                }
+                appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
+                
+                appearances->insert(std::pair<std::string, Appearance *> (appearance->getId(), appearance));
+                
+                appearanceComponent = appearanceComponent->NextSiblingElement("component");
+            }
+            appearanceElement = appearanceElement->NextSiblingElement("appearance");
+        }
+        
+    }
+    return appearances;
+}
+
+
+
 
 void ANFInterpreter::replaceEmptyNodes() {
     map<std::string,Node*>::iterator node=this->scene->getGraph()->getNodes()->begin();
@@ -79,6 +173,8 @@ std::map<std::string, Node*> * ANFInterpreter::loadDescendants(TiXmlElement * de
     return descendants;
     
 }
+
+
 
 std::vector<Transforms *> * ANFInterpreter::loadTransforms(TiXmlElement * transformsElements) {
     std::vector<Transforms *> * transforms = new std::vector<Transforms*>();
@@ -299,6 +395,8 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     globalsElement = anfScene->FirstChildElement( "globals" );
     camerasElement = anfScene->FirstChildElement("cameras");
     graphElement = anfScene->FirstChildElement("graph");
+    texturesElement = anfScene->FirstChildElement("textures");
+    appearancesElement = anfScene->FirstChildElement("appearances");
     
     Globals * globals = scene->getGlobals();
     std::vector<Camera *> * cameras = scene->getCameras();
@@ -447,6 +545,9 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     }
     printf("Processing graph\n");
     loadGraph();
+    scene->setTextures(loadTextures());
+    scene->setAppearances(loadAppearances());
+    
     cout << "Replacing empty nodes" << endl;
     replaceEmptyNodes();
     cout << endl << "Finished XML Parsing" << endl << endl;

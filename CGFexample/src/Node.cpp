@@ -2,7 +2,7 @@
 
 void Node::draw(GLfloat previousMatrix[4][4]){
     
-    cout << "Drawing: " << this->getID() << endl;
+    //cout << "Drawing: " << this->getID() << endl;
     
     glLoadIdentity();
     glMultMatrixf(*previousMatrix);
@@ -12,7 +12,7 @@ void Node::draw(GLfloat previousMatrix[4][4]){
     glGetFloatv(GL_MODELVIEW_MATRIX, &multipliedMatrix[0][0]);
     
     for(int i = 0; i < primitives->size(); i++){
-        cout << primitives->at(i)->getType() << endl;
+        //cout << primitives->at(i)->getType() << endl;
         primitives->at(i)->draw();
     }
     

@@ -38,7 +38,7 @@ void Scene::init()
     
     globals = new Globals();
     graph = new Graph();
-    char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/LAIG/CGFlib-master/CGFexample/data/cena.anf";
+    char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/cena.anf";
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
@@ -55,11 +55,14 @@ void Scene::init()
 	glNormal3f(0,0,1);
 
 	obj=new ExampleObject();
-	materialAppearance=new CGFappearance();
-	textureAppearance=new CGFappearance("../data/pyramid.jpg",GL_REPEAT, GL_REPEAT);
+    materialAppearance=new CGFappearance();
 	shader=new CGFshader("../data/texshader.vert","../data/texshader.frag");
 
 	setUpdatePeriod(30);
+    
+    for (std::map<std::string, Appearance*>::iterator it=appearances->begin(); it != appearances->end(); it++) {
+        cout << "Appearance ID = " <<  it->second->getId() << endl;
+    }
 }
 
 
@@ -136,6 +139,8 @@ void Scene::display()
     GLfloat identityMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);
     
+    cout << textures->at(appearances->begin()->second->getTextureRef())->getFile();
+    appearances->begin()->second->apply();
     graph->getNodes()->at(graph->getRootId())->draw(identityMatrix);
     
 	// We have been drawing in a memory area that is not visible - the back buffer, 
@@ -143,7 +148,7 @@ void Scene::display()
 	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
 	glutSwapBuffers();
     
-    cout << frameCount << endl;
+    //cout << frameCount << endl;
     frameCount++;
 }
 

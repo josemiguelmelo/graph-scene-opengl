@@ -34,6 +34,7 @@ void Triangle::draw(){
 void Cylinder::draw(){
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
+    gluQuadricTexture(quadratic, true);
     gluQuadricOrientation(quadratic, GLU_EXTERIOR);
     gluCylinder(quadratic,
                 this->base,
@@ -50,6 +51,7 @@ void Cylinder::draw(){
 void Sphere::draw(){
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
+    gluQuadricTexture(quadratic, true);
     gluSphere(quadratic,
                 this->radius,
                 this->slices,
