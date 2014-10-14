@@ -46,10 +46,14 @@ void Scene::init()
     
     
 
-	// Declares and enables a light
-	float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
+    // Declares and enables a light
+    float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
+    float light1_pos[4] = {10.0, 10.0, 5.0, 1.0};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
 	light0->enable();
+    
+    light1 = new CGFlight(GL_LIGHT1, light1_pos);
+    light1->enable();
 
 	// Defines a default normal
 	glNormal3f(0,0,1);
@@ -131,6 +135,7 @@ void Scene::display()
     
 	// Draw (and update) light
 	light0->draw();
+    light1->draw();
 
 	// Draw axis
 	axis.draw();

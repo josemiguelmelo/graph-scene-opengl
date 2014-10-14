@@ -40,7 +40,8 @@ public:
     std::map<std::string, Appearance *> * getAppearances(){ return this->appearances; }
     
 private:
-	CGFlight* light0;
+    CGFlight* light0;
+    CGFlight* light1;
 	CGFobject* obj;
 	CGFappearance* materialAppearance;
 	CGFappearance* textureAppearance;
