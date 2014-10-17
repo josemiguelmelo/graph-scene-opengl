@@ -6,13 +6,20 @@ void Rectangle::draw(){
 
     glBegin(GL_QUADS);
     
+    glNormal3f(x1, y1, 0);
     glTexCoord2d(0,0);
     glVertex3d(x1,y1,0);
+    
     glTexCoord2d(1,0);
+    glNormal3f(x2, y1, 0);
     glVertex3d(x2,y1,0);
+    
     glTexCoord2d(1,1);
+    glNormal3f(x2, y2, 0);
     glVertex3d(x2,y2,0);
+    
     glTexCoord2d(0,1);
+    glNormal3f(x1, y2, 0);
     glVertex3d(x1,y2,0);
         
     glEnd();

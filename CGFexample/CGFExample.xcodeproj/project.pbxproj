@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8805CA1519F1532F005DB0E4 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8805CA1319F1532F005DB0E4 /* Light.cpp */; };
 		8841390B19ED51A100D550E0 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8841390919ED51A100D550E0 /* Texture.cpp */; };
 		8841390E19ED5AC600D550E0 /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8841390C19ED5AC600D550E0 /* Appearance.cpp */; };
 		885659E519E415DE002328BF /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E319E415DE002328BF /* Graph.cpp */; };
@@ -51,6 +52,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8805CA1319F1532F005DB0E4 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = src/Light.cpp; sourceTree = SOURCE_ROOT; };
+		8805CA1419F1532F005DB0E4 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = src/Light.h; sourceTree = SOURCE_ROOT; };
 		8841390919ED51A100D550E0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = src/Texture.cpp; sourceTree = SOURCE_ROOT; };
 		8841390A19ED51A100D550E0 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = src/Texture.h; sourceTree = SOURCE_ROOT; };
 		8841390C19ED5AC600D550E0 /* Appearance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Appearance.cpp; path = src/Appearance.cpp; sourceTree = SOURCE_ROOT; };
@@ -192,6 +195,8 @@
 				8841390A19ED51A100D550E0 /* Texture.h */,
 				8841390C19ED5AC600D550E0 /* Appearance.cpp */,
 				8841390D19ED5AC600D550E0 /* Appearance.h */,
+				8805CA1319F1532F005DB0E4 /* Light.cpp */,
+				8805CA1419F1532F005DB0E4 /* Light.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8805CA1519F1532F005DB0E4 /* Light.cpp in Sources */,
 				88D587BB19D1CDED0010B547 /* ANFInterpreter.cpp in Sources */,
 				88D587C319D1CE2F0010B547 /* tinyxml.cpp in Sources */,
 				88D587D419D1E8500010B547 /* Camera.cpp in Sources */,

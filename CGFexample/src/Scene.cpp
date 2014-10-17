@@ -35,6 +35,7 @@ void Scene::init()
 {
     frameCount = 0;
     cameras = new std::vector<Camera *>();
+    lights = new std::vector<Light *>();
     
     globals = new Globals();
     graph = new Graph();
@@ -44,16 +45,12 @@ void Scene::init()
     
     setGlobals();
     
-    
-
-    // Declares and enables a light
-    float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
-    float light1_pos[4] = {10.0, 10.0, 5.0, 1.0};
-	light0 = new CGFlight(GL_LIGHT0, light0_pos);
-	light0->enable();
-    
-    light1 = new CGFlight(GL_LIGHT1, light1_pos);
-    light1->enable();
+    for(int i=0; i<lights->size(); i++) {
+        cout << "sim" << endl;
+        CGFlight * light = new CGFlight(GL_LIGHT0 + i, lights->at(i)->getPos());
+        light->enable();
+        cgfLights.push_back(light);
+    }
 
 	// Defines a default normal
 	glNormal3f(0,0,1);
@@ -83,7 +80,8 @@ void Scene::showCamera()
         glLoadIdentity();
         gluPerspective(perspCamera->getAngle(), 1, perspCamera->getNear(), perspCamera->getFar());
      
-        gluLookAt(perspCamera->getPos(0), perspCamera->getPos(1), perspCamera->getPos(2), perspCamera->getTarget(0), perspCamera->getTarget(1), perspCamera->getTarget(2), 0.0f, 1.0f, 0.0f);
+        gluLookAt(perspCamera->getPos(0), perspCamera->getPos(1), perspCamera->getPos(2), perspCamera->getTarget(0), perspCamera->getTarget(1), perspCamera->getTarget(2), 0.0, 1.0, 0.0);
+        glMatrixMode(GL_MODELVIEW);
       
     }
     if(activeCamera->getType() == "ortho") {
@@ -91,7 +89,6 @@ void Scene::showCamera()
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(orthoCamera->getLeft(), orthoCamera->getRight(), orthoCamera->getBottom(), orthoCamera->getTop(), orthoCamera->getNear(), orthoCamera->getFar());
-        glMatrixMode(GL_MODELVIEW);
         switch (orthoCamera->getDirection()) {
             case 'x':
                 glRotated(90,0,1,0);
@@ -106,6 +103,7 @@ void Scene::showCamera()
             default:
                 break;
         }
+        glMatrixMode(GL_MODELVIEW);
     }
 }
 
@@ -130,12 +128,12 @@ void Scene::display()
 	glLoadIdentity();
 
 	// Apply transformations corresponding to the camera position relative to the origin
-	CGFscene::activeCamera->applyView();
-    //showCamera();
+	//CGFscene::activeCamera->applyView();
+    showCamera();
     
-	// Draw (and update) light
-	light0->draw();
-    light1->draw();
+    for(int i = 0; i < cgfLights.size(); i++) {
+        cgfLights.at(i)->draw();
+    }
 
 	// Draw axis
 	axis.draw();

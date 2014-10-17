@@ -1,5 +1,119 @@
 #include "ANFInterpreter.h"
 
+void loadLightComponents(Light* light,  TiXmlElement * componentElement){
+    while(componentElement)
+    {
+        if(strcmp(componentElement->Attribute("type"), "ambient") == 0)
+        {
+            float ambient[4];
+            
+            std::string ambientString = componentElement->Attribute("value");
+            
+            sscanf(ambientString.c_str(), "%f %f %f %f", &ambient[0], &ambient[1], &ambient[2], &ambient[3]);
+            
+            light->setAmbient(ambient);
+        } else if(strcmp(componentElement->Attribute("type"), "diffuse") == 0)
+        {
+            float diffuse[4];
+            
+            std::string diffuseString = componentElement->Attribute("value");
+            
+            sscanf(diffuseString.c_str(), "%f %f %f %f", &diffuse[0], &diffuse[1], &diffuse[2], &diffuse[3]);
+            
+            light->setDiffuse(diffuse);
+        } else if(strcmp(componentElement->Attribute("type"), "specular") == 0)
+        {
+            float specular[4];
+            
+            std::string specularString = componentElement->Attribute("value");
+            
+            sscanf(specularString.c_str(), "%f %f %f %f", &specular[0], &specular[1], &specular[2], &specular[3]);
+            
+            light->setSpecular(specular);
+        }
+        
+        componentElement = componentElement->NextSiblingElement();
+    }
+}
+void ANFInterpreter::loadLights(){
+    TiXmlElement * lightElement = lightsElement->FirstChildElement("light");
+    while(lightElement){
+        std::string lightId = lightElement->Attribute("id");
+        cout << "Processing Light: " << lightId << endl;
+        
+        std::string enabledString = lightElement->Attribute("enabled");
+        
+        
+        
+        std::string markerString = lightElement->Attribute("marker");
+        
+        
+        
+        float pos[3];
+        std::string posString = lightElement->Attribute("pos");
+        sscanf(posString.c_str(), "%f %f %f", &pos[0], &pos[1], &pos[2]);
+        
+        
+        
+        TiXmlElement * componentElement = lightElement->FirstChildElement("component");
+        
+        if(strcmp(lightElement->Attribute("type"), "omni") == 0)
+        {
+            Omni * light = new Omni();
+            
+            this->scene->getLights()->push_back(light);
+            
+        } else if(strcmp(lightElement->Attribute("type"), "spot") == 0)
+        {
+            Spot * light = new Spot();
+            
+            float target[4];
+            
+            std::string targetString = lightElement->Attribute("target");
+            
+            sscanf(targetString.c_str(), "%f %f %f %f", &target[0], &target[1], &target[2], &target[3]);
+            
+            
+            float angle;
+            
+            std::string angleString = lightElement->Attribute("angle");
+            
+            sscanf(targetString.c_str(), "%f", &angle);
+            
+            float exponent;
+            
+            std::string exponentString = lightElement->Attribute("exponent");
+            
+            sscanf(exponentString.c_str(), "%f", &exponent);
+            
+            light->setTarget(target);
+            light->setExponent(exponent);
+            light->setAngle(angle);
+            
+            light->setPos(pos);
+            
+            if(enabledString == "true")
+                light->setEnabled(true);
+            else
+                light->setEnabled(false);
+            
+            
+            if(markerString == "true")
+                light->setMarker(true);
+            else
+                light->setMarker(false);
+            
+            loadLightComponents(light, componentElement);
+            this->scene->getLights()->push_back(light);
+            cout << "HERE" << endl;
+        }
+        
+        
+        
+        lightElement = lightElement->NextSiblingElement();
+    }
+}
+
 void ANFInterpreter::loadGraph(){
     std::string rootid = graphElement->Attribute("rootid");
     this->scene->getGraph()->setRootId(rootid);
@@ -407,6 +521,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     graphElement = anfScene->FirstChildElement("graph");
     texturesElement = anfScene->FirstChildElement("textures");
     appearancesElement = anfScene->FirstChildElement("appearances");
+    lightsElement = anfScene->FirstChildElement("lights");
     
     Globals * globals = scene->getGlobals();
     std::vector<Camera *> * cameras = scene->getCameras();
@@ -559,6 +674,8 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     
     printf("Processing appearances\n");
     scene->setAppearances(loadAppearances());
+    
+    loadLights();
     
     printf("Processing graph\n");
     loadGraph();
