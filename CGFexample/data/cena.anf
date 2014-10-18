@@ -28,10 +28,10 @@
 	<lights>
 
 		<light id="omniCamera" type="omni" enabled="true" marker="true" pos="10 5 20" >
-			<component type="ambient" value="0.1 0.1 0.4 1" />
+			<component type="ambient" value="1 1 1 1" />
 			<component type="diffuse" value="0.1 0.8 0.4 1" />
-			<component type="specular" value="0.6 0.9 0.1 1" />
-        </light>
+			<component type="specular" value="0 0.9 0 1" />
+		</light>
 
 		<light id="spotCamera1" type="spot" enabled="false" marker="true" pos="5 10 0" target="1 1 1" angle="90" exponent="90" >
 			<component type="ambient" value="1 1 0.4 1" />
@@ -43,21 +43,20 @@
 			<component type="ambient" value="0.4 0.4 0.4 1" />
 			<component type="diffuse" value="0.8 0.8 0.8 1" />
 			<component type="specular" value="0.2 0.2 0.2 1" />
-
 		</light>
 	</lights>
 
 	<textures>
 		<texture id="wall" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/wall.jpg" texlength_s="1" texlength_t="1" />
-<texture id="trunk" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/trunk.jpg" texlength_s="0.1" texlength_t="1" />
-<texture id="court" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/floor.jpg" texlength_s="3" texlength_t="3" />
-<texture id="leaves" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/leaves.jpg" texlength_s="3" texlength_t="3" />
-<texture id="door" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/door.jpg" texlength_s="0.1" texlength_t="0.1" />
-<texture id="roof" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/roof.jpg" texlength_s="3" texlength_t="3" />
+		<texture id="trunk" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/trunk.jpg" texlength_s="0.1" texlength_t="1" />
+		<texture id="court" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/floor.jpg" texlength_s="3" texlength_t="3" />
+		<texture id="leaves" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/leaves.jpg" texlength_s="3" texlength_t="3" />
+		<texture id="door" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/door.jpg" texlength_s="0.1" texlength_t="0.1" />
+		<texture id="roof" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/roof.jpg" texlength_s="3" texlength_t="3" />
 	</textures>
 
 	<!-- bloco de materiais; -->
-	<appearances>
+	<appearances>s
 
 		<appearance id="wall" shininess="10" textureref="wall">
 			<component type="ambient" value="0.5 0.5 0.5 1" />
@@ -70,30 +69,30 @@
 			<component type="specular" value="0.5 0.5 0.5 1" />
 		</appearance>
 
-<appearance id="trunk" shininess="100" textureref="trunk" >
-<component type="ambient" value="1 0.8 0.9 1" />
-<component type="diffuse" value="0.4 0.4 0.5 1" />
-<component type="specular" value="1 0.9 0.5 1" />
-</appearance>
+		<appearance id="trunk" shininess="100" textureref="trunk" >
+			<component type="ambient" value="1 0.8 0.9 1" />
+			<component type="diffuse" value="0.4 0.4 0.5 1" />
+			<component type="specular" value="1 0.9 0.5 1" />
+		</appearance>
 
 
-<appearance id="leaves" shininess="50" textureref="leaves" >
-<component type="ambient" value="0.4 0.4 0.4 1" />
-<component type="diffuse" value="0.3 0.3 0.3 1" />
-<component type="specular" value="0.5 0.5 0.5 1" />
-</appearance>
+		<appearance id="leaves" shininess="50" textureref="leaves" >
+			<component type="ambient" value="0.4 0.4 0.4 1" />
+			<component type="diffuse" value="0.3 0.3 0.3 1" />
+			<component type="specular" value="0.5 0.5 0.5 1" />
+		</appearance>
 
-<appearance id="door" shininess="50" textureref="door" >
-<component type="ambient" value="0.4 0.4 0.4 1" />
-<component type="diffuse" value="0.3 0.3 0.3 1" />
-<component type="specular" value="0.5 0.5 0.5 1" />
-</appearance>
+		<appearance id="door" shininess="50" textureref="door" >
+			<component type="ambient" value="0.4 0.4 0.4 1" />
+			<component type="diffuse" value="0.3 0.3 0.3 1" />
+			<component type="specular" value="0.5 0.5 0.5 1" />
+		</appearance>
 
-<appearance id="roof" shininess="50" textureref="door" >
-<component type="ambient" value="0.4 0.4 0.4 1" />
-<component type="diffuse" value="0.3 0.3 0.3 1" />
-<component type="specular" value="0.5 0.5 0.5 1" />
-</appearance>
+		<appearance id="roof" shininess="50" textureref="door" >
+			<component type="ambient" value="0.4 0.4 0.4 1" />
+			<component type="diffuse" value="0.3 0.3 0.3 1" />
+			<component type="specular" value="0.5 0.5 0.5 1" />
+		</appearance>
 
 
 

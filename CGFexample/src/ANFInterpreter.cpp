@@ -62,8 +62,14 @@ void ANFInterpreter::loadLights(){
             light->setId(lightId);
             light->setPos(pos);
             
-            loadLightComponents(light, componentElement);
+            if(strcmp(enabledString.c_str(),"true") ==0){
+                light->setEnabled(true);
+            }
+            else{
+                light->setEnabled(false);
+            }
             
+            loadLightComponents(light, componentElement);            
             this->scene->getLights()->push_back(light);
             
         } else if(strcmp(lightElement->Attribute("type"), "spot") == 0)
@@ -221,9 +227,13 @@ std::map<std::string, Appearance*> * ANFInterpreter::loadAppearances(){
             appearance->setShininess(shininess);
             appearance->setId(id);
             appearance->setTextureRef(textureref);
-            cout << "Texture file= " << scene->getTextures()->at(textureref)->getFile()<<endl;
-            appearance->setTexture(scene->getTextures()->at(textureref)->getFile());
-            
+            if(strcmp(textureref.c_str(),"")!=0 ){
+                cout << "Texture file= " << scene->getTextures()->at(textureref)->getFile()<<endl;
+                appearance->setTexture(scene->getTextures()->at(textureref)->getFile());
+                
+                appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
+            }else{
+            }
             
             TiXmlElement * appearanceComponent = appearanceElement->FirstChildElement("component");
             while(appearanceComponent){
@@ -235,14 +245,13 @@ std::map<std::string, Appearance*> * ANFInterpreter::loadAppearances(){
                 
                 
                 
-                if(strcmp(type.c_str(), "ambient")){
+                if(strcmp(type.c_str(), "ambient") == 0){
                     appearance->setAmbient(value);
-                }if(strcmp(type.c_str(), "diffuse")){
+                }if(strcmp(type.c_str(), "diffuse") == 0){
                     appearance->setDiffuse(value);
-                }if(strcmp(type.c_str(), "specular")){
+                }if(strcmp(type.c_str(), "specular") == 0){
                     appearance->setSpecular(value);
                 }
-                appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
                 
                 appearances->insert(std::pair<std::string, Appearance *> (appearance->getId(), appearance));
                 
