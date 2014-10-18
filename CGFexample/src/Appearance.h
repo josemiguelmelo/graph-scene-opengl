@@ -16,7 +16,6 @@ class Appearance: public CGFappearance{
 private:
     std::string id;
     std::string textureref;
-    float ambient[4], diffuse[4], specular[4];
     
 public:
     

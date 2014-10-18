@@ -200,9 +200,29 @@ void Scene::display()
 
 Scene::~Scene()
 {
+    
+    
+    cameras = new std::vector<Camera *>();
+    lights = new std::vector<Light *>();
+    
+    globals = new Globals();
+    graph = new Graph();
+    
+    cgfLights = new std::vector<CGFlight *>();
+    
 	delete(shader);
 	delete(textureAppearance);
 	delete(materialAppearance);
 	delete(obj);
-	delete(light0);
+    for(unsigned int i= 0; i< cameras->size(); i++){
+        delete(cameras->at(i));
+    }
+    for(unsigned int i= 0; i< lights->size(); i++){
+        delete(lights->at(i));
+    }
+    for(unsigned int i= 0; i< cgfLights->size(); i++){
+        delete(cgfLights->at(i));
+    }
+    delete(globals);
+    delete(graph);
 }
