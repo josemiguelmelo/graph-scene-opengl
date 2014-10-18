@@ -184,16 +184,14 @@ std::map<std::string, Texture*> * ANFInterpreter::loadTextures(){
             sscanf(texlength_s_string.c_str(), "%f", &texlength_s);
             sscanf(texlength_t_string.c_str(), "%f", &texlength_t);
             
-            
-            
             Texture * texture = new Texture();
             texture->setId(id);
-            texture->setFile(file);
             texture->setTexLengthS(texlength_s);
             texture->setTexLengthT(texlength_t);
-            
+            texture->setFile(file);
             
             textures->insert(std::pair<std::string,Texture *>(texture->getId(), texture));
+            
             
             textureElement = textureElement->NextSiblingElement("texture");
         }
@@ -225,7 +223,6 @@ std::map<std::string, Appearance*> * ANFInterpreter::loadAppearances(){
             appearance->setTextureRef(textureref);
             cout << "Texture file= " << scene->getTextures()->at(textureref)->getFile()<<endl;
             appearance->setTexture(scene->getTextures()->at(textureref)->getFile());
-            
             
             
             TiXmlElement * appearanceComponent = appearanceElement->FirstChildElement("component");

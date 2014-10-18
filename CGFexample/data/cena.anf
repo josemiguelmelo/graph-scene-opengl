@@ -15,6 +15,7 @@
 
 		<perspective id="camera1" near="0.1" far="100" angle="45" pos="20 20 20" target="0 0 0" />
 		<perspective id="camera2" near="0.1" far="100" angle="45" pos="50 50 50" target="0 0 0" />
+		<perspective id="camera3" near="0.1" far="100" angle="45" pos="30 30 30" target="0 0 0" />
 
 		<ortho id="eixoX" direction="x" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
 		<ortho id="eixoY" direction="y" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
@@ -48,10 +49,10 @@
 
 	<textures>
 		<texture id="wall" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/wall.jpg" texlength_s="1" texlength_t="1" />
-<texture id="trunk" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/trunk.jpg" texlength_s="1" texlength_t="1" />
+<texture id="trunk" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/trunk.jpg" texlength_s="0.1" texlength_t="1" />
 <texture id="court" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/floor.jpg" texlength_s="3" texlength_t="3" />
 <texture id="leaves" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/leaves.jpg" texlength_s="3" texlength_t="3" />
-<texture id="door" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/door.jpg" texlength_s="3" texlength_t="3" />
+<texture id="door" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/door.jpg" texlength_s="0.1" texlength_t="0.1" />
 <texture id="roof" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/roof.jpg" texlength_s="3" texlength_t="3" />
 	</textures>
 
