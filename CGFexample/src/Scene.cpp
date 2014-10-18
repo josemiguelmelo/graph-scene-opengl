@@ -80,6 +80,7 @@ void Scene::activateLights(){
 void Scene::init()
 {
     frameCount = 0;
+    setWired(false);
     cameras = new std::vector<Camera *>();
     lights = new std::vector<Light *>();
     
@@ -90,7 +91,6 @@ void Scene::init()
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
     cgfLights = new std::vector<CGFlight *>();
-    
     setGlobals();
     activateLights();
     
@@ -165,6 +165,11 @@ void Scene::display()
 	
 	// Clear image and depth buffer everytime we update the scene
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    
+    if(wired)
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    else
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);

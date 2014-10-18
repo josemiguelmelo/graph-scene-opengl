@@ -20,8 +20,7 @@ private:
     std::vector<Primitives *> * primitives;
     std::map<std::string, Node *> * descendants;
     GLfloat matrix[4][4];
-    Appearance * appearance;
-    
+    Appearance * appearance;    
 public:
     
     Node(bool initialized) {
@@ -56,7 +55,6 @@ public:
     void draw(GLfloat previousMatrix[4][4]);
     
     void calculateMatrix();
-    
     
 };
 

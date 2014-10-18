@@ -3,6 +3,9 @@
 #include <iostream>
 
 
+#define WIRED 7
+#define TEXTURED 8
+
 
 TPInterface::TPInterface(Scene * scene){
     this->scene = scene;
@@ -14,7 +17,10 @@ void TPInterface::initGUI(){
     
     /** LIGHT PANEL ***/
     GLUI_Panel *camerasPanel = addPanelToPanel(panel, "Camaras", 1);
+    addColumnToPanel(panel);
     GLUI_Panel *lightsPanel = addPanelToPanel(panel, "Luzes");
+    addColumnToPanel(panel);
+    GLUI_Panel *representationPanel = addPanelToPanel(panel, "Representacao");
     
     GLUI_Listbox * camerasList = addListboxToPanel(camerasPanel, "Camaras", &camerasVar , 1);
     
@@ -40,13 +46,18 @@ void TPInterface::initGUI(){
         addCheckboxToPanel(lightsPanel, temp_str, &lightsVar[i],0);
     }
     
+    
+    GLUI_RadioGroup* representation = addRadioGroupToPanel(representationPanel, &represVar, 1);
+    addRadioButtonToGroup(representation, "Fill");
+    addRadioButtonToGroup(representation, "Wired");
+    
 }
 
 
 void TPInterface::processGUI(GLUI_Control *ctrl){
     /** CAMERAS HANDLE **/
     scene->setActiveCamera(camerasVector->at(camerasVar));
-    
+    /** LIGHTS HANDLE **/
     for(int i =0; i < lightsVector->size(); i++){
         if(lightsVar[i]){
             lightsVector->at(i)->setEnabled(true);
@@ -55,6 +66,19 @@ void TPInterface::processGUI(GLUI_Control *ctrl){
         }
     }
     scene->activateLights();
+    
+    /** REPRESENTATION HANDLE **/
+    if(represVar==(WIRED/WIRED)){
+        scene->setWired(true);
+    }
+    
+    
+    if(represVar==(0/TEXTURED)){
+        scene->setWired(false);
+    }
+    
+    
+    
 }
 
 

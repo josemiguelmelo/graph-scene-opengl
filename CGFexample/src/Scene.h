@@ -42,6 +42,9 @@ public:
     std::map<std::string, Appearance *> * getAppearances(){ return this->appearances; }
     void activateLights();
     
+    void setWired(bool wired){ this->wired=wired;}
+    bool isWired(){ return this->wired;}
+    
 private:
     CGFlight* light0;
 	CGFobject* obj;
@@ -62,6 +65,7 @@ private:
     
     long frameCount;
 
+    bool wired;
 };
 
 #endif

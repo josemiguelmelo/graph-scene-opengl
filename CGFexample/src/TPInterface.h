@@ -19,6 +19,7 @@ public:
     
     int camerasVar;
     int lightsVar[8];
+    int represVar;
     
 };
 
