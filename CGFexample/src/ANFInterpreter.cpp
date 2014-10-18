@@ -1,5 +1,6 @@
 #include "ANFInterpreter.h"
 
+/** Loads ambient, diffuse and specular components **/
 void loadLightComponents(Light* light,  TiXmlElement * componentElement){
     while(componentElement)
     {
@@ -35,6 +36,7 @@ void loadLightComponents(Light* light,  TiXmlElement * componentElement){
         componentElement = componentElement->NextSiblingElement();
     }
 }
+
 void ANFInterpreter::loadLights(){
     TiXmlElement * lightElement = lightsElement->FirstChildElement("light");
     while(lightElement){
@@ -42,9 +44,6 @@ void ANFInterpreter::loadLights(){
         cout << "Processing Light: " << lightId << endl;
         
         std::string enabledString = lightElement->Attribute("enabled");
-        
-        
-        
         std::string markerString = lightElement->Attribute("marker");
         
         
@@ -60,6 +59,10 @@ void ANFInterpreter::loadLights(){
         if(strcmp(lightElement->Attribute("type"), "omni") == 0)
         {
             Omni * light = new Omni();
+            light->setId(lightId);
+            light->setPos(pos);
+            
+            loadLightComponents(light, componentElement);
             
             this->scene->getLights()->push_back(light);
             
@@ -78,7 +81,7 @@ void ANFInterpreter::loadLights(){
             
             std::string angleString = lightElement->Attribute("angle");
             
-            sscanf(targetString.c_str(), "%f", &angle);
+            sscanf(angleString.c_str(), "%f", &angle);
             
             float exponent;
             
@@ -89,23 +92,24 @@ void ANFInterpreter::loadLights(){
             light->setTarget(target);
             light->setExponent(exponent);
             light->setAngle(angle);
-            
+            light->setId(lightId);
             light->setPos(pos);
             
-            if(enabledString == "true")
+            if(strcmp(enabledString.c_str(),"true") ==0){
                 light->setEnabled(true);
-            else
+            }
+            else{
                 light->setEnabled(false);
+            }
             
             
-            if(markerString == "true")
+            if(strcmp(markerString.c_str(), "true"))
                 light->setMarker(true);
             else
                 light->setMarker(false);
             
             loadLightComponents(light, componentElement);
             this->scene->getLights()->push_back(light);
-            cout << "HERE" << endl;
         }
         
         

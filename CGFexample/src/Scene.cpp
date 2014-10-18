@@ -31,6 +31,52 @@ void Scene::setGlobals(){
     }
 }
 
+void Scene::activateLights(){
+    
+    if(cgfLights->size()==0){
+    for(unsigned int i=0; i<lights->size(); i++) {
+            CGFlight * light = new CGFlight(GL_LIGHT0 + i, lights->at(i)->getPos());
+            light->setAmbient(lights->at(i)->getAmbient());
+            light->setSpecular(lights->at(i)->getSpecular());
+            light->setDiffuse(lights->at(i)->getDiffuse());
+        
+            if(strcmp(lights->at(i)->getType().c_str(), "spot")==0){
+                Spot * spotLight = (Spot*)lights->at(i);
+                light->setAngle(spotLight->getAngle());
+                glLightf(GL_LIGHT0 + i,GL_SPOT_CUTOFF,spotLight->getAngle());
+                glLightf(GL_LIGHT0 + i,GL_SPOT_EXPONENT,spotLight->getExponent());
+                glLightfv(GL_LIGHT0 + i,GL_SPOT_DIRECTION,spotLight->getTarget());
+            }
+        
+            if(lights->at(i)->getEnabled()){
+                light->enable();
+            }else{
+                light->disable();
+            }
+            light->update();
+            cgfLights->push_back(light);
+    }
+    }
+    else{
+        
+        for(unsigned int j= 0; j < cgfLights->size(); j++){
+            CGFlight * light =  cgfLights->at(j);
+            if(lights->at(j)->getEnabled()){
+                cout << "must enable"<<endl;
+                light->enable();
+            }else{
+                cout << "must disable"<<endl;
+                light->disable();
+            }
+        }
+        for(unsigned int i =0; i < cgfLights->size(); i++){
+            CGFlight * light =  cgfLights->at(i);
+            light->update();
+        }
+    }
+}
+
+
 void Scene::init()
 {
     frameCount = 0;
@@ -43,14 +89,11 @@ void Scene::init()
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
-    setGlobals();
+    cgfLights = new std::vector<CGFlight *>();
     
-    for(int i=0; i<lights->size(); i++) {
-        cout << "sim" << endl;
-        CGFlight * light = new CGFlight(GL_LIGHT0 + i, lights->at(i)->getPos());
-        light->enable();
-        cgfLights.push_back(light);
-    }
+    setGlobals();
+    activateLights();
+    
 
 	// Defines a default normal
 	glNormal3f(0,0,1);
@@ -76,7 +119,7 @@ void Scene::showCamera()
 {
     if(activeCamera->getType() == "persp") {
         Perspective * perspCamera = (Perspective *) activeCamera;
-       glMatrixMode(GL_PROJECTION);
+        glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         gluPerspective(perspCamera->getAngle(), 1, perspCamera->getNear(), perspCamera->getFar());
      
@@ -131,8 +174,8 @@ void Scene::display()
 	//CGFscene::activeCamera->applyView();
     showCamera();
     
-    for(int i = 0; i < cgfLights.size(); i++) {
-        cgfLights.at(i)->draw();
+    for(int i = 0; i < cgfLights->size(); i++) {
+        cgfLights->at(i)->draw();
     }
 
 	// Draw axis

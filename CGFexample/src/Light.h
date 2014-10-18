@@ -26,7 +26,7 @@ public:
     float * getPos(){ return position; }
     bool getEnabled(){ return this->enabled;}
     bool getMarker(){ return this->marker;}
-    std::string getId(){ return this->id;}
+    std::string getId() const{ return this->id;}
     float * getAmbient(){ return this->ambient;}
     float * getDiffuse(){ return this->diffuse;}
     float * getSpecular(){ return this->specular;}
@@ -61,10 +61,16 @@ public:
         this->specular[2] = specular[2];
         this->specular[3] = specular[3];
     }
+    
+    
+    
+    
+    virtual std::string getType(){}
 };
 
 class Omni: public Light{
 public:
+    std::string getType(){ return "omni";}
 };
 
 class Spot: public Light{
@@ -75,18 +81,21 @@ public:
     
     float * getTarget(){ return target; }
     float getExponent(){ return exponent; }
-    float getAngle(){ return this->angle;}
     
     void setTarget(float target[3]){
         this->target[0] = target[0];
         this->target[1] = target[1];
         this->target[2] = target[2];
     }
-    void setAngle(float angle){ this->angle = angle;}
     
 
     void setExponent(float exponent){ this->exponent= exponent;}
+    std::string getType(){ return "spot";}
     
+    
+    
+    float getAngle(){ return this->angle;}
+    void setAngle(float angle){ this->angle = angle;}
 };
 
 #endif /* defined(__CGFExample__Light__) */

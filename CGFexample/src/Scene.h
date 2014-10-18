@@ -29,6 +29,8 @@ public:
     Camera * getActiveCamera(){ return this->activeCamera; }
     std::vector<Camera *> * getCameras() { return cameras; }
     std::vector<Light *> * getLights() { return lights; }
+    std::vector<CGFlight *> * getCGFLights(){ return this->cgfLights;}
+    
     void setActiveCamera(Camera * camera);
     void showCamera();
     void drawGraph();
@@ -38,10 +40,10 @@ public:
     
     void setAppearances(std::map<std::string, Appearance* >* appearances){ this->appearances = appearances;}
     std::map<std::string, Appearance *> * getAppearances(){ return this->appearances; }
+    void activateLights();
     
 private:
     CGFlight* light0;
-    CGFlight* light1;
 	CGFobject* obj;
 	CGFappearance* materialAppearance;
 	CGFappearance* textureAppearance;
@@ -56,7 +58,7 @@ private:
     Graph * graph;
     std::vector<Camera *> * cameras;
     std::vector<Light *> * lights;
-    std::vector<CGFlight *> cgfLights;
+    std::vector<CGFlight *> * cgfLights;
     
     long frameCount;
 

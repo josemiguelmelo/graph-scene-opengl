@@ -6,7 +6,7 @@
 		<culling face="back" order="ccw" />
 
 		<!-- Parametros de iluminacao; seguem os parametros do OpenGL  -->
-		<lighting doublesided="false" local="true" enabled="true" ambient="0.3 0.3 0.3 1" />
+		<lighting doublesided="false" local="false" enabled="true" ambient="0 0 0 0" />
 
 	</globals>
 	
@@ -14,6 +14,7 @@
 	<cameras initial="camera1" >
 
 		<perspective id="camera1" near="0.1" far="100" angle="45" pos="20 20 20" target="0 0 0" />
+		<perspective id="camera2" near="0.1" far="100" angle="45" pos="50 50 50" target="0 0 0" />
 
 		<ortho id="eixoX" direction="x" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
 		<ortho id="eixoY" direction="y" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
@@ -24,19 +25,23 @@
 
 	<!-- bloco de luzes -->
 	<lights>
-		<light id="luz1" type="omni" enabled="true" marker="true" pos="0 10 0" >
-			<component type="ambient" value="1 1 1 1" />
-			<component type="diffuse" value="1 1 1 1" />
-			<component type="specular" value="1 1 1 1" />
+
+		<light id="omniCamera" type="omni" enabled="true" marker="true" pos="10 5 20" >
+			<component type="ambient" value="1 1 0.4 1" />
+			<component type="diffuse" value="0.4 0.4 0.4 1" />
+			<component type="specular" value="0.6 0.6 0.6 1" />
+        </light>
+
+		<light id="spotCamera1" type="spot" enabled="false" marker="true" pos="5 10 0" target="1 1 1" angle="90" exponent="90" >
+			<component type="ambient" value="1 1 0.4 1" />
+			<component type="diffuse" value="0.4 0.4 0.4 1" />
+			<component type="specular" value="0.6 0.6 0.6 1" />
 
 		</light>
-
-		<light id="foco" type="spot" enabled="false" marker="true" pos="0 10 0" target="0 0 0"
-			angle="20" exponent="20" >
-
-			<component type="ambient" value="0.6 0.6 0.6 1" />
-			<component type="diffuse" value="0.6 0.6 0.6 1" />
-			<component type="specular" value="0.6 0.6 0.6 1" />
+		<light id="spotCamera2" type="spot" enabled="true" marker="true" pos="15 10 20" target="10 5 5" angle="-90" exponent="90" >
+			<component type="ambient" value="0.4 0.4 0.4 1" />
+			<component type="diffuse" value="0.8 0.8 0.8 1" />
+			<component type="specular" value="0.2 0.2 0.2 1" />
 
 		</light>
 	</lights>
