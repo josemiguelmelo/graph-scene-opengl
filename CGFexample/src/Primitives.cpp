@@ -28,17 +28,12 @@ void Rectangle::draw(){
 
 void Triangle::draw(){
     
-    glShadeModel(GL_SMOOTH);
-    
     glBegin(GL_TRIANGLES);
     // Lower left vertex
-    glNormal3f(x1, y1, z1);
     glVertex3f(x1, y1, z1);
     // Lower right vertex
-    glNormal3f(x2, y2, z2);
     glVertex3f( x2, y2, z2);
     // Upper vertex
-    glNormal3f(x3, y3, z3);
     glVertex3f( x3,  y3, z3);
     glEnd();
     
@@ -49,9 +44,7 @@ void Triangle::draw(){
 void Cylinder::draw(){
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
-        
     gluQuadricTexture(quadratic, true);
-    gluQuadricOrientation(quadratic, GLU_OUTSIDE);
     gluCylinder(quadratic,
                 this->base,
                 this->top,

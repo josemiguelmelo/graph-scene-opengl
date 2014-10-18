@@ -9,9 +9,10 @@
 #include "CGFappearance.h"
 #include "ANFInterpreter.h"
 
-
 void Scene::setGlobals(){
     // drawing
+    
+    
     glPolygonMode(GL_FRONT_AND_BACK, globals->getMode());
     glClearColor(globals->getBackground(0), globals->getBackground(1), globals->getBackground(2),globals->getBackground(3));
     glEnable(globals->getShading());
@@ -58,7 +59,6 @@ void Scene::activateLights(){
     }
     }
     else{
-        
         for(unsigned int j= 0; j < cgfLights->size(); j++){
             CGFlight * light =  cgfLights->at(j);
             if(lights->at(j)->getEnabled()){
@@ -112,7 +112,6 @@ void Scene::init()
 
 void Scene::setActiveCamera(Camera * camera) {
     activeCamera = camera;
-    CGFapplication::activeApp->forceRefresh();
 }
 
 void Scene::showCamera()
@@ -164,28 +163,26 @@ void Scene::display()
 	// ---- BEGIN Background, camera and axis setup
 	
 	// Clear image and depth buffer everytime we update the scene
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    
-    if(wired)
-        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    else
-        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);   
 
+    
+    
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+    
 	// Apply transformations corresponding to the camera position relative to the origin
 	//CGFscene::activeCamera->applyView();
     showCamera();
     
-    for(int i = 0; i < cgfLights->size(); i++) {
-        cgfLights->at(i)->draw();
-    }
+    
 
 	// Draw axis
 	axis.draw();
 	// ---- END Background, camera and axis setup
+    for(int i = 0; i < cgfLights->size(); i++) {
+        cgfLights->at(i)->draw();
+    }
     
     GLfloat identityMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);

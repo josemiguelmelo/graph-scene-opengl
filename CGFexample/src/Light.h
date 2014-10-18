@@ -30,9 +30,7 @@ public:
     float * getAmbient(){ return this->ambient;}
     float * getDiffuse(){ return this->diffuse;}
     float * getSpecular(){ return this->specular;}
-    
-    
-    
+        
     
     void setPos(float pos[3]){
         this->position[0] = pos[0];
@@ -61,9 +59,6 @@ public:
         this->specular[2] = specular[2];
         this->specular[3] = specular[3];
     }
-    
-    
-    
     
     virtual std::string getType(){}
 };
