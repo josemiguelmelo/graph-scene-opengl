@@ -68,6 +68,9 @@ void Sphere::draw(){
 
 
 void Torus::draw(){
+    GLUquadricObj *quadratic;
+    quadratic = gluNewQuadric();
+    gluQuadricTexture(quadratic, true);
     glutSolidTorus(this->inner,
                    this->outer,
                    this->slices, this->loops);

@@ -165,7 +165,11 @@ void Scene::display()
 	// Clear image and depth buffer everytime we update the scene
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);   
 
-    
+    if(isWired()){
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    }else{
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    }
     
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
