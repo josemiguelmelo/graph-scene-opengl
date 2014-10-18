@@ -112,7 +112,7 @@ void Scene::init()
 
 void Scene::setActiveCamera(Camera * camera) {
     activeCamera = camera;
-    
+    CGFapplication::activeApp->forceRefresh();
 }
 
 void Scene::showCamera()
