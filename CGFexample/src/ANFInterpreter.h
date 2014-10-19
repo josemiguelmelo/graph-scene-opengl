@@ -15,6 +15,7 @@
 #include "Texture.h"
 #include "Primitives.h"
 #include "Appearance.h"
+#include "Light.h"
 
 class ANFInterpreter
 {
@@ -25,6 +26,7 @@ public:
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
     
     void loadGraph();
+    void loadLights();
     void replaceEmptyNodes();
     std::map<std::string, Node*> * loadDescendants(TiXmlElement * descendantsElements);
     std::vector<Transforms *> * loadTransforms(TiXmlElement * transformsElements);
@@ -41,6 +43,7 @@ protected:
     TiXmlElement* graphElement;
     TiXmlElement* texturesElement;
     TiXmlElement* appearancesElement;
+    TiXmlElement* lightsElement;
 };
 
 #endif

@@ -9,9 +9,10 @@
 #include "CGFappearance.h"
 #include "ANFInterpreter.h"
 
-
 void Scene::setGlobals(){
     // drawing
+    
+    
     glPolygonMode(GL_FRONT_AND_BACK, globals->getMode());
     glClearColor(globals->getBackground(0), globals->getBackground(1), globals->getBackground(2),globals->getBackground(3));
     glEnable(globals->getShading());
@@ -31,10 +32,57 @@ void Scene::setGlobals(){
     }
 }
 
+void Scene::activateLights(){
+    
+    if(cgfLights->size()==0){
+    for(unsigned int i=0; i<lights->size(); i++) {
+            CGFlight * light = new CGFlight(GL_LIGHT0 + i, lights->at(i)->getPos());
+            light->setAmbient(lights->at(i)->getAmbient());
+            light->setSpecular(lights->at(i)->getSpecular());
+            light->setDiffuse(lights->at(i)->getDiffuse());
+        
+            if(strcmp(lights->at(i)->getType().c_str(), "spot")==0){
+                Spot * spotLight = (Spot*)lights->at(i);
+                light->setAngle(spotLight->getAngle());
+                glLightf(GL_LIGHT0 + i,GL_SPOT_CUTOFF,spotLight->getAngle());
+                glLightf(GL_LIGHT0 + i,GL_SPOT_EXPONENT,spotLight->getExponent());
+                glLightfv(GL_LIGHT0 + i,GL_SPOT_DIRECTION,spotLight->getTarget());
+            }
+        
+            if(lights->at(i)->getEnabled()){
+                light->enable();
+            }else{
+                light->disable();
+            }
+            light->update();
+            cgfLights->push_back(light);
+    }
+    }
+    else{
+        for(unsigned int j= 0; j < cgfLights->size(); j++){
+            CGFlight * light =  cgfLights->at(j);
+            if(lights->at(j)->getEnabled()){
+                cout << "must enable"<<endl;
+                light->enable();
+            }else{
+                cout << "must disable"<<endl;
+                light->disable();
+            }
+        }
+        for(unsigned int i =0; i < cgfLights->size(); i++){
+            CGFlight * light =  cgfLights->at(i);
+            light->update();
+        }
+    }
+}
+
+
 void Scene::init()
 {
     frameCount = 0;
+    setWired(false);
     cameras = new std::vector<Camera *>();
+    lights = new std::vector<Light *>();
     
     globals = new Globals();
     graph = new Graph();
@@ -42,18 +90,10 @@ void Scene::init()
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
+    cgfLights = new std::vector<CGFlight *>();
     setGlobals();
+    activateLights();
     
-    
-
-    // Declares and enables a light
-    float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
-    float light1_pos[4] = {10.0, 10.0, 5.0, 1.0};
-	light0 = new CGFlight(GL_LIGHT0, light0_pos);
-	light0->enable();
-    
-    light1 = new CGFlight(GL_LIGHT1, light1_pos);
-    light1->enable();
 
 	// Defines a default normal
 	glNormal3f(0,0,1);
@@ -72,18 +112,18 @@ void Scene::init()
 
 void Scene::setActiveCamera(Camera * camera) {
     activeCamera = camera;
-    
 }
 
 void Scene::showCamera()
 {
     if(activeCamera->getType() == "persp") {
         Perspective * perspCamera = (Perspective *) activeCamera;
-       glMatrixMode(GL_PROJECTION);
+        glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         gluPerspective(perspCamera->getAngle(), 1, perspCamera->getNear(), perspCamera->getFar());
      
-        gluLookAt(perspCamera->getPos(0), perspCamera->getPos(1), perspCamera->getPos(2), perspCamera->getTarget(0), perspCamera->getTarget(1), perspCamera->getTarget(2), 0.0f, 1.0f, 0.0f);
+        gluLookAt(perspCamera->getPos(0), perspCamera->getPos(1), perspCamera->getPos(2), perspCamera->getTarget(0), perspCamera->getTarget(1), perspCamera->getTarget(2), 0.0, 1.0, 0.0);
+        glMatrixMode(GL_MODELVIEW);
       
     }
     if(activeCamera->getType() == "ortho") {
@@ -91,7 +131,6 @@ void Scene::showCamera()
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(orthoCamera->getLeft(), orthoCamera->getRight(), orthoCamera->getBottom(), orthoCamera->getTop(), orthoCamera->getNear(), orthoCamera->getFar());
-        glMatrixMode(GL_MODELVIEW);
         switch (orthoCamera->getDirection()) {
             case 'x':
                 glRotated(90,0,1,0);
@@ -106,6 +145,7 @@ void Scene::showCamera()
             default:
                 break;
         }
+        glMatrixMode(GL_MODELVIEW);
     }
 }
 
@@ -123,29 +163,35 @@ void Scene::display()
 	// ---- BEGIN Background, camera and axis setup
 	
 	// Clear image and depth buffer everytime we update the scene
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);   
 
+    if(isWired()){
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    }else{
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    }
+    
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	// Apply transformations corresponding to the camera position relative to the origin
-	CGFscene::activeCamera->applyView();
-    //showCamera();
     
-	// Draw (and update) light
-	light0->draw();
-    light1->draw();
+	// Apply transformations corresponding to the camera position relative to the origin
+	//CGFscene::activeCamera->applyView();
+    showCamera();
+    
+    
 
 	// Draw axis
 	axis.draw();
 	// ---- END Background, camera and axis setup
+    for(int i = 0; i < cgfLights->size(); i++) {
+        cgfLights->at(i)->draw();
+    }
     
     GLfloat identityMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);
     
-    Appearance * appearance = new Appearance();
-    appearance->setShininess(1);
+    
     graph->getNodes()->at(graph->getRootId())->draw(identityMatrix);
     
 	// We have been drawing in a memory area that is not visible - the back buffer, 
@@ -159,9 +205,29 @@ void Scene::display()
 
 Scene::~Scene()
 {
+    
+    
+    cameras = new std::vector<Camera *>();
+    lights = new std::vector<Light *>();
+    
+    globals = new Globals();
+    graph = new Graph();
+    
+    cgfLights = new std::vector<CGFlight *>();
+    
 	delete(shader);
 	delete(textureAppearance);
 	delete(materialAppearance);
 	delete(obj);
-	delete(light0);
+    for(unsigned int i= 0; i< cameras->size(); i++){
+        delete(cameras->at(i));
+    }
+    for(unsigned int i= 0; i< lights->size(); i++){
+        delete(lights->at(i));
+    }
+    for(unsigned int i= 0; i< cgfLights->size(); i++){
+        delete(cgfLights->at(i));
+    }
+    delete(globals);
+    delete(graph);
 }

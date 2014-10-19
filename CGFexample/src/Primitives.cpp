@@ -6,13 +6,20 @@ void Rectangle::draw(){
 
     glBegin(GL_QUADS);
     
+    glNormal3f(x1, y1, 0);
     glTexCoord2d(0,0);
     glVertex3d(x1,y1,0);
+    
     glTexCoord2d(1,0);
+    glNormal3f(x2, y1, 0);
     glVertex3d(x2,y1,0);
+    
     glTexCoord2d(1,1);
+    glNormal3f(x2, y2, 0);
     glVertex3d(x2,y2,0);
+    
     glTexCoord2d(0,1);
+    glNormal3f(x1, y2, 0);
     glVertex3d(x1,y2,0);
         
     glEnd();
@@ -20,6 +27,7 @@ void Rectangle::draw(){
 
 
 void Triangle::draw(){
+    
     glBegin(GL_TRIANGLES);
     // Lower left vertex
     glVertex3f(x1, y1, z1);
@@ -28,6 +36,8 @@ void Triangle::draw(){
     // Upper vertex
     glVertex3f( x3,  y3, z3);
     glEnd();
+    
+    
 }
 
 
@@ -35,14 +45,12 @@ void Cylinder::draw(){
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
     gluQuadricTexture(quadratic, true);
-    gluQuadricOrientation(quadratic, GLU_EXTERIOR);
     gluCylinder(quadratic,
                 this->base,
                 this->top,
                 this->height,
                 this->slices,
                 this->stacks);
-     
     
 }
 
@@ -60,6 +68,9 @@ void Sphere::draw(){
 
 
 void Torus::draw(){
+    GLUquadricObj *quadratic;
+    quadratic = gluNewQuadric();
+    gluQuadricTexture(quadratic, true);
     glutSolidTorus(this->inner,
                    this->outer,
                    this->slices, this->loops);

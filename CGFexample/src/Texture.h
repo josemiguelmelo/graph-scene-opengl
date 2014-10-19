@@ -21,10 +21,14 @@ public:
     
     Texture(){}
     
-    void setId(std::string id){ this->id = id;}
+    void setId(std::string id){ this->id = id; }
     void setFile(std::string file){ this->file = file;}
-    void setTexLengthS(float texlength_s){this->texlength_s = texlength_s;}
-    void setTexLengthT(float texlength_t){this->texlength_t = texlength_t;}
+    void setTexLengthS(float texlength_s){this->texlength_s = texlength_s;
+        texWidth=texlength_s;
+    }
+    void setTexLengthT(float texlength_t){this->texlength_t = texlength_t;
+        texHeight=texlength_t;
+    }
     
     std::string getId(){ return this->id;}
     std::string getFile(){ return this->file; }

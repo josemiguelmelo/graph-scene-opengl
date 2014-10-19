@@ -9,6 +9,8 @@
 class TPInterface : public CGFinterface{
     Scene * scene;
     std::vector<Camera *> * camerasVector;
+    std::vector<Light *> * lightsVector;
+    
 public:
     TPInterface(Scene * scene);
     void initGUI();
@@ -16,6 +18,8 @@ public:
     virtual void processGUI(GLUI_Control *ctrl);
     
     int camerasVar;
+    int lightsVar[8];
+    int represVar;
     
 };
 

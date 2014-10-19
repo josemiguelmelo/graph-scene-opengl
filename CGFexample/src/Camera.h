@@ -22,7 +22,7 @@ public:
     float getFar() {return far;}
     virtual std::string getType() = 0;
     
-    ~Camera();
+    virtual ~Camera(){}
     
 };
 
@@ -44,7 +44,7 @@ public:
     void setID(std::string id){this->id = id;}
     void setDirection(char direction){ this->direction = direction;}
     
-    ~Ortho();
+    ~Ortho(){}
     
 };
 
@@ -63,7 +63,7 @@ public:
     void setNear(float near) {this->near = near; }
     void setID(std::string id){this->id = id;}
     
-    ~Perspective();
+    ~Perspective(){}
 };
 
 

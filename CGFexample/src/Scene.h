@@ -7,7 +7,7 @@
 #include "Camera.h"
 #include "Graph.h"
 #include "Texture.h"
-
+#include "Light.h"
 #include <vector>
 #include "Appearance.h"
 
@@ -28,6 +28,8 @@ public:
     Graph * getGraph() { return graph; }
     Camera * getActiveCamera(){ return this->activeCamera; }
     std::vector<Camera *> * getCameras() { return cameras; }
+    std::vector<Light *> * getLights() { return lights; }
+    std::vector<CGFlight *> * getCGFLights(){ return this->cgfLights;}
     
     void setActiveCamera(Camera * camera);
     void showCamera();
@@ -38,15 +40,17 @@ public:
     
     void setAppearances(std::map<std::string, Appearance* >* appearances){ this->appearances = appearances;}
     std::map<std::string, Appearance *> * getAppearances(){ return this->appearances; }
+    void activateLights();
+    
+    void setWired(bool wired){ this->wired=wired;}
+    bool isWired(){ return this->wired;}
     
 private:
     CGFlight* light0;
-    CGFlight* light1;
 	CGFobject* obj;
 	CGFappearance* materialAppearance;
 	CGFappearance* textureAppearance;
-	CGFshader* shader;
-    
+    CGFshader* shader;
     
     std::map<std::string, Texture *> * textures;
     std::map<std::string, Appearance *> * appearances;
@@ -56,9 +60,12 @@ private:
     Globals * globals;
     Graph * graph;
     std::vector<Camera *> * cameras;
+    std::vector<Light *> * lights;
+    std::vector<CGFlight *> * cgfLights;
     
     long frameCount;
 
+    bool wired;
 };
 
 #endif
