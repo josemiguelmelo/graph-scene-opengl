@@ -11,15 +11,15 @@
 	</globals>
 	
 	<!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial, que tem de existir -->
-	<cameras initial="camera1" >
+	<cameras initial="overviewFar" >
 
-		<perspective id="camera1" near="0.1" far="100" angle="45" pos="20 20 20" target="0 0 0" />
-		<perspective id="camera2" near="0.1" far="100" angle="45" pos="50 50 50" target="0 0 0" />
-		<perspective id="camera3" near="0.1" far="100" angle="45" pos="30 30 30" target="0 0 0" />
+		<perspective id="overviewNear" near="0.1" far="100" angle="45" pos="20 20 20" target="0 0 0" />
+		<perspective id="overviewFar" near="0.1" far="100" angle="45" pos="40 20 40" target="0 0 0" />
+		<perspective id="house" near="0.1" far="100" angle="45" pos="30 15 30" target="25 8 20" />
 
-		<ortho id="eixoX" direction="x" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
+		<ortho id="eixoX" direction="x" near="-10" far="20" left="-30" right="10" top="20" bottom="-5" />
 		<ortho id="eixoY" direction="y" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
-		<ortho id="eixoZ" direction="z" near="-10" far="20" left="-5" right="10" top="10" bottom="-5" />
+		<ortho id="eixoZ" direction="z" near="-10" far="20" left="-5" right="30" top="20" bottom="-5" />
 
 	</cameras>
 
@@ -27,18 +27,18 @@
 	<!-- bloco de luzes -->
 	<lights>
 
-		<light id="omniCamera" type="omni" enabled="true" marker="true" pos="4 4 4" >
+		<light id="omniLight" type="omni" enabled="false" marker="false" pos="4 4 4" >
 			<component type="ambient" value="1 0 1 1" />
 			<component type="diffuse" value="1 0 0 1" />
 			<component type="specular" value="1 0 0 1" />
 		</light>
 
-		<light id="spotCamera1" type="spot" enabled="false" marker="true" pos="5 10 0" target="1 1 1" angle="90" exponent="90" >
+		<light id="spotLight1" type="spot" enabled="false" marker="true" pos="5 10 0" target="1 1 1" angle="90" exponent="90" >
 			<component type="ambient" value="1 1 0.4 1" />
 			<component type="diffuse" value="1 1 0 1" />
 			<component type="specular" value="0.6 0.6 0.6 1" />
 		</light>
-		<light id="spotCamera2" type="spot" enabled="true" marker="true" pos="15 10 20" target="10 5 5" angle="-90" exponent="90" >
+		<light id="spotLight2" type="spot" enabled="true" marker="true" pos="15 10 20" target="10 5 5" angle="-90" exponent="90" >
 			<component type="ambient" value="0.4 0.4 0.4 1" />
 			<component type="diffuse" value="0.8 0.8 0.8 1" />
 			<component type="specular" value="1 0 0 1" />
@@ -46,7 +46,6 @@
 	</lights>
 
 	<textures>
-<<<<<<< HEAD
 		<texture id="wall" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/wall.jpg" texlength_s="1" texlength_t="1" />
 <texture id="trunk" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/trunk.jpg" texlength_s="1" texlength_t="1" />
 <texture id="court" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/floor.jpg" texlength_s="3" texlength_t="3" />
@@ -89,10 +88,10 @@
 			<component type="specular" value="0.5 0.5 0.5 1" />
 		</appearance>
 
-		<appearance id="roof" shininess="50" textureref="door" >
-			<component type="ambient" value="0.4 0.4 0.4 1" />
-			<component type="diffuse" value="0.3 0.3 0.3 1" />
-			<component type="specular" value="0.5 0.5 0.5 1" />
+		<appearance id="roof" shininess="50" textureref="roof" >
+			<component type="ambient" value="0.4 0.4 0.4 0.5" />
+			<component type="diffuse" value="0.3 0.3 0.3 0.5" />
+			<component type="specular" value="0.5 0.5 0.5 0.5" />
 		</appearance>
 
 
@@ -537,74 +536,6 @@
 			<primitives>
 				<cylinder base="0.5" top="0.5" height="3" slices="25" stacks="25" />
 
-			</primitives>
-
-			<descendants>
-			</descendants>
-		</node>
-
-
-		<node id="sidenet2">
-			<transforms>
-				<transform type="translate" to="-7.5 0 0"/>
-				<transform type="rotate" axis="y" angle="270" />
-				<transform type="translate" to="-1 0 0"/>
-			</transforms>
-
-			<appearanceref id="inherit" />
-
-			<primitives>
-				<rectangle xy1="0 0" xy2="15 5" />
-			</primitives>
-
-			<descendants>
-			</descendants>
-		</node>
-
-		<node id="sidesidenet1">
-			<transforms>
-				<transform type="translate" to="0 -1 0"/>
-				<transform type="rotate" axis="z" angle="90" />
-				<transform type="translate" to="0 0 7.5"/>
-			</transforms>
-
-			<appearanceref id="inherit" />
-
-			<primitives>
-				<rectangle xy1="0 0" xy2="5 2" />
-			</primitives>
-
-			<descendants>
-			</descendants>
-		</node>
-
-		<node id="sidesidenet2">
-			<transforms>
-				<transform type="translate" to="0 -1 0"/>
-				<transform type="rotate" axis="y" angle="180" />
-				<transform type="rotate" axis="z" angle="-90" />
-				<transform type="translate" to="0 0 -7.5"/>
-			</transforms>
-
-			<appearanceref id="inherit" />
-
-			<primitives>
-				<rectangle xy1="0 0" xy2="5 2" />
-			</primitives>
-
-			<descendants>
-			</descendants>
-		</node>
-
-		<node id="scoreboard">
-			<transforms>
-				<transform type="translate" to="-7.5 3 -10"/>
-			</transforms>
-
-			<appearanceref id="inherit" />
-
-			<primitives>
-				<rectangle xy1="0 0" xy2="15 15" />
 			</primitives>
 
 			<descendants>

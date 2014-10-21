@@ -37,12 +37,25 @@ void TPInterface::initGUI(){
     for ( int i = 0; i< lightsVector->size(); i++){
         char* temp_str = new char[lightsVector->at(i)->getId().length() + 1];
         strcpy(temp_str, lightsVector->at(i)->getId().c_str());
+        
+        if(lightsVector->at(i)->getEnabled()){
+            lightsVar[i]=1;
+        }else{
+            lightsVar[i]=0;
+        }
        
         addCheckboxToPanel(lightsPanel, temp_str, &lightsVar[i],0);
     }
     
     
-    GLUI_RadioGroup* representation = addRadioGroupToPanel(representationPanel, &represVar, 1);
+    GLUI_RadioGroup* representation = addRadioGroupToPanel(representationPanel, &represVar, 0);
+    if(scene->isWired())
+    {
+        representation->set_int_val(1);
+    } else {
+        representation->set_int_val(0);
+    }
+    
     addRadioButtonToGroup(representation, "Fill");
     addRadioButtonToGroup(representation, "Wired");
     

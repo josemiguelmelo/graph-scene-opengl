@@ -30,7 +30,6 @@ float Globals::getBackground(int position){
 }
 
 
-
 GLenum Globals::getCulling(){
     if(this->face=="none"){
         return -1;

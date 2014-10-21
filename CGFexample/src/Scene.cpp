@@ -12,6 +12,13 @@
 void Scene::setGlobals(){
     // drawing
     
+    if(globals->getMode() == GL_FILL)
+    {
+        setWired(false);
+    } else {
+        
+        setWired(true);
+    }
     
     glPolygonMode(GL_FRONT_AND_BACK, globals->getMode());
     glClearColor(globals->getBackground(0), globals->getBackground(1), globals->getBackground(2),globals->getBackground(3));
@@ -20,7 +27,7 @@ void Scene::setGlobals(){
     
     // culling
     if(globals->getCulling()!=-1){
-        glEnable(GL_CULL_FACE);
+        glEnable(GL_NONE);
         glCullFace(globals->getCulling());
         glFrontFace(globals->getOrder());
     }
@@ -62,10 +69,8 @@ void Scene::activateLights(){
         for(unsigned int j= 0; j < cgfLights->size(); j++){
             CGFlight * light =  cgfLights->at(j);
             if(lights->at(j)->getEnabled()){
-                cout << "must enable"<<endl;
                 light->enable();
             }else{
-                cout << "must disable"<<endl;
                 light->disable();
             }
         }
@@ -79,12 +84,13 @@ void Scene::activateLights(){
 
 void Scene::init()
 {
+    
     frameCount = 0;
-    setWired(false);
     cameras = new std::vector<Camera *>();
     lights = new std::vector<Light *>();
     
     globals = new Globals();
+    
     graph = new Graph();
     char * anfPath = "/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/cena.anf";
     
@@ -93,6 +99,7 @@ void Scene::init()
     cgfLights = new std::vector<CGFlight *>();
     setGlobals();
     activateLights();
+    
     
 
 	// Defines a default normal
@@ -175,6 +182,7 @@ void Scene::display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
     
+
 	// Apply transformations corresponding to the camera position relative to the origin
 	//CGFscene::activeCamera->applyView();
     showCamera();
@@ -183,10 +191,17 @@ void Scene::display()
 
 	// Draw axis
 	axis.draw();
+    
+    glDisable(GL_BLEND);
+    
 	// ---- END Background, camera and axis setup
     for(int i = 0; i < cgfLights->size(); i++) {
         cgfLights->at(i)->draw();
     }
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); glEnable( GL_BLEND ); glClearColor(0.0,0.0,0.0,0.0);
+    
+    
     
     GLfloat identityMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);
