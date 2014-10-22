@@ -78,9 +78,10 @@ public:
     float getExponent(){ return exponent; }
     
     void setTarget(float target[3]){
-        this->target[0] = target[0];
-        this->target[1] = target[1];
-        this->target[2] = target[2];
+        float * position = this->getPos();
+        this->target[0] = target[0] - position[0];
+        this->target[1] = target[1] - position[1];
+        this->target[2] = target[2] - position[2];
     }
     
 
