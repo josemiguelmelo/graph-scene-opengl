@@ -13,7 +13,7 @@
 #include "ControlPoint.h"
 
 class Animation{
-private:
+protected:
     std::string id;
     float span;
 public:
@@ -38,8 +38,8 @@ private:
     
 public:
     LinearAnimation(std::string id, float span){
-        this->setId(id);
-        this->setSpan(span);
+        this->id = id;
+        this->span = span;
     }
     
     void setControlPoints(std::vector<ControlPoint> controlPoints){ this->controlPoints = controlPoints;}
