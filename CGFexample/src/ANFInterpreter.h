@@ -16,6 +16,8 @@
 #include "Primitives.h"
 #include "Appearance.h"
 #include "Light.h"
+#include "Animation.h"
+
 
 class ANFInterpreter
 {
@@ -33,6 +35,7 @@ public:
     std::vector<Primitives *> * loadPrimitives(TiXmlElement * primitivesElement);
     std::map<std::string, Texture*> * loadTextures();
     std::map<std::string, Appearance*> * loadAppearances();
+    std::map<std::string, Animation*> * loadAnimations();
     
 protected:
     Scene * scene;
@@ -43,6 +46,7 @@ protected:
     TiXmlElement* graphElement;
     TiXmlElement* texturesElement;
     TiXmlElement* appearancesElement;
+    TiXmlElement* animationsElement;
     TiXmlElement* lightsElement;
 };
 

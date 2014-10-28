@@ -23,6 +23,20 @@
 	</cameras>
 
 
+
+
+<animations>
+<!-- pode não existir qualquer nó “animation” se a cena não tiver animações -->
+<!-- span é o tempo, em segundos, que a animação deve demorar *
+<!-- nesta versão do formato ANF, type pode ter o valor “linear” ou "circular" -->
+<animation id="animacao" span="10" type="linear">
+<controlpoint xx="1" yy="1" zz="1" />
+</animation>
+</animations>
+
+
+
+
 	<!-- bloco de luzes -->
 	<lights>
 

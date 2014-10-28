@@ -100,7 +100,7 @@ void Scene::init()
     setGlobals();
     activateLights();
     
-    
+    cout << "animations = " << animations->size()<<endl;
 
 	// Defines a default normal
 	glNormal3f(0,0,1);

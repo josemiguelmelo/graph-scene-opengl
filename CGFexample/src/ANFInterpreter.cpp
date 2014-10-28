@@ -37,6 +37,64 @@ void loadLightComponents(Light* light,  TiXmlElement * componentElement){
     }
 }
 
+
+
+std::map<std::string, Animation*> * ANFInterpreter::loadAnimations(){
+    std::map<std::string, Animation*> * animations = new std::map<std::string, Animation*>();
+    
+    if(animationsElement){
+        
+        TiXmlElement * animationElement = animationsElement->FirstChildElement("animation");
+        
+        while (animationElement) {
+            std::string id = animationElement->Attribute("id");
+            std::string span_string = animationElement->Attribute("span");
+            std::string type = animationElement->Attribute("type");
+            
+            float span;
+            
+            sscanf(span_string.c_str(), "%f", &span);
+            
+            if (strcmp(type.c_str(), "linear") ==0){
+                
+                LinearAnimation * linearAnimation = new LinearAnimation(id, span);
+                
+                TiXmlElement * animationComponent = animationElement->FirstChildElement("controlpoint");
+                
+                while (animationComponent){
+                    std::string x_string = animationComponent->Attribute("xx");
+                    std::string y_string = animationComponent->Attribute("yy");
+                    std::string z_string = animationComponent->Attribute("zz");
+                
+                    float x, y, z;
+                
+                
+                    sscanf(x_string.c_str(), "%f", &x);
+                    sscanf(y_string.c_str(), "%f", &y);
+                    sscanf(z_string.c_str(), "%f", &z);
+                    
+                    ControlPoint controlPoint(x,y,z);
+                    
+                    linearAnimation->addControlPoint(controlPoint);
+                    
+                    animationComponent = animationComponent->NextSiblingElement("controlpoint");
+                    
+                }
+                
+                animations->insert(std::pair<std::string, Animation *> (linearAnimation->getId(), linearAnimation));
+                
+            }
+            
+            animationElement = animationElement->NextSiblingElement("animation");
+        }
+    }
+    return animations;
+}
+
+
+
+
+
 void ANFInterpreter::loadLights(){
     TiXmlElement * lightElement = lightsElement->FirstChildElement("light");
     while(lightElement){
@@ -531,6 +589,7 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     graphElement = anfScene->FirstChildElement("graph");
     texturesElement = anfScene->FirstChildElement("textures");
     appearancesElement = anfScene->FirstChildElement("appearances");
+    animationsElement = anfScene->FirstChildElement("animations");
     lightsElement = anfScene->FirstChildElement("lights");
     
     Globals * globals = scene->getGlobals();
@@ -686,6 +745,8 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
     scene->setAppearances(loadAppearances());
     
     loadLights();
+    
+    scene->setAnimations(loadAnimations());
     
     printf("Processing graph\n");
     loadGraph();

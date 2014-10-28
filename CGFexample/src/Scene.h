@@ -10,7 +10,7 @@
 #include "Light.h"
 #include <vector>
 #include "Appearance.h"
-
+#include "Animation.h"
 #include "CGFinterface.h"
 
 class Scene : public CGFscene
@@ -45,6 +45,10 @@ public:
     void setWired(bool wired){ this->wired=wired;}
     bool isWired(){ return this->wired;}
     
+    
+    void setAnimations(std::map<std::string, Animation*> * animations) { this->animations = animations; }
+    std::map<std::string, Animation*> * getAnimations(){ return this->animations; }
+    
 private:
     CGFlight* light0;
 	CGFobject* obj;
@@ -62,6 +66,8 @@ private:
     std::vector<Camera *> * cameras;
     std::vector<Light *> * lights;
     std::vector<CGFlight *> * cgfLights;
+    
+    std::map<std::string, Animation*> * animations;
     
     long frameCount;
 
