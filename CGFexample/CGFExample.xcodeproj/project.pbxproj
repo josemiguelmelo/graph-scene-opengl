@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8805CA1519F1532F005DB0E4 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8805CA1319F1532F005DB0E4 /* Light.cpp */; };
+		880D99C31A00043C003758B3 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 880D99C11A00043C003758B3 /* Animation.cpp */; };
+		880D99C61A0005E7003758B3 /* ControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 880D99C41A0005E7003758B3 /* ControlPoint.cpp */; };
 		8841390B19ED51A100D550E0 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8841390919ED51A100D550E0 /* Texture.cpp */; };
 		8841390E19ED5AC600D550E0 /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8841390C19ED5AC600D550E0 /* Appearance.cpp */; };
 		885659E519E415DE002328BF /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885659E319E415DE002328BF /* Graph.cpp */; };
@@ -54,6 +56,10 @@
 /* Begin PBXFileReference section */
 		8805CA1319F1532F005DB0E4 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = src/Light.cpp; sourceTree = SOURCE_ROOT; };
 		8805CA1419F1532F005DB0E4 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = src/Light.h; sourceTree = SOURCE_ROOT; };
+		880D99C11A00043C003758B3 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Animation.cpp; path = src/Animation.cpp; sourceTree = SOURCE_ROOT; };
+		880D99C21A00043C003758B3 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = src/Animation.h; sourceTree = SOURCE_ROOT; };
+		880D99C41A0005E7003758B3 /* ControlPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ControlPoint.cpp; path = src/ControlPoint.cpp; sourceTree = SOURCE_ROOT; };
+		880D99C51A0005E7003758B3 /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlPoint.h; path = src/ControlPoint.h; sourceTree = SOURCE_ROOT; };
 		8841390919ED51A100D550E0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = src/Texture.cpp; sourceTree = SOURCE_ROOT; };
 		8841390A19ED51A100D550E0 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = src/Texture.h; sourceTree = SOURCE_ROOT; };
 		8841390C19ED5AC600D550E0 /* Appearance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Appearance.cpp; path = src/Appearance.cpp; sourceTree = SOURCE_ROOT; };
@@ -197,6 +203,10 @@
 				8841390D19ED5AC600D550E0 /* Appearance.h */,
 				8805CA1319F1532F005DB0E4 /* Light.cpp */,
 				8805CA1419F1532F005DB0E4 /* Light.h */,
+				880D99C11A00043C003758B3 /* Animation.cpp */,
+				880D99C21A00043C003758B3 /* Animation.h */,
+				880D99C41A0005E7003758B3 /* ControlPoint.cpp */,
+				880D99C51A0005E7003758B3 /* ControlPoint.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -314,6 +324,7 @@
 				88D587BB19D1CDED0010B547 /* ANFInterpreter.cpp in Sources */,
 				88D587C319D1CE2F0010B547 /* tinyxml.cpp in Sources */,
 				88D587D419D1E8500010B547 /* Camera.cpp in Sources */,
+				880D99C61A0005E7003758B3 /* ControlPoint.cpp in Sources */,
 				88D587C219D1CE2F0010B547 /* tinystr.cpp in Sources */,
 				885659E519E415DE002328BF /* Graph.cpp in Sources */,
 				AA63E1BC16D41568003287C6 /* Scene.cpp in Sources */,
@@ -325,6 +336,7 @@
 				AA63E1BE16D41568003287C6 /* main.cpp in Sources */,
 				885659EE19E41919002328BF /* Primitives.cpp in Sources */,
 				8841390B19ED51A100D550E0 /* Texture.cpp in Sources */,
+				880D99C31A00043C003758B3 /* Animation.cpp in Sources */,
 				885659EB19E41744002328BF /* Transforms.cpp in Sources */,
 				88E71C6719DB0C180026EF9D /* TPInterface.cpp in Sources */,
 				8841390E19ED5AC600D550E0 /* Appearance.cpp in Sources */,
