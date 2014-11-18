@@ -186,15 +186,14 @@
 
 		<node id="court">
 			<transforms>
-				<transform type="translate" to="0 0 0"/>
-				<transform type="rotate" axis="x" angle="-90" />
-				<transform type="translate" to="0 -30 0"/>
+				<transform type="scale" factor="30 30 30" />
+				<transform type="translate" to="0.5 0 0.5"/>
 			</transforms>
 
 			<appearanceref id="inherit" />
 
 			<primitives>
-				<rectangle xy1="0 0" xy2="30 30" />
+				<plane parts="100" />
 			</primitives>
 
 			<descendants>
