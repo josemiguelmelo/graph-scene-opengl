@@ -86,13 +86,14 @@ void Scene::init()
 {
     
     frameCount = 0;
+    lastMilis = 0;
     cameras = new std::vector<Camera *>();
     lights = new std::vector<Light *>();
     
     globals = new Globals();
     
     graph = new Graph();
-    char * anfPath = "/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/cena.anf";
+    char * anfPath = "/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/cena.anf";
     
     ANFInterpreter anfInterpreter = ANFInterpreter(anfPath, this);
     
@@ -159,6 +160,25 @@ void Scene::showCamera()
 
 void Scene::update(unsigned long t)
 {
+    
+    if(lastMilis != 0)
+    {
+        long increment = t - lastMilis;
+        
+        for (std::map<std::string, Node *>::iterator it = graph->getNodes()->begin(); it != graph->getNodes()->end(); ++it)
+        {
+            if(it->second->getHasAnimation() )
+            {
+                Animation * animation = it->second->getAnimation();
+                cout << "animated " << it->second->getID() << endl;
+                cout << animation->getId() << endl;
+                animation->increment(increment);
+            }
+        }
+    }   
+    
+    lastMilis = t;
+    
 	shader->bind();
 	shader->update(t/400.0);
 	shader->unbind();
@@ -186,8 +206,6 @@ void Scene::display()
 	// Apply transformations corresponding to the camera position relative to the origin
 	//CGFscene::activeCamera->applyView();
     showCamera();
-    
-    
 
 	// Draw axis
 	axis.draw();
@@ -201,12 +219,10 @@ void Scene::display()
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); glEnable( GL_BLEND );
     
-    
-    
     GLfloat identityMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &identityMatrix[0][0]);
     
-    
+    cout << "new frame starting to draw" << endl;
     graph->getNodes()->at(graph->getRootId())->draw(identityMatrix);
     
 	// We have been drawing in a memory area that is not visible - the back buffer, 
@@ -220,8 +236,6 @@ void Scene::display()
 
 Scene::~Scene()
 {
-    
-    
     cameras = new std::vector<Camera *>();
     lights = new std::vector<Light *>();
     

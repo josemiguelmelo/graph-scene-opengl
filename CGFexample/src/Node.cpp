@@ -8,10 +8,14 @@ void Node::draw(GLfloat previousMatrix[4][4]){
     GLfloat multipliedMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &multipliedMatrix[0][0]);
     
-    for(int i = 0; i < primitives->size(); i++){
-        //cout << primitives->at(i)->getType() << endl;
+    if(this->displayList) {
         appearance->apply();
-        primitives->at(i)->draw();
+        glCallList(this->index);
+    } else {
+        for(int i = 0; i < primitives->size(); i++){
+            appearance->apply();
+            primitives->at(i)->draw();
+        }
     }
     
     if(descendants)
@@ -27,23 +31,31 @@ void Node::draw(GLfloat previousMatrix[4][4]){
 
 
 void Node::draw(GLfloat previousMatrix[4][4], Appearance * previousAppearance){
-    
-    //cout << "Drawing: " << this->getID() << endl;
     if(strcmp(apperanceref.c_str(), "inherit")==0){
         appearance = previousAppearance;
     }
     
     glLoadIdentity();
+    
+    if(this->getHasAnimation())
+    {
+        this->calculateAnimations();
+    }
+    
     glMultMatrixf(*previousMatrix);
     glMultMatrixf(*this->matrix);
     
     GLfloat multipliedMatrix[4][4];
     glGetFloatv(GL_MODELVIEW_MATRIX, &multipliedMatrix[0][0]);
     
-    for(int i = 0; i < primitives->size(); i++){
-        //cout << primitives->at(i)->getType() << endl;
+    if(this->displayList) {
         appearance->apply();
-        primitives->at(i)->draw();
+        glCallList(this->index);
+    } else {
+        for(int i = 0; i < primitives->size(); i++){
+            appearance->apply();
+            primitives->at(i)->draw();
+        }
     }
     
     if(descendants)
@@ -67,9 +79,86 @@ void Node::calculateMatrix()
         transforms->at(j)->apply();
     }
     
-    glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0][0]);
-    
+    glGetFloatv(GL_MODELVIEW_MATRIX, &this->matrix[0][0]);
     
 
     glPopMatrix();
+}
+
+void Node::calculateAnimations()
+{
+    glPushMatrix();
+    
+    if(this->getAnimation()->getType() == "linear")
+    {
+        LinearAnimation * animation = (LinearAnimation *) this->getAnimation();
+        
+        if(! animation->getInitialized())
+        {
+            glPushMatrix();
+            
+            glLoadIdentity();
+             
+            glTranslatef(animation->getControlPoints()[0].getX(),
+                         animation->getControlPoints()[0].getY(),
+                         animation->getControlPoints()[0].getZ()
+                         );
+            
+            glGetFloatv(GL_MODELVIEW_MATRIX, &this->matrix[0][0]);
+            
+            glPopMatrix();
+            
+            animation->setInitialized(true);
+        }
+    
+        
+        glLoadIdentity();
+        
+        glMultMatrixf(*this->matrix);
+        
+        ControlPoint destination = animation->getCurrentAnimationPoint();
+        
+        if( ! animation->getDrawnThisFrame())
+        {
+            glTranslatef(destination.getX(), destination.getY(), destination.getZ());
+            cout << "animated to point" << endl;
+        }
+        
+        this->getAnimation()->setDrawnThisFrame(true);
+        
+        if(animation->getFinished())
+        {
+            currentAnimation++;
+        }
+        
+    } else {
+        CircularAnimation * animation = (CircularAnimation *) this->getAnimation();
+    }
+    
+    glGetFloatv(GL_MODELVIEW_MATRIX, &this->matrix[0][0]);
+    
+    glPopMatrix();
+}
+
+void Node::saveToDisplayList()
+{
+    this->index = glGenLists(primitives->size());
+    for(int i = 0; i < primitives->size(); i++){
+        glNewList(this->index + i, GL_COMPILE);
+        primitives->at(i)->draw();
+        glEndList();
+    }
+}
+
+void Node::setDescendentsDisplayList()
+{
+    if(this->displayList)
+    {
+        this->saveToDisplayList();
+        map<std::string,Node*>::iterator descendant=this->descendants->begin();
+        for(int j= 0; j < this->descendants->size(); j++,descendant++){
+            descendant->second->setDisplayList(true);
+            descendant->second->setDescendentsDisplayList();
+        }
+    }
 }

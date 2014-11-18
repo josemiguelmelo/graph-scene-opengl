@@ -70,6 +70,7 @@ private:
     std::map<std::string, Animation*> * animations;
     
     long frameCount;
+    long lastMilis = 0;
 
     bool wired;
 };

@@ -30,6 +30,7 @@ public:
     void loadGraph();
     void loadLights();
     void replaceEmptyNodes();
+    void replaceEmptyAnimations();
     std::map<std::string, Node*> * loadDescendants(TiXmlElement * descendantsElements);
     std::vector<Transforms *> * loadTransforms(TiXmlElement * transformsElements);
     std::vector<Primitives *> * loadPrimitives(TiXmlElement * primitivesElement);

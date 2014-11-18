@@ -55,7 +55,7 @@ std::map<std::string, Animation*> * ANFInterpreter::loadAnimations(){
             
             sscanf(span_string.c_str(), "%f", &span);
             
-            if (strcmp(type.c_str(), "linear") ==0){
+            if (strcmp(type.c_str(), "linear") ==0 ){
                 
                 LinearAnimation * linearAnimation = new LinearAnimation(id, span);
                 
@@ -81,7 +81,41 @@ std::map<std::string, Animation*> * ANFInterpreter::loadAnimations(){
                     
                 }
                 
+                linearAnimation->calculateTotalDistance();
+                
                 animations->insert(std::pair<std::string, Animation *> (linearAnimation->getId(), linearAnimation));
+                
+            }
+            
+            if (strcmp(type.c_str(), "circular") ==0 ){
+                
+                CircularAnimation * circularAnimation = new CircularAnimation(id, span);
+                
+                std::string centerString = animationElement->Attribute("center");
+                
+                float center[3];
+                
+                sscanf(centerString.c_str(), "%f %f %f", &center[0], &center[1], &center[2]);
+                
+                circularAnimation->setCenter(center[0], center[1], center[2]);
+                
+                float radius, startAng, rotAng;
+                
+                std::string radiusString = animationElement->Attribute("radius");
+                std::string startAngString = animationElement->Attribute("startang");
+                std::string rotAngString = animationElement->Attribute("rotang");
+                
+                sscanf(radiusString.c_str(), "%f", &radius);
+                sscanf(startAngString.c_str(), "%f", &startAng);
+                sscanf(rotAngString.c_str(), "%f", &rotAng);
+                
+                circularAnimation->setStartAng(startAng);
+                circularAnimation->setRotAng(rotAng);
+                circularAnimation->setRadius(radius);
+                
+                animations->insert(std::pair<std::string, Animation *> (circularAnimation->getId(), circularAnimation));
+                
+                cout << "Inserted circular animation with ID " << circularAnimation->getId() << endl;
                 
             }
             
@@ -190,7 +224,19 @@ void ANFInterpreter::loadGraph(){
     while(nodeElements){
         Node * node = new Node(true);
         std::string nodeID = nodeElements->Attribute("id");
+        
         cout << "Processing " << nodeID << endl;
+        
+        TiXmlElement * animationRefElement = nodeElements->FirstChildElement("animationref");
+        
+        while(animationRefElement)
+        {
+            std::string animationId = animationRefElement->Attribute("id");
+            cout << "sim: " << animationId << endl;
+            node->setAnimation(scene->getAnimations()->at(animationId));
+            
+            animationRefElement = animationRefElement->NextSiblingElement("animationref");
+        }
         
         TiXmlElement * transformsElements = nodeElements->FirstChildElement("transforms");
         
@@ -216,6 +262,20 @@ void ANFInterpreter::loadGraph(){
         }
         
         node->setID(nodeID);
+        
+        if(nodeElements->Attribute("displaylist"))
+        {
+            std::string displayList = nodeElements->Attribute("displaylist");
+            if(displayList == "true")
+            {
+                node->setDisplayList(true);
+            } else {
+                node->setDisplayList(false);
+            }
+        } else {
+            node->setDisplayList(false);
+        }
+        
         node->setAppearanceRef(appearanceElement->Attribute("id"));
         cout << "appearance ref = " << appearanceElement->Attribute("id");
         if(strcmp(appearanceElement->Attribute("id"), "inherit")!=0){
@@ -329,6 +389,7 @@ void ANFInterpreter::replaceEmptyNodes() {
     map<std::string,Node*>::iterator node=this->scene->getGraph()->getNodes()->begin();
     
     for(int i = 0;i < this->scene->getGraph()->getNodes()->size();i++,node++) {
+        node->second->setDescendentsDisplayList();
         if(node->second->getDescendants())
         {
             cout << node->second->getID();
@@ -735,7 +796,6 @@ ANFInterpreter::ANFInterpreter(char *filename, Scene * scene)
 
             cameras->push_back(perspectiveCamera);
         }
-        
     }
     
     printf("Processing textures\n");

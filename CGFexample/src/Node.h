@@ -10,23 +10,51 @@
 #include "CGFappearance.h"
 #include "CGFapplication.h"
 #include "Appearance.h"
+#include "Animation.h"
 
 class Node{
 private:
     std::string id;
     std::string apperanceref;
+    bool displayList;
+    bool hasAnimation;
     bool initialized;
+    GLuint index;
     std::vector<Transforms *> * transforms;
     std::vector<Primitives *> * primitives;
     std::map<std::string, Node *> * descendants;
     GLfloat matrix[4][4];
-    Appearance * appearance;    
+    Appearance * appearance;
+    vector<Animation *> animations;
+    int currentAnimation;
+    
 public:
     
     Node(bool initialized) {
         transforms = new std::vector<Transforms *>();
         primitives = new std::vector<Primitives *>();
         this->initialized=initialized;
+        this->hasAnimation = false;
+        this->displayList = false;
+        currentAnimation = 0;
+    }
+    
+    bool getHasAnimation() {
+        return (
+                this->hasAnimation
+                &&
+                currentAnimation < animations.size()
+        );
+    }
+    
+    bool getDisplayList()
+    {
+        return this->displayList;
+    }
+    
+    void setDisplayList(bool displayList)
+    {
+        this->displayList = displayList;
     }
     
     std::string getID(){ return this->id; }
@@ -51,10 +79,23 @@ public:
         return this->initialized;
     }
     
+    Animation * getAnimation()
+    {
+        return this->animations[currentAnimation];
+    }
+    
+    void setAnimation(Animation * animation) {
+        this->animations.push_back(animation);
+        this->hasAnimation = true;
+    }
+    
     void draw(GLfloat previousMatrix[4][4], Appearance * previousAppearance);
     void draw(GLfloat previousMatrix[4][4]);
     
     void calculateMatrix();
+    void calculateAnimations();
+    void saveToDisplayList();
+    void setDescendentsDisplayList();
     
 };
 
