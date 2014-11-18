@@ -26,7 +26,7 @@ void Node::draw(GLfloat previousMatrix[4][4]){
             descendant->second->draw(multipliedMatrix, appearance);
         }
     }
-
+    
 }
 
 
@@ -81,7 +81,7 @@ void Node::calculateMatrix()
     
     glGetFloatv(GL_MODELVIEW_MATRIX, &this->matrix[0][0]);
     
-
+    
     glPopMatrix();
 }
 
@@ -98,7 +98,7 @@ void Node::calculateAnimations()
             glPushMatrix();
             
             glLoadIdentity();
-             
+            
             glTranslatef(animation->getControlPoints()[0].getX(),
                          animation->getControlPoints()[0].getY(),
                          animation->getControlPoints()[0].getZ()
@@ -110,7 +110,7 @@ void Node::calculateAnimations()
             
             animation->setInitialized(true);
         }
-    
+        
         
         glLoadIdentity();
         
@@ -133,6 +133,45 @@ void Node::calculateAnimations()
         
     } else {
         CircularAnimation * animation = (CircularAnimation *) this->getAnimation();
+        
+        if(! animation->getInitialized())
+        {
+            cout << "boas tardes" << endl;
+            glPushMatrix();
+            
+            glLoadIdentity();
+            
+            glGetFloatv(GL_MODELVIEW_MATRIX, &this->matrix[0][0]);
+            
+            glPopMatrix();
+            
+            animation->setInitialized(true);
+        }
+        
+        glLoadIdentity();
+        
+        glMultMatrixf(*this->matrix);
+        
+        if( ! animation->getDrawnThisFrame())
+        {
+            glLoadIdentity();
+            glTranslatef(animation->getCenterX(),
+                         animation->getCenterY(),
+                         animation->getCenterZ()
+                         );
+            
+            glRotatef(animation->getCurrentAngle(), 0, 1, 0);
+            
+            glTranslatef(animation->getRadius(), 0, 0);
+        }
+        
+        this->getAnimation()->setDrawnThisFrame(true);
+        
+        if(animation->getFinished())
+        {
+            currentAnimation++;
+        }
+        
     }
     
     glGetFloatv(GL_MODELVIEW_MATRIX, &this->matrix[0][0]);

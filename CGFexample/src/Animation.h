@@ -205,6 +205,8 @@ private:
     float startAng;
     float rotAng;
     float radius;
+    float angularSpeed;
+    float currentAngle;
     
 public:
     CircularAnimation(std::string id, float span){
@@ -265,11 +267,13 @@ public:
     void setStartAng(float startAng)
     {
         this->startAng = startAng;
+        this->currentAngle = startAng;
     }
     
     void setRotAng(float rotAng)
     {
         this->rotAng = rotAng;
+        this->angularSpeed = (rotAng/span);
     }
     
     void setRadius(float radius)
@@ -277,9 +281,22 @@ public:
         this->radius = radius;
     }
     
+    float getCurrentAngle()
+    {
+        return this->currentAngle;
+    }
+    
     void increment(unsigned long t)
     {
-        //float distanceToWalk = (speed * t) / 1000;
+        if(abs(currentAngle) >= abs(startAng + rotAng))
+        {
+            this->finished = true;
+        } else {
+            currentAngle += (angularSpeed * t) / 1000;
+            
+            std::cout << "currentAngle " << currentAngle << std::endl;
+            this->drawnThisFrame = false;
+        }
     }
     
 };
