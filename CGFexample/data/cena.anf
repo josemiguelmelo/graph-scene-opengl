@@ -66,13 +66,13 @@
 	</lights>
 
 	<textures>
-		<texture id="wall" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/wall.jpg" texlength_s="1" texlength_t="1" />
-<texture id="trunk" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/trunk.jpg" texlength_s="1" texlength_t="1" />
-<texture id="court" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/floor.jpg" texlength_s="3" texlength_t="3" />
-<texture id="leaves" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/leaves.jpg" texlength_s="3" texlength_t="3" />
-<texture id="door" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/door.jpg" texlength_s="3" texlength_t="3" />
+		<texture id="wall" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/wall.jpg" texlength_s="1" texlength_t="1" />
+<texture id="trunk" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/trunk.jpg" texlength_s="1" texlength_t="1" />
+<texture id="court" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/floor.jpg" texlength_s="3" texlength_t="3" />
+<texture id="leaves" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/leaves.jpg" texlength_s="3" texlength_t="3" />
+<texture id="door" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/door.jpg" texlength_s="3" texlength_t="3" />
 
-<texture id="roof" file="/Users/ruigomes/Projects/OpenGL/graph-scene-opengl/CGFexample/data/roof.jpg" texlength_s="3" texlength_t="3" />
+<texture id="roof" file="/Users/josemiguelmelo/Documents/FEUP/3o Ano/LAIG/CGFlib-master/CGFexample/data/roof.jpg" texlength_s="3" texlength_t="3" />
 	</textures>
 
 	<!-- bloco de materiais; -->
@@ -148,6 +148,7 @@
                 <noderef id="torus" />
                 <noderef id="triangle" />
                 <noderef id="cube10" />
+                <noderef id="superficie" />
 			</descendants>
 		</node>
         
@@ -269,6 +270,7 @@
 				<noderef id="door" />
 			</descendants>
 		</node>
+
 
 
 
@@ -613,6 +615,86 @@
 			<descendants>
 			</descendants>
 		</node>
+
+
+
+		<node id="plane" >           
+			<transforms>
+                <transform type="translate" to="0 5 0"/>
+                <transform type="scale" factor="9 9 9" />
+            </transforms>
+			<appearanceref id="inherit" />
+			<primitives>
+				<plane parts="5" />
+			</primitives>
+
+			<descendants>
+			</descendants>
+		</node>
+
+
+		<node id="superficie" >           
+			<transforms>
+                <transform type="translate" to="0 10 0"/>
+            </transforms>
+			<appearanceref id="inherit" />
+			<primitives>
+				<patch order="3" partsU="30" partsV="30" compute="fill">
+					<controlpoint x="0.0" y="6.0" z="0.0" />
+					<controlpoint x="2.0" y="6.0" z="4.0" />
+					<controlpoint x="4.0" y="6.0" z="0.0" />
+					<controlpoint x="6.0" y="6.0" z="0.0" />
+					<controlpoint x="0.0" y="4.0" z="2.0" />
+					<controlpoint x="2.0" y="4.0" z="6.0" />
+					<controlpoint x="4.0" y="4.0" z="6.0" />
+					<controlpoint x="6.0" y="4.0" z="2.0" />
+					<controlpoint x="0.0" y="2.0" z="0.0" />
+					<controlpoint x="2.0" y="2.0" z="6.0" />
+					<controlpoint x="4.0" y="2.0" z="6.0" />
+					<controlpoint x="6.0" y="2.0" z="2.0" />
+					<controlpoint x="0.0" y="0.0" z="0.0" />
+					<controlpoint x="2.0" y="0.0" z="4.0" />
+					<controlpoint x="4.0" y="0.0" z="4.0" />
+					<controlpoint x="6.0" y="0.0" z="0.0" />
+				</patch>
+			</primitives>
+
+
+			<descendants>
+			</descendants>
+		</node>
+
+		<node id="patch" >           
+			<transforms>
+                <transform type="translate" to="0 10 0"/>
+                <transform type="rotate" axis="x" angle="-180"/>
+            </transforms>
+			<appearanceref id="inherit" />
+			<primitives>
+				<patch order="3" partsU="30" partsV="30" compute="fill">
+					<controlpoint x="-1.5" y="-1.5" z="4.0" />
+					<controlpoint x="-0.5" y="-1.5" z="2.0" />
+					<controlpoint x="0.5" y="-1.5" z="-1.0" />
+					<controlpoint x="1.5" y="-1.5" z="2.0" />
+					<controlpoint x="-1.5" y="-0.5" z="1.0" />
+					<controlpoint x="-0.5" y="-0.5" z="3.0" />
+					<controlpoint x="0.5" y="-0.5" z="0.0" />
+					<controlpoint x="1.5" y="-0.5" z="-1.0" />
+					<controlpoint x="-1.5" y="0.5" z="4.0" />
+					<controlpoint x="-0.5" y="0.5" z="0.0" />
+					<controlpoint x="0.5" y="0.5" z="3.0" />
+					<controlpoint x="1.5" y="0.5" z="4.0" />
+					<controlpoint x="-1.5" y="1.5" z="-2.0" />
+					<controlpoint x="-0.5" y="1.5" z="-2.0" />
+					<controlpoint x="0.5" y="1.5" z="0.0" />
+					<controlpoint x="1.5" y="1.5" z="-1.0" />
+				</patch>
+			</primitives>
+
+			<descendants>
+			</descendants>
+		</node>
+
 
 	</graph>
 </anf>
