@@ -92,7 +92,7 @@ void Node::calculateAnimations()
     if(this->getAnimation()->getType() == "linear")
     {
         LinearAnimation * animation = (LinearAnimation *) this->getAnimation();
-        
+        // translate to initial point
         if(! animation->getInitialized())
         {
             glPushMatrix();
@@ -136,7 +136,6 @@ void Node::calculateAnimations()
         
         if(! animation->getInitialized())
         {
-            cout << "boas tardes" << endl;
             glPushMatrix();
             
             glLoadIdentity();
