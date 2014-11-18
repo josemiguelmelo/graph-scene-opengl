@@ -267,10 +267,10 @@ public:
             cntlpoints_array[i][2] = cntlpoints.at(i).getZ();
         }
         
-        glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1, 0.0, 1.0, 12, 4, &cntlpoints_array[0][0]);
+        glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1, 0.0, 1.0, 3*(order+1), (order+1), &cntlpoints_array[0][0]);
         glEnable(GL_MAP2_VERTEX_3);
         
-        glMap2f(GL_MAP2_COLOR_4,  0.0, 1.0, 4, order+1,  0.0, 1.0, 8, 2,  &colorpoints[0][0]);
+        glMap2f(GL_MAP2_COLOR_4,  0.0, 1.0, 4, order+1,  0.0, 1.0, 2*(order+1), 2,  &colorpoints[0][0]);
         glEnable(GL_MAP2_COLOR_4);        
         
         glMap2f(GL_MAP2_NORMAL,   0.0, 1.0, 3, order+1,  0.0, 1.0, 6, 3,  &cntlpoints_array[0][0]);
@@ -283,11 +283,9 @@ public:
         glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0);
         glEvalMesh2(GL_FILL,0, partsU, 0, partsV);
         glEnable(GL_DEPTH_TEST);
-        
     }
     
 };
-
 
 
 

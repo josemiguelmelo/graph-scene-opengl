@@ -31,16 +31,16 @@
     <!-- nesta versão do formato ANF, type pode ter o valor “linear” ou "circular" -->
 
     <animation id="linearAnimation" span="3" type="linear">
+        <controlpoint xx="0" yy="-5" zz="0" />
         <controlpoint xx="0" yy="0" zz="0" />
-        <controlpoint xx="10" yy="0" zz="0" />
     </animation>
 
     <animation id="linearAnimation2" span="3" type="linear">
-        <controlpoint xx="10" yy="0" zz="0" />
         <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="0" yy="-5" zz="0" />
     </animation>
 
-    <animation id="rotacao" span="10" type="circular" center="0 0 0" radius="3" startang="0" rotang="90" />
+    <animation id="rotacao" span="10" type="circular" center="0 0 0" radius="3" startang="0" rotang="1000" />
 
 </animations>
 
@@ -148,7 +148,7 @@
                 <noderef id="torus" />
                 <noderef id="triangle" />
                 <noderef id="cube10" />
-                <noderef id="superficie" />
+                <noderef id="patch_transform" />
 			</descendants>
 		</node>
         
@@ -633,7 +633,8 @@
 		</node>
 
 
-		<node id="superficie" >           
+		<node id="superficie" >
+			<animationref id="rotacao" />           
 			<transforms>
                 <transform type="translate" to="0 10 0"/>
             </transforms>
@@ -664,30 +665,46 @@
 			</descendants>
 		</node>
 
+
+		<node id="patch_transform">
+		       
+			<transforms>
+                <transform type="translate" to="0 10 0"/>
+                <transform type="scale" factor="5 5 5" />
+            </transforms>
+
+
+			<appearanceref id="inherit" />
+			<descendants>
+				 <noderef id="patch" />
+			</descendants>
+		</node>
+
 		<node id="patch" >           
 			<transforms>
                 <transform type="translate" to="0 10 0"/>
-                <transform type="rotate" axis="x" angle="-180"/>
+                <transform type="scale" factor="5 5 5" />
             </transforms>
 			<appearanceref id="inherit" />
+
+
+            <animationref id="rotacao" />
+
 			<primitives>
-				<patch order="3" partsU="30" partsV="30" compute="fill">
-					<controlpoint x="-1.5" y="-1.5" z="4.0" />
-					<controlpoint x="-0.5" y="-1.5" z="2.0" />
-					<controlpoint x="0.5" y="-1.5" z="-1.0" />
-					<controlpoint x="1.5" y="-1.5" z="2.0" />
-					<controlpoint x="-1.5" y="-0.5" z="1.0" />
-					<controlpoint x="-0.5" y="-0.5" z="3.0" />
-					<controlpoint x="0.5" y="-0.5" z="0.0" />
-					<controlpoint x="1.5" y="-0.5" z="-1.0" />
-					<controlpoint x="-1.5" y="0.5" z="4.0" />
-					<controlpoint x="-0.5" y="0.5" z="0.0" />
-					<controlpoint x="0.5" y="0.5" z="3.0" />
-					<controlpoint x="1.5" y="0.5" z="4.0" />
-					<controlpoint x="-1.5" y="1.5" z="-2.0" />
-					<controlpoint x="-0.5" y="1.5" z="-2.0" />
-					<controlpoint x="0.5" y="1.5" z="0.0" />
-					<controlpoint x="1.5" y="1.5" z="-1.0" />
+				<patch order="2" partsU="10" partsV="10" compute="fill">
+					<controlpoint x="-0.5" y="0.0" z="0.5" />
+					<controlpoint x="-0.5" y="0" z="-0.5" />
+
+					<controlpoint x="-0.25" y="0.5" z="0.25" />
+					<controlpoint x="-0.25" y="0.5" z="-0.25" />
+
+					<controlpoint x="0" y="0" z="0" />
+	
+					<controlpoint x="0.25" y="0.5" z="0.25" />
+					<controlpoint x="0.25" y="0.5" z="0.25" />
+
+					<controlpoint x="0.5" y="0.0" z="0.5" />
+					<controlpoint x="0.5" y="0.0" z="-0.5" />
 				</patch>
 			</primitives>
 
