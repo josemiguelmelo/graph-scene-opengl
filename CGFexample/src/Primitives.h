@@ -9,6 +9,8 @@
 #include "CGFapplication.h"
 #include "CGFappearance.h"
 #include <iostream>
+#include "ControlPoint.h"
+
 
 class Primitives{
 public:
@@ -139,6 +141,152 @@ public:
     void draw();
 };
 
+
+
+
+class Plane : public Primitives{
+private:
+    int parts;
+    
+    GLfloat ctrlpoints[4][3] = {
+        {-0.5, 0.0, 0.5}, {-0.5, 0.0 ,-0.5},
+        {0.5, 0.0, 0.5}, {0.5, 0.0, -0.5}};
+    
+    GLfloat texturepoints[4][2] = {
+        {0.0, 0.0}, {0.0, 1.0},
+        {1.0, 0.0}, {1.0, 1.0}};
+    
+   	GLfloat nrmlcompon[4][3] = {
+        {0.0, 1.0, 0.0}, {0.0, 1.0, 0.0},
+        {0.0, 1.0, 0.0}, {0.0, 1.0, 0.0}};
+    
+    
+    
+    // As cores a atribuir a cada ponto de controlo:
+    //   Nota: para uma boa percepcao do efeito de iluminacao, é
+    //         aconselhável usar, em alternativa, uma cor cinzenta
+    GLfloat colorpoints[4][4] = {	{ 0.0, 0.7, 0.7, 0},
+								{ 0.0, 0.0, 0.7, 0},
+								{ 0.0, 0.7, 0.0, 0},
+								{ 0.7, 0.0, 0.0, 0} };
+    
+public:
+    Plane(){}
+    Plane(int parts){ this->parts = parts; }
+    
+    void setParts(int parts){this->parts = parts;}
+    int getParts(){ return this->parts; }
+    
+    std::string getType(){ return "plane"; }
+    
+    void draw(){
+        glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, 2, 0.0, 1.0, 2 * 3, 2, &ctrlpoints[0][0]);
+        glMap2f(GL_MAP2_NORMAL,   0.0, 1.0, 3, 2,  0.0, 1.0, 6, 2,  &nrmlcompon[0][0]);
+        glMap2f(GL_MAP2_COLOR_4,  0.0, 1.0, 4, 2,  0.0, 1.0, 8, 2,  &colorpoints[0][0]);
+        glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, 2, 0.0, 1.0, 2 * 2, 2, &texturepoints[0][0]);
+        
+        glEnable(GL_MAP2_VERTEX_3);
+        glEnable(GL_MAP2_NORMAL);
+        glEnable(GL_MAP2_COLOR_4);
+        glEnable(GL_MAP2_TEXTURE_COORD_2);
+        
+        
+        
+        glMapGrid2f(parts, 0.0, 1.0, parts, 0.0, 1.0);
+        glEvalMesh2(GL_FILL,0, parts, 0, parts);
+        
+        
+        glEnable(GL_LIGHTING);
+        glEnable(GL_COLOR_MATERIAL);
+        glEnable(GL_TEXTURE_2D);
+        
+    }
+    
+};
+
+
+
+class Patch : public Primitives{
+private:
+    vector<ControlPoint> cntlpoints;
+    
+    int partsU, partsV, order;
+    std::string compute;
+    
+    
+    GLfloat texturepoints[4][2] = {
+        {0.0, 0.0}, {0.0, 1.0},
+        {1.0, 0.0}, {1.0, 1.0}};
+    
+   	GLfloat nrmlcompon[4][3] = {
+        {0.0, 1.0, 0.0}, {0.0, 1.0, 0.0},
+        {0.0, 1.0, 0.0}, {0.0, 1.0, 0.0}};
+    
+    
+    
+    // As cores a atribuir a cada ponto de controlo:
+    //   Nota: para uma boa percepcao do efeito de iluminacao, é
+    //         aconselhável usar, em alternativa, uma cor cinzenta
+    GLfloat colorpoints[4][4] = {	{ 0.0, 0.7, 0.7, 0},
+								{ 0.0, 0.0, 0.7, 0},
+								{ 0.0, 0.7, 0.0, 0},
+								{ 0.7, 0.0, 0.0, 0} };
+    
+
+public:
+    Patch(){}
+    Patch(int order, int partsU, int partsV, std::string compute){
+        this->order = order;
+        this->partsU = partsU;
+        this->partsV = partsV;
+        this->compute = compute;
+    }
+    
+    void setOrder(int order){ this->order =order; }
+    void setPartsU(int partsU){this->partsU = partsU;}
+    void setPartsV(int partsV){this->partsV = partsV;}
+    void setCompute(std::string compute){ this->compute = compute;}
+    void setCntlPoints(vector<ControlPoint> cntlpoints){this->cntlpoints = cntlpoints;}
+    
+    int getOrder(){ return this->order;}
+    int getPartsU(){ return this->partsU; }
+    int getPartsV(){ return this->partsV; }
+    std::string getCompute(){ return this->compute;}
+    vector<ControlPoint> getCntlPoints(){ return this->cntlpoints; }
+    
+    
+    std::string getType(){ return "patch"; }
+    
+    void draw(){
+        
+        float cntlpoints_array[this->cntlpoints.size()][3];
+        
+        for(unsigned int i = 0; i< cntlpoints.size(); i++){
+            cntlpoints_array[i][0] = cntlpoints.at(i).getX();
+            cntlpoints_array[i][1] = cntlpoints.at(i).getY();
+            cntlpoints_array[i][2] = cntlpoints.at(i).getZ();
+        }
+        
+        glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1, 0.0, 1.0, 12, 4, &cntlpoints_array[0][0]);
+        glEnable(GL_MAP2_VERTEX_3);
+        
+        glMap2f(GL_MAP2_COLOR_4,  0.0, 1.0, 4, order+1,  0.0, 1.0, 8, 2,  &colorpoints[0][0]);
+        glEnable(GL_MAP2_COLOR_4);        
+        
+        glMap2f(GL_MAP2_NORMAL,   0.0, 1.0, 3, order+1,  0.0, 1.0, 6, 3,  &cntlpoints_array[0][0]);
+        glEnable(GL_MAP2_NORMAL);
+        
+        glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, 2, 0.0, 1.0, 4, 2, &texturepoints[0][0]);
+        glEnable(GL_MAP2_TEXTURE_COORD_2);
+        
+        
+        glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0);
+        glEvalMesh2(GL_FILL,0, partsU, 0, partsV);
+        glEnable(GL_DEPTH_TEST);
+        
+    }
+    
+};
 
 
 

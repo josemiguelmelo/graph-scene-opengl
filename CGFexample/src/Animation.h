@@ -174,7 +174,7 @@ public:
             this->currentAnimationPoint = pointToAnimate;
             
             std::cout << "drawn = false" << std::endl;
-            //this->drawnThisFrame = false;
+            this->drawnThisFrame = false;
             
             std::cout << "Distanced walked (sum): " << sumDistanceWalked << std::endl;
             std::cout << "Distance between points: " << distanceBetweenPoints(controlPoints[currentPoint], controlPoints[currentPoint+1]) << std::endl;

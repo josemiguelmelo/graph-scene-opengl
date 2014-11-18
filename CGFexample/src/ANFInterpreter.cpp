@@ -618,6 +618,80 @@ std::vector<Primitives *> * ANFInterpreter::loadPrimitives(TiXmlElement * primit
         torusElement = torusElement->NextSiblingElement("torus");
     }
     
+    
+    TiXmlElement * planeElement = primitivesElement->FirstChildElement("plane");
+    while(planeElement) {
+        Plane * plane = new Plane();
+        /** get sphere parameters from ANF **/
+        char* parts_char = (char *)planeElement->Attribute("parts");
+        /** convert char parameters to correct types **/
+        int parts;
+        
+        parts = atoi(parts_char);
+        
+        /** set sphere parameters **/
+        plane->setParts(parts);
+        
+        primitives->push_back(plane);
+        planeElement = planeElement->NextSiblingElement("plane");
+    }
+    
+    
+    TiXmlElement * patchElement = primitivesElement->FirstChildElement("patch");
+    while(patchElement) {
+        Patch * patch = new Patch();
+        /** get sphere parameters from ANF **/
+        char* order_char = (char *)patchElement->Attribute("order");
+        char* parts_u_char = (char *)patchElement->Attribute("partsU");
+        char* parts_v_char = (char *)patchElement->Attribute("partsV");
+        char* compute_char = (char*) patchElement->Attribute("compute");
+        /** convert char parameters to correct types **/
+        int order, partsU, partsV;
+        
+        order = atoi(order_char);
+        partsU = atoi(parts_u_char);
+        partsV = atoi(parts_v_char);
+        
+        
+        std::string compute(compute_char);
+        /** set sphere parameters **/
+        patch->setOrder(order);
+        patch->setPartsU(partsU);
+        patch->setPartsV(partsV);
+        patch->setCompute(compute);
+        
+        
+        TiXmlElement * controlpointElement = patchElement->FirstChildElement("controlpoint");
+        
+        vector<ControlPoint> cntlpoints;
+        
+        while(controlpointElement){
+            char* x_char = (char *)controlpointElement->Attribute("x");
+            char* y_char = (char *)controlpointElement->Attribute("y");
+            char* z_char = (char *)controlpointElement->Attribute("z");
+            
+            
+            float x, y, z;
+            
+            sscanf(x_char, "%f", &x);
+            sscanf(y_char, "%f", &y);
+            sscanf(z_char, "%f", &z);
+            
+            ControlPoint cntlpoint = ControlPoint(x,y,z);
+            cntlpoints.push_back(cntlpoint);
+            
+            controlpointElement = controlpointElement->NextSiblingElement("controlpoint");
+            
+        }
+        
+        
+        patch->setCntlPoints(cntlpoints);
+        
+        
+        primitives->push_back(patch);
+        patchElement = patchElement->NextSiblingElement("patch");
+    }
+    
     return primitives;
     
 }
