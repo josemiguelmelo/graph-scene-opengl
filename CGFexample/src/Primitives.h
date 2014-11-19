@@ -298,6 +298,69 @@ public:
     
 };
 
+class Vehicle: public Primitives{
+private:
+    Patch * patch;
+    
+public:
+    Vehicle(){
+        
+        patch = new Patch(3, 20, 20, "fill");
+        ControlPoint cntlpoint1 = ControlPoint(0,6,0);
+        ControlPoint cntlpoint2 = ControlPoint(2,6,4);
+        ControlPoint cntlpoint3 = ControlPoint(4,6,0);
+        ControlPoint cntlpoint4 = ControlPoint(6,6,0);
+        ControlPoint cntlpoint5 = ControlPoint(0,4,2);
+        ControlPoint cntlpoint6 = ControlPoint(2,4,6);
+        ControlPoint cntlpoint7 = ControlPoint(4,4,6);
+        ControlPoint cntlpoint8 = ControlPoint(6,4,2);
+        ControlPoint cntlpoint9 = ControlPoint(0,2,0);
+        ControlPoint cntlpoint10 = ControlPoint(2,2,6);
+        ControlPoint cntlpoint11 = ControlPoint(4,2,6);
+        ControlPoint cntlpoint12 = ControlPoint(6,2,2);
+        ControlPoint cntlpoint13 = ControlPoint(0,0,0);
+        ControlPoint cntlpoint14 = ControlPoint(2,0,4);
+        ControlPoint cntlpoint15 = ControlPoint(4,0,4);
+        ControlPoint cntlpoint16 = ControlPoint(6,0,0);
+        
+        vector<ControlPoint> cntlpoints;
+        cntlpoints.push_back(cntlpoint1);
+        cntlpoints.push_back(cntlpoint2);
+        cntlpoints.push_back(cntlpoint3);
+        cntlpoints.push_back(cntlpoint4);
+        cntlpoints.push_back(cntlpoint5);
+        cntlpoints.push_back(cntlpoint6);
+        cntlpoints.push_back(cntlpoint7);
+        cntlpoints.push_back(cntlpoint8);
+        cntlpoints.push_back(cntlpoint9);
+        cntlpoints.push_back(cntlpoint10);
+        cntlpoints.push_back(cntlpoint11);
+        cntlpoints.push_back(cntlpoint12);
+        cntlpoints.push_back(cntlpoint13);
+        cntlpoints.push_back(cntlpoint14);
+        cntlpoints.push_back(cntlpoint15);
+        cntlpoints.push_back(cntlpoint16);
+        patch->setCntlPoints(cntlpoints);
+    }
+    std::string getType() {return "vehicle"; }
+    
+    virtual void draw(){
+        patch->draw();
+        
+        Torus * torus = new Torus();
+        torus->setInner(1);
+        torus->setOuter(3);
+        torus->setSlices(10);
+        torus->setLoops(10);
+        glPushMatrix();
+        glRotated(90, 1, 0, 0);
+        glTranslated(3, -2, 0);
+        torus->draw();
+        glPopMatrix();
+    }
+    
+};
+
 
 
 

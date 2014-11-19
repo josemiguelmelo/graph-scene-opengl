@@ -692,6 +692,13 @@ std::vector<Primitives *> * ANFInterpreter::loadPrimitives(TiXmlElement * primit
         patchElement = patchElement->NextSiblingElement("patch");
     }
     
+    TiXmlElement * vehicleElement = primitivesElement->FirstChildElement("vehicle");
+    while(vehicleElement) {
+        Vehicle * vehicle = new Vehicle();
+        primitives->push_back(vehicle);
+        vehicleElement = vehicleElement->NextSiblingElement("vehicle");
+    }
+    
     return primitives;
     
 }

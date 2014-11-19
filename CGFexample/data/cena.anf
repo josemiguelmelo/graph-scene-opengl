@@ -148,7 +148,7 @@
                 <noderef id="torus" />
                 <noderef id="triangle" />
                 <noderef id="cube10" />
-                <noderef id="superficie" />
+                <noderef id="vehicle" />
 			</descendants>
 		</node>
         
@@ -663,6 +663,25 @@
 			<descendants>
 			</descendants>
 		</node>
+	
+		<node id="vehicle">
+		       
+			<transforms>
+                <transform type="translate" to="0 10 0"/>
+                <transform type="scale" factor="2 2 2" />
+            </transforms>
+
+
+			<primitives>
+				<vehicle />
+			</primitives>
+
+			<appearanceref id="inherit" />
+			<descendants>
+				 <noderef id="patch" />
+			</descendants>
+		</node>
+
 
 
 		<node id="patch_transform">
