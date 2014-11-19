@@ -148,7 +148,7 @@
                 <noderef id="torus" />
                 <noderef id="triangle" />
                 <noderef id="cube10" />
-                <noderef id="patch_transform" />
+                <noderef id="superficie" />
 			</descendants>
 		</node>
         
@@ -639,7 +639,7 @@
             </transforms>
 			<appearanceref id="inherit" />
 			<primitives>
-				<patch order="3" partsU="30" partsV="30" compute="fill">
+				<patch order="3" partsU="30" partsV="30" compute="line">
 					<controlpoint x="0.0" y="6.0" z="0.0" />
 					<controlpoint x="2.0" y="6.0" z="4.0" />
 					<controlpoint x="4.0" y="6.0" z="0.0" />
