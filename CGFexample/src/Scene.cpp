@@ -51,6 +51,8 @@ void Scene::activateLights(){
             if(strcmp(lights->at(i)->getType().c_str(), "spot")==0){
                 Spot * spotLight = (Spot*)lights->at(i);
                 light->setAngle(spotLight->getAngle());
+                
+                glLightfv(GL_LIGHT0 +i, GL_POSITION, spotLight->getPos());
                 glLightf(GL_LIGHT0 + i,GL_SPOT_CUTOFF,spotLight->getAngle());
                 glLightf(GL_LIGHT0 + i,GL_SPOT_EXPONENT,spotLight->getExponent());
                 glLightfv(GL_LIGHT0 + i,GL_SPOT_DIRECTION,spotLight->getTarget());
@@ -106,6 +108,10 @@ void Scene::init()
 	// Defines a default normal
 	glNormal3f(0,0,1);
 
+    
+    
+    
+    
 	obj=new ExampleObject();
     materialAppearance=new CGFappearance();
 	shader=new CGFshader("../data/texshader.vert","../data/texshader.frag");
@@ -175,9 +181,11 @@ void Scene::update(unsigned long t)
                 animation->increment(increment);
             }
         }
+        
     }   
     
     lastMilis = t;
+    
     
 	shader->bind();
 	shader->update(t/400.0);
@@ -224,6 +232,7 @@ void Scene::display()
     
     cout << "new frame starting to draw" << endl;
     graph->getNodes()->at(graph->getRootId())->draw(identityMatrix);
+ 
     
 	// We have been drawing in a memory area that is not visible - the back buffer, 
 	// while the graphics card is showing the contents of another buffer - the front buffer

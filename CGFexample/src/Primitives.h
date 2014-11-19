@@ -281,7 +281,18 @@ public:
         
         
         glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0);
-        glEvalMesh2(GL_FILL,0, partsU, 0, partsV);
+        
+        int drawingmode;
+        if(strcmp(compute.c_str(), "fill") == 0){
+            drawingmode = GL_FILL;
+        }else if(strcmp(compute.c_str(), "line") == 0){
+            drawingmode = GL_LINE;
+        }else{
+            drawingmode = GL_POINT;
+        }
+        
+        
+        glEvalMesh2(drawingmode,0, partsU, 0, partsV);
         glEnable(GL_DEPTH_TEST);
     }
     

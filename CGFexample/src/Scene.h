@@ -73,6 +73,7 @@ private:
     long lastMilis = 0;
 
     bool wired;
+    
 };
 
 #endif
