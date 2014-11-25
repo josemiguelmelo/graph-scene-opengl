@@ -37,7 +37,7 @@ void Node::draw(GLfloat previousMatrix[4][4], Appearance * previousAppearance){
     
     glLoadIdentity();
     
-    if(this->getHasAnimation())
+    if(this->getHasAnimation() && ! this->displayList)
     {
         this->calculateAnimations();
     }
@@ -193,10 +193,12 @@ void Node::setDescendentsDisplayList()
     if(this->displayList)
     {
         this->saveToDisplayList();
-        map<std::string,Node*>::iterator descendant=this->descendants->begin();
-        for(int j= 0; j < this->descendants->size(); j++,descendant++){
-            descendant->second->setDisplayList(true);
-            descendant->second->setDescendentsDisplayList();
+        if(! this->descendants->empty()) {
+            map<std::string,Node*>::iterator descendant=this->descendants->begin();
+            for(int j= 0; j < this->descendants->size(); j++,descendant++){
+                descendant->second->setDisplayList(true);
+                descendant->second->setDescendentsDisplayList();
+            }
         }
     }
 }

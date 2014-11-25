@@ -389,7 +389,6 @@ void ANFInterpreter::replaceEmptyNodes() {
     map<std::string,Node*>::iterator node=this->scene->getGraph()->getNodes()->begin();
     
     for(int i = 0;i < this->scene->getGraph()->getNodes()->size();i++,node++) {
-        node->second->setDescendentsDisplayList();
         if(node->second->getDescendants())
         {
             cout << node->second->getID();
@@ -406,6 +405,15 @@ void ANFInterpreter::replaceEmptyNodes() {
             }
         }
     }
+    
+    node=this->scene->getGraph()->getNodes()->begin();
+    for(int i = 0;i < this->scene->getGraph()->getNodes()->size();i++,node++) {
+        if(node->second->getDescendants())
+        {
+            node->second->setDescendentsDisplayList();
+        }
+    }
+    
 }
 
 std::map<std::string, Node*> * ANFInterpreter::loadDescendants(TiXmlElement * descendantsElements) {
